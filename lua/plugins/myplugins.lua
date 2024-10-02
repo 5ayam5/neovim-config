@@ -29,7 +29,7 @@ local plugins = {
   {
     "hkupty/iron.nvim",
     config = function ()
-      require("configs/iron")
+      require("configs.iron")
     end,
   },
 
@@ -44,16 +44,14 @@ local plugins = {
     dependencies = {
       "zbirenbaum/copilot-cmp",
     },
-    opts = {
-      sources = {
-        { name = "nvim_lsp" },
-        { name = "path" },
-        { name = "buffer" },
-        { name = "luasnip" },
-        { name = "cmp_tabnine" },
-        { name = "copilot" },
-      },
-    }
+    opts = function ()
+      local default = require("nvchad.configs.cmp")
+      local updated = require("configs.cmp")
+      for k, v in pairs(updated) do
+        default[k] = v
+      end
+      return default
+    end,
   },
 
   {

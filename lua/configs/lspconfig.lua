@@ -17,7 +17,7 @@ end
 
 local custom_attach = function(client, bufnr)
     client.server_capabilities.signatureHelpProvider = false
-    on_attach(client, bufnr)
+    nvlsp.on_attach(client, bufnr)
   end
 
 lspconfig.clangd.setup {
