@@ -45,12 +45,7 @@ local plugins = {
       "zbirenbaum/copilot-cmp",
     },
     opts = function ()
-      local default = require("nvchad.configs.cmp")
-      local updated = require("configs.cmp")
-      for k, v in pairs(updated) do
-        default[k] = v
-      end
-      return default
+      return require("configs.cmp")
     end,
   },
 
