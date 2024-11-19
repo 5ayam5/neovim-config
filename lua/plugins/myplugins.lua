@@ -122,5 +122,17 @@ local plugins = {
     end,
   },
 
+  {
+    "L3MON4D3/LuaSnip",
+    dependencies = {
+      "rafamadriz/friendly-snippets"
+    },
+    config = function(_, opts)
+      require("luasnip").config.set_config(opts)
+      require "nvchad.configs.luasnip"
+      require("luasnip.loaders.from_lua").load({paths = {vim.fn.stdpath("config") .. "/lua/snippets/"}})
+    end,
+  }
+
 }
 return plugins
