@@ -15,7 +15,7 @@ M.mason = {
     "clang-format",
     "codelldb",
     "pyright",
-    "ruff-lsp",
+    "ruff",
   }
 }
 
