@@ -5,7 +5,12 @@
 ---@type ChadrcConfig
 local M = {}
 
-M.base46 = { theme = 'pastelDark' }
+M.base46 = {
+  theme = 'pastelDark',
+}
+M.nvdash = {
+  load_on_startup = true,
+}
 
 M.mason = {
   cmd = true,
@@ -16,6 +21,7 @@ M.mason = {
     "codelldb",
     "pyright",
     "ruff",
+    "texlab",
   }
 }
 

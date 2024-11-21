@@ -28,3 +28,25 @@ lspconfig.clangd.setup {
   --  compilationDatabasePath = './debug'
   -- },
 }
+
+lspconfig.texlab.setup {
+  on_attach = nvlsp.on_attach,
+  capabilities = nvlsp.capabilities,
+  on_init = nvlsp.on_init,
+  settings = {
+    texlab = {
+      build = {
+        args = { "-pdf","-pv","-e","$pdf_previewer=q/Open -g -a Skim/","-synctex=1","-interaction=nonstopmode", "-file-line-error", "%f" },
+        onSave = true,
+        forwardSearchAfter = true,
+      },
+      chktex = {
+        onOpenAndSave = true
+      },
+      forwardSearch = {
+        executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
+        args = { "-g", "%l", "%p", "%f" }
+      },
+    },
+  },
+}
