@@ -132,6 +132,24 @@ local plugins = {
       require "nvchad.configs.luasnip"
       require("luasnip.loaders.from_lua").load({paths = {vim.fn.stdpath("config") .. "/lua/snippets/"}})
     end,
+  },
+
+  {
+    "kdheepak/lazygit.nvim",
+    dependencies = {
+        "nvim-telescope/telescope.nvim",
+        "nvim-lua/plenary.nvim",
+    },
+    cmd = {
+        "LazyGit",
+        "LazyGitConfig",
+        "LazyGitCurrentFile",
+        "LazyGitFilter",
+        "LazyGitFilterCurrentFile",
+    },
+    config = function()
+        require("telescope").load_extension("lazygit")
+    end,
   }
 
 }
