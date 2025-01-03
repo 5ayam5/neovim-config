@@ -150,6 +150,13 @@ local plugins = {
     config = function()
         require("telescope").load_extension("lazygit")
     end,
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function()
+      return require("configs.treesitter")
+    end,
   }
 
 }
