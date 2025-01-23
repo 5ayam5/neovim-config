@@ -8,9 +8,6 @@ local M = {}
 M.base46 = {
   theme = 'pastelDark',
 }
-M.nvdash = {
-  load_on_startup = true,
-}
 
 M.mason = {
   cmd = true,
@@ -25,11 +22,11 @@ M.mason = {
   }
 }
 
--- M.nvdash = { load_on_startup = true }
--- M.ui = {
---       tabufline = {
---          lazyload = false
---      }
---}
+M.nvdash = { load_on_startup = true }
+M.ui = {
+      tabufline = {
+         lazyload = false
+     }
+}
 
 return M
