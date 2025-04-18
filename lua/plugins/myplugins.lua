@@ -13,30 +13,26 @@ local plugins = {
     "GCBallesteros/NotebookNavigator.nvim",
     dependencies = {
       "echasnovski/mini.comment",
-      "hkupty/iron.nvim", -- repl provider
-      -- "akinsho/toggleterm.nvim", -- alternative repl provider
-      -- "benlubas/molten-nvim", -- alternative repl provider
-      "nvimtools/hydra.nvim",
-      "GCBallesteros/jupytext.nvim",
+      "benlubas/molten-nvim",
     },
     event = "VeryLazy",
-    config = function()
-      local nn = require("notebook-navigator")
-      nn.setup({ activate_hydra_keys = "<leader>jh" })
-    end,
   },
 
   {
-    "hkupty/iron.nvim",
-    config = function ()
-      require("configs.iron")
-    end,
-  },
+    "benlubas/molten-nvim",
+    build = ":UpdateRemotePlugins",
+    init = function()
+            -- vim.g.molten_image_provider = "image.nvim"
+            vim.g.molten_output_win_max_height = 20
+        end,
+    },
 
   {
     "GCBallesteros/jupytext.nvim",
-    config = true,
-    lazy = false,
+    config = function ()
+      return require("jupytext").setup({ style = "percent" })
+    end,
+    lazy=false,
   },
 
   {
