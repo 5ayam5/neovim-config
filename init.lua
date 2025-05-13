@@ -38,3 +38,5 @@ end)
 
 -- custom config
 vim.g.tex_flavor = "latex"
+vim.opt.whichwrap:remove { "h", "l" }
+vim.opt.relativenumber = true

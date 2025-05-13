@@ -20,18 +20,20 @@ map("n", "<leader>dr", function()
   { desc = "Start or continue the debugger" })
 
 -- notebook-navigator keybindings
-map("n", "<leader>jd",
+map("n", "D",
   function()
     require("notebook-navigator").move_cell "d"
+    vim.cmd("normal! zz")
   end,
   { desc = "Move cell down" })
-map("n", "<leader>ju",
+map("n", "U",
   function()
     require("notebook-navigator").move_cell "u"
+    vim.cmd("normal! zz")
   end,
   { desc = "Move cell up" })
-map("n", "<leader>jR", "<cmd>lua require('notebook-navigator').run_cell()<cr>", { desc = "Run jupyter cell" })
-map("n", "<leader>jr", "<cmd>lua require('notebook-navigator').run_and_move()<cr>", { desc = "Run and move jupyter cell" })
+map("n", "<leader>jR", "<cmd>lua require('notebook-navigator').run_cell()<cr>zz", { desc = "Run jupyter cell" })
+map("n", "<leader>jr", "<cmd>lua require('notebook-navigator').run_and_move()<cr>zz", { desc = "Run and move jupyter cell" })
 
 -- Molten keybindings
 map("n", "<leader>jm", ":MoltenInit<CR>", { desc = "Initialize Molten", silent = true })
