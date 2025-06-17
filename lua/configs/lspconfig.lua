@@ -1,8 +1,5 @@
 require("nvchad.configs.lspconfig").defaults()
 
-local servers = { "pyright", "ruff", "clangd", "texlab" }
-vim.lsp.enable(servers)
-
 vim.lsp.config('texlab', {
   settings = {
     texlab = {
@@ -21,5 +18,8 @@ vim.lsp.config('texlab', {
     },
   }
 })
+
+local servers = { "pyright", "ruff", "clangd", "texlab" }
+vim.lsp.enable(servers)
 
 -- read :h vim.lsp.config for changing options of lsp servers 
