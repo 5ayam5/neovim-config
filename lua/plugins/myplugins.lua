@@ -1,4 +1,21 @@
 local plugins = {
+  {
+    "db757/zz.nvim",
+    dependencies = {
+      "folke/which-key.nvim",
+    },
+    opts = {
+      integrations = {
+        snacks = false,
+      }
+    },
+    event = "VeryLazy",
+  },
+
+  {
+    "folke/which-key.nvim",
+    event = "VimEnter",
+  },
 
   {
     "folke/todo-comments.nvim",
@@ -36,23 +53,17 @@ local plugins = {
   },
 
   {
-    "hrsh7th/nvim-cmp",
+    'saghen/blink.cmp',
     dependencies = {
-      "zbirenbaum/copilot-cmp",
+      "giuxtaposition/blink-cmp-copilot",
     },
     opts = function ()
-      return require("configs.cmp")
+      return require("configs.blink")
     end,
   },
 
   {
-    "zbirenbaum/copilot-cmp",
-    dependencies = {
-      "zbirenbaum/copilot.lua",
-    },
-    config = function ()
-      require("copilot_cmp").setup()
-    end
+    "giuxtaposition/blink-cmp-copilot",
   },
 
   {
