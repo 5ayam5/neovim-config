@@ -35,9 +35,3 @@ require "autocmds"
 vim.schedule(function()
   require "mappings"
 end)
-
--- custom config
-vim.g.tex_flavor = "latex"
-vim.opt.whichwrap:remove { "h", "l" }
-vim.opt.relativenumber = true
-vim.g.zz_mode = "zz"

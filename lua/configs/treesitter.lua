@@ -1,4 +1,4 @@
-local opts = require("nvchad.configs.treesitter")
+local opts = require "nvchad.configs.treesitter"
 
 opts.auto_install = true
 

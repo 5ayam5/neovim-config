@@ -1,11 +1,13 @@
-local ls = require('luasnip')
+local ls = require "luasnip"
 local s = ls.snippet
 local i = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 
 ls.add_snippets("tex", {
-  s("sol",
-    fmt([[
+  s(
+    "sol",
+    fmt(
+      [[
       \begin{{solution}}[label={1}]
         \begin{{question}}
           {2}
@@ -15,18 +17,22 @@ ls.add_snippets("tex", {
           {4}
         \end{{proof}}
       \end{{solution}}
-    ]], {
+    ]],
+      {
         i(1, "label"),
         i(2, "Question"),
         i(3, "Proof"),
-        i(4, "Proof")
-      })
-  )
+        i(4, "Proof"),
+      }
+    )
+  ),
 })
 
 ls.add_snippets("tex", {
-  s("init",
-    fmt([[
+  s(
+    "init",
+    fmt(
+      [[
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass{{{1}}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,12 +85,14 @@ ls.add_snippets("tex", {
     {5}
 
 \end{{document}}
-    ]], {
+    ]],
+      {
         i(1, "article"),
         i(2, [[\input{definitions.tex}]]),
         i(3, "Title"),
         i(4, "Sayam Sethi"),
-        i(5, "Content")
-    })
-  )
+        i(5, "Content"),
+      }
+    )
+  ),
 })

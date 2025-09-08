@@ -1,24 +1,24 @@
 local opts = {
-  snippets = { preset = 'luasnip' },
+  snippets = { preset = "luasnip" },
 
   keymap = {
-    preset = 'none',
+    preset = "none",
 
-    ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-    ['<C-e>'] = { 'hide', 'fallback' },
-    ['<CR>'] = { 'accept', 'fallback' },
-    ['<C-CR>'] = { 'accept', 'fallback' },
+    ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+    ["<C-e>"] = { "hide", "fallback" },
+    -- ["<CR>"] = { "accept", "fallback" },
+    ["<C-CR>"] = { "accept", "fallback" },
 
-    ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
-    ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
+    ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+    ["<C-n>"] = { "select_next", "fallback_to_mappings" },
 
-    ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
-    ['<Tab>'] = { 'snippet_forward', 'fallback' },
+    ["<S-Tab>"] = { "snippet_backward", "fallback" },
+    ["<Tab>"] = { "snippet_forward", "fallback" },
 
-    ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-    ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+    ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+    ["<C-f>"] = { "scroll_documentation_down", "fallback" },
 
-    ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+    ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
   },
 
   completion = {
@@ -27,10 +27,12 @@ local opts = {
         padding = { 0, 1 },
         components = {
           kind_icon = {
-            text = function(ctx) return ' ' .. ctx.kind_icon .. ctx.icon_gap .. ' ' end
-          }
-        }
-      }
+            text = function(ctx)
+              return " " .. ctx.kind_icon .. ctx.icon_gap .. " "
+            end,
+          },
+        },
+      },
     },
     list = {
       selection = {
@@ -39,11 +41,11 @@ local opts = {
     },
     ghost_text = {
       enabled = true,
-    }
+    },
   },
 
   sources = {
-    default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
+    default = { "lsp", "path", "snippets", "buffer", "copilot" },
     providers = {
       copilot = {
         name = "copilot",
@@ -58,7 +60,7 @@ local opts = {
 
   cmdline = {
     keymap = {
-      ['<Tab>'] = { 'show', 'accept' },
+      preset = 'cmdline',
     },
     completion = { menu = { auto_show = true } },
   },

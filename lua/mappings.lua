@@ -12,28 +12,28 @@ map({ "n", "i", "v" }, "<C-x>", "<cmd> noa w <cr>", { desc = "Save without autoc
 -- C++ debugging with dap
 map("n", "<leader>db", "<cmd> DapToggleBreakpoint <CR>", { desc = "Add breakpoint at line" })
 map("n", "<leader>dr", function()
-        if vim.fn.filereadable('.vscode/launch.json') then
-          require('dap.ext.vscode').load_launchjs(nil, { codelldb = {'c', 'cpp'} })
-        end
-        require('dap').continue()
-      end,
-  { desc = "Start or continue the debugger" })
+  if vim.fn.filereadable ".vscode/launch.json" then
+    require("dap.ext.vscode").load_launchjs(nil, { codelldb = { "c", "cpp" } })
+  end
+  require("dap").continue()
+end, { desc = "Start or continue the debugger" })
 
 -- notebook-navigator keybindings
-map("n", "D",
-  function()
-    require("notebook-navigator").move_cell "d"
-    vim.cmd("normal! zz")
-  end,
-  { desc = "Move cell down" })
-map("n", "U",
-  function()
-    require("notebook-navigator").move_cell "u"
-    vim.cmd("normal! zz")
-  end,
-  { desc = "Move cell up" })
+map("n", "D", function()
+  require("notebook-navigator").move_cell "d"
+  vim.cmd "normal! zz"
+end, { desc = "Move cell down" })
+map("n", "U", function()
+  require("notebook-navigator").move_cell "u"
+  vim.cmd "normal! zz"
+end, { desc = "Move cell up" })
 map("n", "<leader>jR", "<cmd>lua require('notebook-navigator').run_cell()<cr>zz", { desc = "Run jupyter cell" })
-map("n", "<leader>jr", "<cmd>lua require('notebook-navigator').run_and_move()<cr>zz", { desc = "Run and move jupyter cell" })
+map(
+  "n",
+  "<leader>jr",
+  "<cmd>lua require('notebook-navigator').run_and_move()<cr>zz",
+  { desc = "Run and move jupyter cell" }
+)
 
 -- Molten keybindings
 map("n", "<leader>jm", ":MoltenInit<CR>", { desc = "Initialize Molten", silent = true })
@@ -47,9 +47,7 @@ map("n", "<leader>ji", ":MoltenImagePopup<CR>", { desc = "Popup output image", s
 map("t", "<C-j><C-k>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Git
-map("n", "<leader>gg",
-  function()
-    -- require("nvchad.term").toggle { pos = "float", id = "lazygit", cmd ='lazygit' }
-    require("lazygit").lazygit()
-  end,
-  { desc = "Open lazygit" })
+map("n", "<leader>gg", function()
+  -- require("nvchad.term").toggle { pos = "float", id = "lazygit", cmd ='lazygit' }
+  require("lazygit").lazygit()
+end, { desc = "Open lazygit" })
