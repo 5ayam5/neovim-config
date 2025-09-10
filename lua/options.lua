@@ -1,9 +1,10 @@
 require "nvchad.options"
 
-local o = vim.o
+local o = vim.opt
 o.cursorlineopt = "both"
 o.whichwrap = "<>[],b,s"
 o.relativenumber = true
+o.scrolloff = 999
 
 local enable_providers = {
   "python3",

@@ -1,114 +1,5 @@
 local plugins = {
-  {
-    "db757/zz.nvim",
-    dependencies = {
-      "folke/which-key.nvim",
-    },
-    opts = {
-      integrations = {
-        snacks = false,
-      },
-    },
-    event = "VeryLazy",
-  },
-
-  {
-    "folke/which-key.nvim",
-    event = "VimEnter",
-  },
-
-  {
-    "folke/todo-comments.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    lazy = false,
-    opts = {},
-  },
-
-  {
-    "GCBallesteros/NotebookNavigator.nvim",
-    dependencies = {
-      "echasnovski/mini.comment",
-      "benlubas/molten-nvim",
-    },
-    event = "VeryLazy",
-  },
-
-  {
-    "benlubas/molten-nvim",
-    build = ":UpdateRemotePlugins",
-    init = function()
-      -- vim.g.molten_image_provider = "image.nvim"
-      vim.g.molten_output_win_max_height = 20
-    end,
-  },
-
-  {
-    "GCBallesteros/jupytext.nvim",
-    config = function()
-      return require("jupytext").setup { style = "percent" }
-    end,
-    lazy = false,
-  },
-
-  {
-    "saghen/blink.cmp",
-    dependencies = {
-      "giuxtaposition/blink-cmp-copilot",
-    },
-    opts = function()
-      return require "configs.blink"
-    end,
-  },
-
-  {
-    "giuxtaposition/blink-cmp-copilot",
-  },
-
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup {}
-    end,
-  },
-
-  {
-    "rcarriga/nvim-dap-ui",
-    event = "VeryLazy",
-    dependencies = {
-      "mfussenegger/nvim-dap",
-      "nvim-neotest/nvim-nio",
-    },
-    config = function()
-      local dap = require "dap"
-      local dapui = require "dapui"
-      dapui.setup()
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
-    end,
-  },
-
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "mfussenegger/nvim-dap",
-    },
-    opts = {
-      handlers = {},
-    },
-  },
+  { import = "nvchad.blink.lazyspec" },
 
   {
     "neovim/nvim-lspconfig",
@@ -161,6 +52,124 @@ local plugins = {
     opts = require "configs.conform",
   },
 
-  { import = "nvchad.blink.lazyspec" },
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = require("configs.flash").opts,
+    keys = require("configs.flash").keys,
+  },
+
+  -- @NOTE: remove this once I become proficient
+  {
+    "m4xshen/hardtime.nvim",
+    lazy = false,
+    dependencies = { "MunifTanjim/nui.nvim" },
+    opts = {},
+  },
+
+  {
+    "folke/which-key.nvim",
+    event = "VimEnter",
+  },
+
+  {
+    "folke/todo-comments.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    lazy = false,
+    opts = {},
+  },
+
+  -- @NOTE: find a better way to handle python instead of NN and molten
+  {
+    "GCBallesteros/NotebookNavigator.nvim",
+    dependencies = {
+      "echasnovski/mini.comment",
+      "benlubas/molten-nvim",
+    },
+    event = "VeryLazy",
+  },
+
+  {
+    "benlubas/molten-nvim",
+    build = ":UpdateRemotePlugins",
+    init = function()
+      -- vim.g.molten_image_provider = "image.nvim"
+      vim.g.molten_output_win_max_height = 20
+    end,
+  },
+
+  {
+    "GCBallesteros/jupytext.nvim",
+    config = function()
+      return require("jupytext").setup { style = "percent" }
+    end,
+    lazy = false,
+  },
+
+  {
+    "saghen/blink.cmp",
+    dependencies = {
+      "giuxtaposition/blink-cmp-copilot",
+    },
+    opts = function()
+      return require "configs.blink"
+    end,
+  },
+
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup {}
+    end,
+  },
+
+  -- @NOTE: make sure this is the best way to use it
+  {
+    "rcarriga/nvim-dap-ui",
+    event = "VeryLazy",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
+    },
+    config = function()
+      local dap = require "dap"
+      local dapui = require "dapui"
+      dapui.setup()
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
+    end,
+  },
+
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap",
+    },
+    opts = {
+      handlers = {},
+    },
+  },
+
+  {
+    "Aasim-A/scrollEOF.nvim",
+    event = { "CursorMoved", "WinScrolled" },
+    opts = {
+      insert_mode = true,
+      disabled_filetypes = { "nvdash", "terminal" },
+    },
+  },
 }
 return plugins

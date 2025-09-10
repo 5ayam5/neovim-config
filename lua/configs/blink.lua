@@ -1,13 +1,10 @@
 local opts = {
-  snippets = { preset = "luasnip" },
-
   keymap = {
     preset = "none",
 
     ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
     ["<C-e>"] = { "hide", "fallback" },
-    -- ["<CR>"] = { "accept", "fallback" },
-    ["<C-CR>"] = { "accept", "fallback" },
+    ["<CR>"] = { "accept", "fallback" },
 
     ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
     ["<C-n>"] = { "select_next", "fallback_to_mappings" },
@@ -60,13 +57,15 @@ local opts = {
 
   cmdline = {
     keymap = {
-      preset = 'cmdline',
+      ["<Tab>"] = { "show", "accept" },
     },
-    completion = { menu = { auto_show = true } },
-  },
-
-  terminal = {
-    enabled = true,
+    completion = {
+      menu = {
+        auto_show = function(_)
+          return vim.fn.getcmdtype() == ":" or vim.fn.getcmdtype() == "@"
+        end,
+      },
+    },
   },
 }
 

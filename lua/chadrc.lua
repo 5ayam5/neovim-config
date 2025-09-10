@@ -8,19 +8,6 @@ M.base46 = {
   theme = "catppuccin",
 }
 
-M.mason = {
-  cmd = true,
-  pkgs = {
-    "lua-language-server",
-    "clangd",
-    "clang-format",
-    "codelldb",
-    "pyright",
-    "ruff",
-    "texlab",
-  },
-}
-
 M.nvdash = {
   load_on_startup = true,
   header = {
@@ -46,7 +33,6 @@ M.nvdash = {
     { txt = "  Mappings", keys = "ch", cmd = "NvCheatsheet" },
 
     { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
-
     {
       txt = function()
         local stats = require("lazy").stats()
@@ -57,14 +43,18 @@ M.nvdash = {
       no_gap = true,
       content = "fit",
     },
-
     { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
   },
+}
+
+M.cheatsheet = {
+  excluded_groups = { "autopairs" },
 }
 
 M.ui = {
   tabufline = {
     lazyload = false,
+    order = { "treeOffset", "buffers", "tabs" },
   },
   statusline = {
     theme = "vscode_colored",
