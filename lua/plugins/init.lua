@@ -171,5 +171,15 @@ local plugins = {
       disabled_filetypes = { "nvdash", "terminal" },
     },
   },
+
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = require "configs.noice",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+  },
 }
 return plugins
