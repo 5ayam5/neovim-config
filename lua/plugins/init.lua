@@ -172,14 +172,15 @@ local plugins = {
     },
   },
 
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    opts = require "configs.noice",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    },
-  },
+  -- @TODO: uncomment this once it becomes more stable
+  -- {
+  --   "folke/noice.nvim",
+  --   event = "VeryLazy",
+  --   opts = require "configs.noice",
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "rcarriga/nvim-notify",
+  --   },
+  -- },
 }
 return plugins
