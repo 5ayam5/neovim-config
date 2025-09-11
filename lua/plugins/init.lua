@@ -4,7 +4,6 @@ local plugins = {
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require "nvchad.configs.lspconfig"
       require "configs.lspconfig"
     end,
   },
@@ -49,7 +48,9 @@ local plugins = {
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
-    opts = require "configs.conform",
+    opts = function()
+      require "configs.conform"
+    end,
   },
 
   {
@@ -171,16 +172,5 @@ local plugins = {
       disabled_filetypes = { "nvdash", "terminal" },
     },
   },
-
-  -- @TODO: uncomment this once it becomes more stable
-  -- {
-  --   "folke/noice.nvim",
-  --   event = "VeryLazy",
-  --   opts = require "configs.noice",
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     "rcarriga/nvim-notify",
-  --   },
-  -- },
 }
 return plugins

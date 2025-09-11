@@ -10,7 +10,7 @@ map("n", "<ESC>", function ()
   vim.cmd ":noh"
 end)
 
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+-- File related
 map({ "n", "i", "v" }, "<C-x>", "<cmd> noa w <cr>", { desc = "Save without autocmds" })
 
 -- C++ debugging with dap

@@ -29,5 +29,5 @@ vim.lsp.config("texlab", {
   },
 })
 
-local servers = { "pyright", "ruff", "clangd", "texlab" }
+local servers = { "pyright", "ruff", "clangd", "texlab", "lua-language-server" }
 vim.lsp.enable(servers)
