@@ -8,6 +8,11 @@ local opt = vim.opt
 opt.whichwrap = ""
 opt.scrolloff = 999
 
+-- options for folding
+opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+
 local enable_providers = {
   "python3",
 }

@@ -21,21 +21,12 @@ local plugins = {
   },
 
   {
-    "kdheepak/lazygit.nvim",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim",
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      lazygit = {},
     },
-    cmd = {
-      "LazyGit",
-      "LazyGitConfig",
-      "LazyGitCurrentFile",
-      "LazyGitFilter",
-      "LazyGitFilterCurrentFile",
-    },
-    config = function()
-      require("telescope").load_extension "lazygit"
-    end,
   },
 
   {
@@ -46,10 +37,15 @@ local plugins = {
   },
 
   {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "VeryLazy",
+  },
+
+  {
     "stevearc/conform.nvim",
     event = "BufWritePre",
     opts = function()
-      require "configs.conform"
+      return require "configs.conform"
     end,
   },
 
@@ -124,7 +120,7 @@ local plugins = {
     cmd = "Copilot",
     event = "InsertEnter",
     config = function()
-      require("copilot").setup {}
+      require("copilot").setup(require "configs.copilot")
     end,
   },
 

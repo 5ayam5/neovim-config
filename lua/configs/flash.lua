@@ -2,15 +2,19 @@ local M = {}
 
 M.opts = {
   modes = {
-    search = {
-      enabled = true,
-    },
+    --@FIXME: this is buggy when match is outside of screen
+    -- search = {
+    --   enabled = true,
+    -- },
     char = {
       jump_labels = true,
     },
   },
+  jump = {
+    nohlsearch = true,
+  },
   label = {
-    style = "inline",
+    style = "eol",
     rainbow = {
       enabled = true,
     },

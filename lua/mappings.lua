@@ -5,7 +5,7 @@ local map = vim.keymap.set
 -- navigation related
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
-map("n", "<ESC>", function ()
+map("n", "<ESC>", function()
   vim.cmd "normal! \\<ESC\\>"
   vim.cmd ":noh"
 end)
@@ -52,5 +52,5 @@ map("n", "<leader>ji", ":MoltenImagePopup<CR>", { desc = "Molten popup output im
 
 -- Git
 map("n", "<leader>gg", function()
-  require("lazygit").lazygit()
+  Snacks.lazygit()
 end, { desc = "Lazygit open lazygit" })
