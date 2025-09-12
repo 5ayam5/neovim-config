@@ -34,7 +34,7 @@ end
 local letters = {}
 for i = string.byte "a", string.byte "z" do
   local letter = string.char(i)
-  if not vim.tbl_contains({ "j", "k", "h", "l", "u", "f", "c", "g", "q" }, letter) then
+  if not vim.tbl_contains({ "j", "k", "h", "l", "p", "f", "c", "g", "q" }, letter) then
     table.insert(letters, letter)
   end
 end
@@ -62,7 +62,7 @@ local function set_recent_files(tb)
       no_gap = true,
       content = "fit",
       group = "recent_files",
-      cmd = "e " .. path,
+      cmd = "e " .. v,
       keys = keybind,
     }
 
@@ -89,7 +89,7 @@ local function set_recent_folders(tb)
       no_gap = true,
       content = "fit",
       group = "recent_files",
-      cmd = "Lazy",
+      cmd = ":cd " .. v,
     }
 
     table.insert(line, { txt = "  ", hl = "nviminternalError" })
@@ -108,7 +108,7 @@ return function()
       multicolumn = true,
       pad = 3,
       content = "fit",
-      { txt = "  Update [u]", hl = "changed", keys = "u", cmd = ":Lazy sync <cr>" },
+      { txt = "  Lazy [p]", hl = "changed", keys = "p", cmd = ":Lazy <cr>" },
       { txt = "  Files [f]", hl = "Added", keys = "f", cmd = ":Telescope find_files <cr>" },
       { txt = "  Config [c]", hl = "nviminternalError", keys = "c", cmd = ":e ~/.config/nvim/init.lua <cr>" },
       { txt = " Lazygit [g]", hl = "Function", keys = "g", cmd = ":lua Snacks.lazygit() <cr>" },

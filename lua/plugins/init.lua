@@ -1,5 +1,80 @@
 local plugins = {
-  { import = "nvchad.blink.lazyspec" },
+  {
+    "nvchad/base46",
+    build = function()
+      require("base46").load_all_highlights()
+    end,
+  },
+
+  {
+    "nvchad/ui",
+    lazy = false,
+    config = function()
+      require "nvchad"
+    end,
+  },
+
+  "nvzone/volt",
+  "nvzone/menu",
+  { "nvzone/minty", cmd = { "Huefy", "Shades" } },
+
+  {
+    "nvim-tree/nvim-web-devicons",
+    opts = function()
+      dofile(vim.g.base46_cache .. "devicons")
+      return { override = require "nvchad.icons.devicons" }
+    end,
+  },
+
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "User FilePost",
+    opts = require("configs.indent_blankline").opts,
+    config = require("configs.indent_blankline").config,
+  },
+
+  {
+    "nvim-tree/nvim-tree.lua",
+    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+    opts = function()
+      return require "configs.nvimtree"
+    end,
+  },
+
+  {
+    "folke/which-key.nvim",
+    event = "VimEnter",
+    keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g" },
+    cmd = "WhichKey",
+    opts = function()
+      dofile(vim.g.base46_cache .. "whichkey")
+      return {}
+    end,
+  },
+
+  {
+    "stevearc/conform.nvim",
+    event = "BufWritePre",
+    opts = function()
+      return require "configs.conform"
+    end,
+  },
+
+  {
+    "lewis6991/gitsigns.nvim",
+    event = "User FilePost",
+    opts = function()
+      return require "configs.gitsigns"
+    end,
+  },
+
+  {
+    "mason-org/mason.nvim",
+    cmd = { "Mason", "MasonInstall", "MasonUpdate" },
+    opts = function()
+      return require "configs.mason"
+    end,
+  },
 
   {
     "neovim/nvim-lspconfig",
@@ -9,17 +84,49 @@ local plugins = {
   },
 
   {
-    "L3MON4D3/LuaSnip",
+    "saghen/blink.cmp",
+    version = "1.*",
+    event = { "InsertEnter", "CmdLineEnter" },
     dependencies = {
-      "rafamadriz/friendly-snippets",
+      {
+        "L3MON4D3/LuaSnip",
+        dependencies = { "rafamadriz/friendly-snippets" },
+        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+        config = function(_, opts)
+          require("luasnip").config.set_config(opts)
+          require "configs.luasnip"
+        end,
+      },
+
+      {
+        "windwp/nvim-autopairs",
+        opts = {
+          fast_wrap = {},
+          disable_filetype = { "TelescopePrompt", "vim" },
+        },
+      },
+
+      {
+        "giuxtaposition/blink-cmp-copilot",
+        dependencies = {
+          {
+            "zbirenbaum/copilot.lua",
+            cmd = "Copilot",
+            event = "InsertEnter",
+            config = function()
+              require("copilot").setup(require "configs.copilot")
+            end,
+          },
+        },
+      },
     },
-    config = function(_, opts)
-      require("luasnip").config.set_config(opts)
-      require "nvchad.configs.luasnip"
-      require("luasnip.loaders.from_lua").load { paths = { vim.fn.stdpath "config" .. "/lua/snippets/" } }
+    opts_extend = { "sources.default" },
+    opts = function()
+      return require "configs.blink"
     end,
   },
 
+  --@FIXME: update this to replace telescope
   {
     "folke/snacks.nvim",
     priority = 1000,
@@ -31,22 +138,21 @@ local plugins = {
 
   {
     "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    build = ":TSUpdate",
     opts = function()
       return require "configs.treesitter"
+    end,
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
     end,
   },
 
   {
     "nvim-treesitter/nvim-treesitter-context",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = "VeryLazy",
-  },
-
-  {
-    "stevearc/conform.nvim",
-    event = "BufWritePre",
-    opts = function()
-      return require "configs.conform"
-    end,
   },
 
   {
@@ -65,16 +171,11 @@ local plugins = {
   },
 
   {
-    "folke/which-key.nvim",
-    event = "VimEnter",
-  },
-
-  {
     "folke/todo-comments.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
-    lazy = false,
+    event = "VeryLazy",
     opts = {},
   },
 
@@ -102,26 +203,7 @@ local plugins = {
     config = function()
       return require("jupytext").setup { style = "percent" }
     end,
-    lazy = false,
-  },
-
-  {
-    "saghen/blink.cmp",
-    dependencies = {
-      "giuxtaposition/blink-cmp-copilot",
-    },
-    opts = function()
-      return require "configs.blink"
-    end,
-  },
-
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup(require "configs.copilot")
-    end,
+    event = "VeryLazy",
   },
 
   -- @NOTE: make sure this is the best way to use it

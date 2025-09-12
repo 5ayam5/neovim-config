@@ -1,4 +1,12 @@
+dofile(vim.g.base46_cache .. "blink")
+
+local menu = require("nvchad.blink").menu
+
 local opts = {
+  snippets = { preset = "luasnip" },
+  appearance = { nerd_font_variant = "normal" },
+  fuzzy = { implementation = "prefer_rust" },
+
   keymap = {
     preset = "none",
 
@@ -24,18 +32,7 @@ local opts = {
   },
 
   completion = {
-    menu = {
-      draw = {
-        padding = { 0, 1 },
-        components = {
-          kind_icon = {
-            text = function(ctx)
-              return " " .. ctx.kind_icon .. ctx.icon_gap .. " "
-            end,
-          },
-        },
-      },
-    },
+    menu = menu,
     list = {
       selection = {
         auto_insert = false,
@@ -46,15 +43,14 @@ local opts = {
     },
     documentation = {
       auto_show = true,
-      auto_show_delay_ms = 500,
+      auto_show_delay_ms = 200,
       window = {
-        border = "rounded",
+        border = "single",
       },
     },
   },
 
   sources = {
-    default = { "lsp", "path", "snippets", "buffer", "copilot" },
     providers = {
       copilot = {
         name = "copilot",
@@ -67,10 +63,11 @@ local opts = {
 
   signature = {
     enabled = true,
-    window = { scrollbar = true, border = "rounded", show_documentation = true },
+    window = { scrollbar = true, border = "single", show_documentation = true },
   },
 
   cmdline = {
+    enabled = true,
     keymap = {
       ["<Tab>"] = { "show", "accept" },
     },

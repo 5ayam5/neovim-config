@@ -1,18 +1,83 @@
-require "nvchad.mappings"
-
 local map = vim.keymap.set
 
 -- navigation related
 map("n", ";", ":", { desc = "CMD enter command mode" })
-map("i", "jk", "<ESC>")
+
 map("n", "<ESC>", function()
   vim.cmd "normal! \\<ESC\\>"
   vim.cmd ":noh"
-end)
+end, { desc = "Search clear highlights" })
+
+map("n", "<C-h>", "<C-w>h", { desc = "Switch window left" })
+map("n", "<C-l>", "<C-w>l", { desc = "Switch window right" })
+map("n", "<C-j>", "<C-w>j", { desc = "Switch window down" })
+map("n", "<C-k>", "<C-w>k", { desc = "Switch window up" })
+
+map("i", "jk", "<ESC>")
+map("i", "<C-b>", "<ESC>^i", { desc = "Move beginning of line" })
+map("i", "<C-e>", "<End>", { desc = "Move end of line" })
+map("i", "<C-h>", "<Left>", { desc = "Move left" })
+map("i", "<C-l>", "<Right>", { desc = "Move right" })
+map("i", "<C-j>", "<Down>", { desc = "Move down" })
+map("i", "<C-k>", "<Up>", { desc = "Move up" })
 
 -- File related
-map({ "n", "i", "v" }, "<C-x>", "<cmd> noa w <cr>", { desc = "Save without autocmds" })
-map("n", "<leader>q", "<cmd> Nvdash <cr>", { desc = "Nvdash open" })
+map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file" })
+map({ "n", "i", "v" }, "<C-x>", "<cmd> noa w <CR>", { desc = "Save without autocmds" })
+map("n", "<leader>q", "<cmd> Nvdash <CR>", { desc = "Nvdash open" })
+map({ "n", "x" }, "<leader>fm", function()
+  require("conform").format { lsp_fallback = true }
+end, { desc = "Format file" })
+
+-- buffer related
+map("n", "<leader>n", "<cmd>e", { desc = "New file" })
+map("n", "<tab>", function()
+  require("nvchad.tabufline").next()
+end, { desc = "Buffer goto next" })
+map("n", "<S-tab>", function()
+  require("nvchad.tabufline").prev()
+end, { desc = "Buffer goto prev" })
+map("n", "<leader>x", function()
+  require("nvchad.tabufline").close_buffer()
+end, { desc = "buffer close" })
+
+-- comment
+map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
+map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
+
+-- nvimtree
+map("n", "<C-t>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
+
+-- terminal
+map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
+
+map("n", "<leader>h", function()
+  require("nvchad.term").new { pos = "sp" }
+end, { desc = "terminal new horizontal term" })
+map("n", "<leader>v", function()
+  require("nvchad.term").new { pos = "vsp" }
+end, { desc = "terminal new vertical term" })
+
+map({ "n", "t" }, "<A-v>", function()
+  require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
+end, { desc = "terminal toggleable vertical term" })
+map({ "n", "t" }, "<A-h>", function()
+  require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
+end, { desc = "terminal toggleable horizontal term" })
+map({ "n", "t" }, "<A-i>", function()
+  require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
+end, { desc = "terminal toggle floating term" })
+
+-- miscellaneous
+map("n", "<leader>cc", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatsheet" })
+map("n", "<leader>ch", ":checkhealth ", { desc = "checkhealth" })
+map("n", "<leader>ce", ":h ", { desc = "help" })
+
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+-- PLUGINS
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
 
 -- C++ debugging with dap
 map("n", "<leader>db", "<cmd> DapToggleBreakpoint <CR>", { desc = "DAP add breakpoint at line" })
@@ -33,13 +98,13 @@ end, { desc = "Notebook-Navigator move cell up" })
 map(
   "n",
   "<leader>jR",
-  "<cmd>lua require('notebook-navigator').run_cell()<cr>zz",
+  "<cmd>lua require('notebook-navigator').run_cell()<CR>zz",
   { desc = "Notebook-Navigator run jupyter cell" }
 )
 map(
   "n",
   "<leader>jr",
-  "<cmd>lua require('notebook-navigator').run_and_move()<cr>zz",
+  "<cmd>lua require('notebook-navigator').run_and_move()<CR>zz",
   { desc = "Notebook-Navigator run and move jupyter cell" }
 )
 
@@ -52,13 +117,17 @@ map("n", "<leader>jh", ":MoltenHideOutput<CR>", { desc = "Molten close output wi
 map("n", "<leader>ji", ":MoltenImagePopup<CR>", { desc = "Molten popup output image", silent = true })
 
 -- lazygit
-map("n", "<leader>gg", function()
+map("n", "<leader>g", function()
   Snacks.lazygit()
-end, { desc = "Lazygit open lazygit" })
+end, { desc = "Git open lazygit" })
 
 -- Harpoon
 local harpoon = require "harpoon"
-harpoon:setup {}
+harpoon:setup {
+  settings = {
+    save_on_toggle = true,
+  },
+}
 harpoon:extend {
   UI_CREATE = function(cx)
     vim.keymap.set("n", "<C-v>", function()
