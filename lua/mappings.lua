@@ -12,6 +12,7 @@ end)
 
 -- File related
 map({ "n", "i", "v" }, "<C-x>", "<cmd> noa w <cr>", { desc = "Save without autocmds" })
+map("n", "<leader>q", "<cmd> Nvdash <cr>", { desc = "Nvdash open" })
 
 -- C++ debugging with dap
 map("n", "<leader>db", "<cmd> DapToggleBreakpoint <CR>", { desc = "DAP add breakpoint at line" })
@@ -50,7 +51,33 @@ map("v", "<leader>jx", ":<C-u>MoltenEvaluateVisual<CR>gv", { desc = "Molten exec
 map("n", "<leader>jh", ":MoltenHideOutput<CR>", { desc = "Molten close output window", silent = true })
 map("n", "<leader>ji", ":MoltenImagePopup<CR>", { desc = "Molten popup output image", silent = true })
 
--- Git
+-- lazygit
 map("n", "<leader>gg", function()
   Snacks.lazygit()
 end, { desc = "Lazygit open lazygit" })
+
+-- Harpoon
+local harpoon = require "harpoon"
+harpoon:setup {}
+harpoon:extend {
+  UI_CREATE = function(cx)
+    vim.keymap.set("n", "<C-v>", function()
+      harpoon.ui:select_menu_item { vsplit = true }
+    end, { buffer = cx.bufnr })
+
+    vim.keymap.set("n", "<C-h>", function()
+      harpoon.ui:select_menu_item { split = true }
+    end, { buffer = cx.bufnr })
+  end,
+}
+map("n", "<leader>oo", function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { desc = "Harpoon open window" })
+vim.keymap.set("n", "<leader>oa", function()
+  harpoon:list():add()
+end, { desc = "Harpoon add current file" })
+for i = 1, 9 do
+  vim.keymap.set("n", "<leader>o" .. i, function()
+    harpoon:list():select(i)
+  end, { desc = "Harpoon go to file " .. i })
+end
