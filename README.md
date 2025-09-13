@@ -19,6 +19,7 @@
 - [L3MON4D3/LuaSnip](https://github.com/L3MON4D3/LuaSnip)
 - [windwp/nvim-autopairs](https://github.com/windwp/nvim-autopairs)
 - [giuxtaposition/blink-cmp-copilot](https://github.com/giuxtaposition/blink-cmp-copilot)
+- [folke/lazydev.nvim](https://github.com/folke/lazydev.nvim)
 - [zbirenbaum/copilot.lua](https://github.com/zbirenbaum/copilot.lua)
 - [folke/snacks.nvim](https://github.com/folke/snacks.nvim)
 - [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
