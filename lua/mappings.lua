@@ -25,12 +25,12 @@ map("i", "<C-k>", "<Up>", { desc = "Move up" })
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file" })
 map({ "n", "i", "v" }, "<C-x>", "<cmd> noa w <CR>", { desc = "Save without autocmds" })
 map("n", "<leader>q", "<cmd> Nvdash <CR>", { desc = "Nvdash open" })
-map({ "n", "x" }, "<leader>fm", function()
+map({ "n", "x" }, "<C-f>", function()
   require("conform").format { lsp_fallback = true }
 end, { desc = "Format file" })
 
 -- buffer related
-map("n", "<leader>n", "<cmd>e", { desc = "New file" })
+map("n", "<leader>n", ":e ", { desc = "Open new (or existing) file" })
 map("n", "<tab>", function()
   require("nvchad.tabufline").next()
 end, { desc = "Buffer goto next" })
@@ -46,32 +46,31 @@ map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
 map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 
 -- nvimtree
-map("n", "<C-t>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
+map("n", "<C-CR>", "<cmd>NvimTreeToggle<CR>", { desc = "Nvimtree toggle window" })
 
 -- terminal
-map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
+map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal escape terminal mode" })
 
 map("n", "<leader>h", function()
   require("nvchad.term").new { pos = "sp" }
-end, { desc = "terminal new horizontal term" })
+end, { desc = "Terminal new horizontal term" })
 map("n", "<leader>v", function()
   require("nvchad.term").new { pos = "vsp" }
-end, { desc = "terminal new vertical term" })
+end, { desc = "Terminal new vertical term" })
 
 map({ "n", "t" }, "<A-v>", function()
   require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
-end, { desc = "terminal toggleable vertical term" })
+end, { desc = "Terminal toggleable vertical term" })
 map({ "n", "t" }, "<A-h>", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
-end, { desc = "terminal toggleable horizontal term" })
+end, { desc = "Terminal toggleable horizontal term" })
 map({ "n", "t" }, "<A-i>", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
-end, { desc = "terminal toggle floating term" })
+end, { desc = "Terminal toggle floating term" })
 
 -- miscellaneous
 map("n", "<leader>cc", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatsheet" })
 map("n", "<leader>ch", ":checkhealth ", { desc = "checkhealth" })
-map("n", "<leader>ce", ":h ", { desc = "help" })
 
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------
@@ -89,10 +88,10 @@ map("n", "<leader>dr", function()
 end, { desc = "DAP start or continue the debugger" })
 
 -- notebook-navigator keybindings
-map("n", "D", function()
+map("n", "<leader>jd", function()
   require("notebook-navigator").move_cell "d"
 end, { desc = "Notebook-Navigator move cell down" })
-map("n", "U", function()
+map("n", "<leader>ju", function()
   require("notebook-navigator").move_cell "u"
 end, { desc = "Notebook-Navigator move cell up" })
 map(
@@ -116,11 +115,7 @@ map("v", "<leader>jx", ":<C-u>MoltenEvaluateVisual<CR>gv", { desc = "Molten exec
 map("n", "<leader>jh", ":MoltenHideOutput<CR>", { desc = "Molten close output window", silent = true })
 map("n", "<leader>ji", ":MoltenImagePopup<CR>", { desc = "Molten popup output image", silent = true })
 
--- lazygit
-map("n", "<leader>g", function()
-  Snacks.lazygit()
-end, { desc = "Git open lazygit" })
-
+--@TODO: move this to a separate file
 -- Harpoon
 local harpoon = require "harpoon"
 harpoon:setup {

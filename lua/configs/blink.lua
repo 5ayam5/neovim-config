@@ -58,6 +58,10 @@ local opts = {
         score_offset = 100,
         async = true,
       },
+      lazydev = {
+        name = "LazyDev",
+        module = "lazydev.integrations.blink",
+      },
     },
   },
 
@@ -70,6 +74,9 @@ local opts = {
     enabled = true,
     keymap = {
       ["<Tab>"] = { "show", "accept" },
+      ["<Right>"] = nil,
+      ["<Left>"] = nil,
+      ["<C-y>"] = nil,
     },
     completion = {
       menu = {

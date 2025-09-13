@@ -1,3 +1,5 @@
+dofile(vim.g.base46_cache .. "flash")
+
 local M = {}
 
 M.opts = {
@@ -15,9 +17,11 @@ M.opts = {
   },
   label = {
     style = "eol",
-    rainbow = {
-      enabled = true,
-    },
+  },
+  exclude = {
+    "blink-cmp-menu",
+    "blink-cmp-documentation",
+    "blink-cmp-signature",
   },
 }
 

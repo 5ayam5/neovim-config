@@ -1,4 +1,7 @@
 return {
+  filetypes = {
+    markdown = true,
+  },
   panel = {
     auto_refresh = true,
   },

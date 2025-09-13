@@ -34,7 +34,7 @@ end
 local letters = {}
 for i = string.byte "a", string.byte "z" do
   local letter = string.char(i)
-  if not vim.tbl_contains({ "j", "k", "h", "l", "p", "f", "c", "g", "q" }, letter) then
+  if not vim.tbl_contains({ "j", "k", "h", "l", "s", "f", "c", "g", "q" }, letter) then
     table.insert(letters, letter)
   end
 end
@@ -108,7 +108,7 @@ return function()
       multicolumn = true,
       pad = 3,
       content = "fit",
-      { txt = "  Lazy [p]", hl = "changed", keys = "p", cmd = ":Lazy <cr>" },
+      { txt = "  Lazy sync [s]", hl = "changed", keys = "s", cmd = ":Lazy sync <cr>" },
       { txt = "  Files [f]", hl = "Added", keys = "f", cmd = ":Telescope find_files <cr>" },
       { txt = "  Config [c]", hl = "nviminternalError", keys = "c", cmd = ":e ~/.config/nvim/init.lua <cr>" },
       { txt = " Lazygit [g]", hl = "Function", keys = "g", cmd = ":lua Snacks.lazygit() <cr>" },

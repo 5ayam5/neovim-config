@@ -78,6 +78,7 @@ local plugins = {
 
   {
     "neovim/nvim-lspconfig",
+    event = "User FilePost",
     config = function()
       require "configs.lspconfig"
     end,
@@ -102,7 +103,7 @@ local plugins = {
         "windwp/nvim-autopairs",
         opts = {
           fast_wrap = {},
-          disable_filetype = { "TelescopePrompt", "vim" },
+          disable_filetype = { "snacks_picker_input", "vim" },
         },
       },
 
@@ -119,6 +120,15 @@ local plugins = {
           },
         },
       },
+      {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+          library = {
+            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          },
+        },
+      },
     },
     opts_extend = { "sources.default" },
     opts = function()
@@ -129,11 +139,14 @@ local plugins = {
   --@FIXME: update this to replace telescope
   {
     "folke/snacks.nvim",
+    dependencies = {
+      "folke/todo-comments.nvim",
+      "folke/flash.nvim",
+    },
     priority = 1000,
     lazy = false,
-    opts = {
-      lazygit = {},
-    },
+    opts = require("configs.snacks").opts,
+    keys = require("configs.snacks").keys,
   },
 
   {
@@ -167,7 +180,6 @@ local plugins = {
     "m4xshen/hardtime.nvim",
     lazy = false,
     dependencies = { "MunifTanjim/nui.nvim" },
-    opts = {},
   },
 
   {
@@ -176,10 +188,9 @@ local plugins = {
       "nvim-lua/plenary.nvim",
     },
     event = "VeryLazy",
-    opts = {},
   },
 
-  -- @NOTE: find a better way to handle python instead of NN and molten
+  -- @TODO: find a better way to handle python instead of NN and molten
   {
     "GCBallesteros/NotebookNavigator.nvim",
     dependencies = {
@@ -206,7 +217,7 @@ local plugins = {
     event = "VeryLazy",
   },
 
-  -- @NOTE: make sure this is the best way to use it
+  -- @TODO: make sure this is the best way to use it
   {
     "rcarriga/nvim-dap-ui",
     event = "VeryLazy",
