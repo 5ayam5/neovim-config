@@ -4,10 +4,6 @@ local M = {}
 
 M.opts = {
   modes = {
-    --@FIXME: this is buggy when match is outside of screen
-    -- search = {
-    --   enabled = true,
-    -- },
     char = {
       jump_labels = true,
     },

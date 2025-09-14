@@ -136,7 +136,6 @@ local plugins = {
     end,
   },
 
-  --@FIXME: update this to replace telescope
   {
     "folke/snacks.nvim",
     dependencies = {
@@ -166,6 +165,7 @@ local plugins = {
     "nvim-treesitter/nvim-treesitter-context",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = "VeryLazy",
+    opts = { multiwindow = true },
   },
 
   {
@@ -180,6 +180,7 @@ local plugins = {
     "m4xshen/hardtime.nvim",
     lazy = false,
     dependencies = { "MunifTanjim/nui.nvim" },
+    opts = {},
   },
 
   {
@@ -187,7 +188,9 @@ local plugins = {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
-    event = "VeryLazy",
+    config = function()
+      require("todo-comments").setup {}
+    end,
   },
 
   -- @TODO: find a better way to handle python instead of NN and molten

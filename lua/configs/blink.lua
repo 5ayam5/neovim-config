@@ -67,7 +67,7 @@ local opts = {
 
   signature = {
     enabled = true,
-    window = { scrollbar = true, border = "single", show_documentation = true },
+    window = { border = "single", show_documentation = true },
   },
 
   cmdline = {

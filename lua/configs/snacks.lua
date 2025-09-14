@@ -1,5 +1,18 @@
 ---@module 'snacks'
 
+vim.schedule(function()
+  local input = require "snacks.picker.core.input"
+  local statuscolumn = input.statuscolumn
+  input.statuscolumn = function(self)
+    ---@diagnostic disable-next-line: undefined-field
+    if self.picker.opts.no_status == true then
+      return "%#SnacksPickerPrompt# %*"
+    else
+      return statuscolumn(self)
+    end
+  end
+end)
+
 local M = {}
 
 M.opts = {}
@@ -96,7 +109,7 @@ M.keys = {
   {
     "<leader>g",
     function()
-      Snacks.lazygit()
+      Snacks.lazygit.open()
     end,
     desc = "Git open lazygit",
   },
@@ -106,7 +119,7 @@ M.keys = {
     "<leader>ft",
     function()
       ---@diagnostic disable-next-line: undefined-field
-      Snacks.picker.todo_comments()
+      Snacks.picker.todo_comments { no_status = true }
     end,
     desc = "Find TODO comments",
   },

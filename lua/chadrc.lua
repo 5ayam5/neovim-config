@@ -1,6 +1,7 @@
 -- This file needs to have same structure as nvconfig.lua
 -- https://github.com/NvChad/ui/blob/v3.0/lua/nvconfig.lua
 
+---@type ChadrcConfig
 local M = {}
 
 M.base46 = {
@@ -10,25 +11,20 @@ M.base46 = {
     "flash",
   },
 
-  --@FIXME: fix this to look pretty
-  -- hl_add = {
-  --   SnacksPicker = { bg = "darker_black" },
-  --   SnacksPickerPrompt = { fg = "blue", bg = "black2" },
-  --   SnacksPickerInput = { fg = "blue", bg = "black2" },
-  --   SnacksPickerPreview = { bg = "darker_black" },
-  --   SnacksPickerTitle = { fg = "black2", bg = "yellow", bold = true },
-  --   SnacksPickerInputTitle = { fg = "black", bg = "red", bold = true },
-  --   SnacksPickerPreviewTitle = { fg = "black", bg = "green", bold = true },
-  --   SnacksPickerListTitle = { fg = "black", bg = "black", bold = true },
-  --   -- SnacksInputNormal = { fg = "blue", bg = "darker_black" },
-  --   -- Borderless
-  --   SnacksPickerBorder = { fg = "darker_black", bg = "darker_black" },
-  --   SnacksPickerInputBorder = { fg = "black2", bg = "black2" },
-  --   SnacksPickerListBorder = { fg = "darker_black", bg = "darker_black" },
-  --   SnacksPickerBoxBorder = { fg = "darker_black", bg = "darker_black" },
-  --   SnacksPickerPreviewBorder = { fg = "darker_black", bg = "darker_black" },
-  --   -- SnacksInputBorder = { fg = "darker_black", bg = "darker_black" },
-  -- },
+  hl_add = {
+    SnacksPicker = { bg = "one_bg" },
+    SnacksPickerTitle = { fg = "nord_blue", bg = "one_bg", bold = true },
+    SnacksPickerPrompt = { fg = "red", bg = "one_bg" },
+    SnacksPickerInput = { fg = "yellow", bg = "one_bg" },
+    SnacksPickerTotals = { fg = "green", bg = "one_bg", bold = true },
+    SnacksPickerInputBorder = { fg = "nord_blue", bg = "one_bg" },
+    SnacksPickerBoxBorder = { fg = "nord_blue", bg = "one_bg" },
+    SnacksPickerPreview = { bg = "one_bg" },
+    SnacksPickerPreviewBorder = { fg = "white", bg = "one_bg" },
+    SnacksPickerPreviewTitle = { fg = "white", bg = "one_bg", bold = true },
+    SnacksPickerList = { fg = "white", bg = "one_bg" },
+    SnacksPickerBorder = { fg = "one_bg", bg = "one_bg" },
+  },
 }
 
 M.nvdash = {
@@ -47,6 +43,7 @@ M.nvdash = {
     "                      ",
   },
 
+  ---@diagnostic disable-next-line : assign-type-mismatch
   buttons = require "nvdash",
 }
 
