@@ -8,9 +8,6 @@ M.opts = {
       jump_labels = true,
     },
   },
-  jump = {
-    nohlsearch = true,
-  },
   label = {
     style = "eol",
   },
@@ -26,15 +23,42 @@ M.keys = {
     "s",
     mode = { "n", "x", "o" },
     function()
-      require("flash").jump { remote_op = {
-        restore = true,
-        motion = nil,
-      } }
+      require("flash").jump {
+        remote_op = {
+          restore = true,
+          motion = nil,
+        },
+        jump = { pos = "end" },
+        search = {
+          forward = true,
+          wrap = false,
+          multi_window = false,
+        },
+      }
     end,
     desc = "Flash",
   },
   {
+
     "S",
+    mode = { "n", "x", "o" },
+    function()
+      require("flash").jump {
+        remote_op = {
+          restore = true,
+          motion = nil,
+        },
+        search = {
+          forward = false,
+          wrap = false,
+          multi_window = false,
+        },
+      }
+    end,
+    desc = "Flash",
+  },
+  {
+    "r",
     mode = { "n", "x", "o" },
     function()
       require("flash").treesitter()

@@ -20,13 +20,8 @@ local opts = {
     ["<S-Tab>"] = { "snippet_backward", "fallback" },
     ["<Tab>"] = { "snippet_forward", "fallback" },
 
-    --@FIXME: uncomment this once
-    -- https://github.com/Saghen/blink.cmp/commit/b7e240484affbb62eebb8604ea3d63f88d320f12
-    -- is added to stable
-    -- ["<C-b>"] = { "scroll_documentation_up", "scroll_signature_up", "fallback" },
-    -- ["<C-f>"] = { "scroll_documentation_down", "scroll_signature_down", "fallback" },
-    ["<C-b>"] = { "scroll_documentation_up", "fallback" },
-    ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+    ["<C-b>"] = { "scroll_documentation_up", "scroll_signature_up", "fallback" },
+    ["<C-f>"] = { "scroll_documentation_down", "scroll_signature_down", "fallback" },
 
     ["<C-/>"] = { "show_signature", "hide_signature", "fallback" },
   },

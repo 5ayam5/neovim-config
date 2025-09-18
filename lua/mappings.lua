@@ -31,12 +31,6 @@ end, { desc = "Format file" })
 
 -- buffer related
 map("n", "<leader>n", ":e ", { desc = "Open new (or existing) file" })
-map("n", "<tab>", function()
-  require("nvchad.tabufline").next()
-end, { desc = "Buffer goto next" })
-map("n", "<S-tab>", function()
-  require("nvchad.tabufline").prev()
-end, { desc = "Buffer goto prev" })
 map("n", "<leader>x", function()
   require("nvchad.tabufline").close_buffer()
 end, { desc = "buffer close" })
