@@ -22,7 +22,7 @@ o.relativenumber = true
 o.number = true
 o.numberwidth = 2
 o.ruler = false
-opt.scrolloff = 999
+o.scrolloff = 999
 
 -- Indenting
 o.expandtab = true

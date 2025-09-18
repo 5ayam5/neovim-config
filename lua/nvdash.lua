@@ -1,5 +1,3 @@
--- ~/.config/nvim/lua/nvdash.lua ( or any file ! )
-
 vim.api.nvim_create_autocmd("FileType", {
   callback = function(args)
     if vim.bo[args.buf].buflisted then
@@ -34,7 +32,7 @@ end
 local letters = {}
 for i = string.byte "a", string.byte "z" do
   local letter = string.char(i)
-  if not vim.tbl_contains({ "j", "k", "h", "l", "s", "f", "c", "g", "q" }, letter) then
+  if not vim.tbl_contains({ "j", "k", "h", "l", "s", "f", "g", "q" }, letter) then
     table.insert(letters, letter)
   end
 end
@@ -109,10 +107,9 @@ return function()
       pad = 3,
       content = "fit",
       { txt = "  Lazy sync [s]", hl = "changed", keys = "s", cmd = ":Lazy sync <cr>" },
-      { txt = "  Files [f]", hl = "Added", keys = "f", cmd = ":Telescope find_files <cr>" },
-      { txt = "  Config [c]", hl = "nviminternalError", keys = "c", cmd = ":e ~/.config/nvim/init.lua <cr>" },
+      { txt = "  Files [f]", hl = "Added", keys = "f", cmd = ":lua Snacks.picker.files() <cr>" },
       { txt = " Lazygit [g]", hl = "Function", keys = "g", cmd = ":lua Snacks.lazygit() <cr>" },
-      { txt = "✖  Quit [q]", keys = "q", cmd = ":q <cr>" },
+      { txt = "✖  Quit [q]", hl = "nviminternalError", keys = "q", cmd = ":qa <cr>" },
     },
 
     {

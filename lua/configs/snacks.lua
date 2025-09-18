@@ -95,7 +95,7 @@ M.keys = {
     function()
       Snacks.picker.grep_buffers()
     end,
-    desc = "Find in current buffer",
+    desc = "Find in open buffer",
   },
   {
     "<leader>fm",
