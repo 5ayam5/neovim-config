@@ -18,60 +18,77 @@ M.opts = {
   },
 }
 
+local flash_forward = function()
+  require("flash").jump {
+    remote_op = {
+      restore = true,
+      motion = nil,
+    },
+    search = {
+      forward = true,
+      wrap = false,
+      multi_window = false,
+    },
+  }
+end
+
+local flash_backward = function()
+  require("flash").jump {
+    remote_op = {
+      restore = true,
+      motion = nil,
+    },
+    search = {
+      forward = false,
+      wrap = false,
+      multi_window = false,
+    },
+  }
+end
+
 M.keys = {
   {
-    "s",
-    mode = { "n", "x", "o" },
-    function()
-      require("flash").jump {
-        remote_op = {
-          restore = true,
-          motion = nil,
-        },
-        jump = { pos = "end" },
-        search = {
-          forward = true,
-          wrap = false,
-          multi_window = false,
-        },
-      }
-    end,
-    desc = "Flash",
+    "<leader>ss",
+    mode = { "n" },
+    flash_forward,
+    desc = "Flash forward search",
   },
+  {
+    "s",
+    mode = { "x", "o" },
+    flash_forward,
+    desc = "Flash forward search",
+  },
+
   {
 
-    "S",
-    mode = { "n", "x", "o" },
-    function()
-      require("flash").jump {
-        remote_op = {
-          restore = true,
-          motion = nil,
-        },
-        search = {
-          forward = false,
-          wrap = false,
-          multi_window = false,
-        },
-      }
-    end,
-    desc = "Flash",
+    "<leader>sS",
+    mode = { "n" },
+    flash_backward,
+    desc = "Flash backward search",
   },
   {
-    "r",
-    mode = { "n", "x", "o" },
+    "S",
+    mode = { "x", "o" },
+    flash_backward,
+    desc = "Flash backward search",
+  },
+
+  {
+    "t",
+    mode = { "x", "o" },
     function()
       require("flash").treesitter()
     end,
-    desc = "Flash Treesitter",
+    desc = "Flash treesitter",
   },
   {
-    "R",
-    mode = { "o", "x" },
+    "T",
+    mode = { "x", "o" },
     function()
       require("flash").treesitter_search()
     end,
-    desc = "Treesitter Search",
+    desc = "Flash treesitter search",
   },
 }
 
