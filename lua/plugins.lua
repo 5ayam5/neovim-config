@@ -86,7 +86,7 @@ local plugins = {
 
   {
     "saghen/blink.cmp",
-    version = "1.*",
+    version = "*",
     event = { "InsertEnter", "CmdLineEnter" },
     dependencies = {
       {
@@ -100,11 +100,11 @@ local plugins = {
       },
 
       {
-        "windwp/nvim-autopairs",
-        opts = {
-          fast_wrap = {},
-          disable_filetype = { "snacks_picker_input", "vim" },
-        },
+        "saghen/blink.pairs",
+        version = "*",
+        event = "BufReadPost",
+        dependencies = "saghen/blink.download",
+        opts = require "configs.blink_pairs",
       },
 
       {

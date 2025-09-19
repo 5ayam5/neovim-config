@@ -8,6 +8,8 @@ M.base46 = {
   theme = "kanagawa",
 
   integrations = {
+    "blink",
+    "blink-pair",
     "flash",
   },
 
