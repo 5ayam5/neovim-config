@@ -139,3 +139,16 @@ for i = 1, 9 do
     harpoon:list():select(i)
   end, { desc = "Harpoon go to file " .. i })
 end
+
+-- Markdown
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.keymap.set(
+      "n",
+      "<leader>m",
+      ":RenderMarkdown toggle<CR>",
+      { desc = "Toggle Markdown rendering", buffer = true }
+    )
+  end,
+})

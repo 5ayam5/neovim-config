@@ -11,6 +11,7 @@ M.base46 = {
     "blink",
     "blink-pair",
     "flash",
+    "render-markdown",
   },
 
   hl_add = {

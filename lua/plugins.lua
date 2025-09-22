@@ -14,6 +14,7 @@ local plugins = {
     end,
   },
 
+  --@TODO: see if I need all of them
   "nvzone/volt",
   "nvzone/menu",
   { "nvzone/minty", cmd = { "Huefy", "Shades" } },
@@ -268,6 +269,13 @@ local plugins = {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+  },
+
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    ft = "markdown",
+    opts = require "configs.render_markdown",
   },
 }
 return plugins
