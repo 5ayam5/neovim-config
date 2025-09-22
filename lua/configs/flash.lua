@@ -24,6 +24,7 @@ local flash_forward = function()
       restore = true,
       motion = nil,
     },
+    jump = { pos = "end" },
     search = {
       forward = true,
       wrap = false,

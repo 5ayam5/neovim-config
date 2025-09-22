@@ -18,11 +18,10 @@ o.undofile = true
 -- Cursor
 o.cursorline = true
 o.cursorlineopt = "both"
-o.relativenumber = true
-o.number = true
+opt.relativenumber = true
+opt.number = true
 o.numberwidth = 2
 o.ruler = false
-o.scrolloff = 999
 
 -- Indenting
 o.expandtab = true

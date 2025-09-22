@@ -81,10 +81,6 @@ M.ui = {
   },
 }
 
-M.term = {
-  winopts = { number = true, relativenumber = true },
-}
-
 M.lsp = {
   signature = false,
 }

@@ -259,10 +259,7 @@ local plugins = {
   {
     "Aasim-A/scrollEOF.nvim",
     event = { "CursorMoved", "WinScrolled" },
-    opts = {
-      insert_mode = true,
-      disabled_filetypes = { "nvdash", "terminal" },
-    },
+    opts = require "configs.scrolleof",
   },
 
   {
