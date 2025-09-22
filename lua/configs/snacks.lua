@@ -107,11 +107,11 @@ M.keys = {
 
   -- LazyGit
   {
-    "<leader>g",
+    "<leader>gg",
     function()
       Snacks.lazygit.open()
     end,
-    desc = "Git open lazygit",
+    desc = "git open lazygit",
   },
 
   -- todo_comments

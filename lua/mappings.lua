@@ -1,4 +1,5 @@
 local map = vim.keymap.set
+local autocmd = vim.api.nvim_create_autocmd
 
 -- navigation related
 map("n", ";", ":", { desc = "CMD enter command mode" })
@@ -31,9 +32,7 @@ end, { desc = "Format file" })
 
 -- buffer related
 map("n", "<leader>n", ":e ", { desc = "Open new (or existing) file" })
-map("n", "<leader>x", function()
-  require("nvchad.tabufline").close_buffer()
-end, { desc = "buffer close" })
+map("n", "<leader>x", "<C-w>q", { desc = "Window close" })
 
 -- comment
 map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
@@ -102,12 +101,27 @@ map(
 )
 
 -- Molten keybindings
-map("n", "<leader>jm", ":MoltenInit<CR>", { desc = "Molten initialize", silent = true })
-map("n", "<leader>je", ":MoltenEvaluateOperator<CR>", { desc = "Molten evaluate operator", silent = true })
-map("n", "<leader>js", ":noautocmd MoltenEnterOutput<CR>", { desc = "Molten open output window", silent = true })
-map("v", "<leader>jx", ":<C-u>MoltenEvaluateVisual<CR>gv", { desc = "Molten execute visual selection", silent = true })
-map("n", "<leader>jh", ":MoltenHideOutput<CR>", { desc = "Molten close output window", silent = true })
-map("n", "<leader>ji", ":MoltenImagePopup<CR>", { desc = "Molten popup output image", silent = true })
+map("n", "<leader>jm", "<cmd>MoltenInit<CR>", { desc = "Molten initialize", silent = true })
+map("n", "<leader>je", "<cmd>MoltenEvaluateOperator<CR>", { desc = "Molten evaluate operator", silent = true })
+map("n", "<leader>js", "<cmd>noautocmd MoltenEnterOutput<CR>", { desc = "Molten open output window", silent = true })
+map(
+  "v",
+  "<leader>jx",
+  "<cmd><C-u>MoltenEvaluateVisual<CR>gv",
+  { desc = "Molten execute visual selection", silent = true }
+)
+map("n", "<leader>jh", "<cmd>MoltenHideOutput<CR>", { desc = "Molten close output window", silent = true })
+map("n", "<leader>ji", "<cmd>MoltenImagePopup<CR>", { desc = "Molten popup output image", silent = true })
+
+-- git related
+autocmd("BufFilePost", {
+  callback = function()
+    map("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<CR>", { desc = "Git toggle blame", silent = true })
+    map("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", { desc = "Git diff this", silent = true })
+    map("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>", { desc = "Git stage hunk", silent = true })
+    map("n", "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>", { desc = "Git reset hunk", silent = true })
+  end,
+})
 
 --@TODO: move this to a separate file
 -- Harpoon
@@ -144,11 +158,11 @@ end
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   callback = function()
-    vim.keymap.set(
+    map(
       "n",
       "<leader>m",
       ":RenderMarkdown toggle<CR>",
-      { desc = "Toggle Markdown rendering", buffer = true }
+      { desc = "Toggle Markdown rendering", silent = true, buffer = true }
     )
   end,
 })
