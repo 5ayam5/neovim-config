@@ -165,7 +165,7 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter-context",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = "VeryLazy",
+    event = "User FilePost",
     opts = { multiwindow = true },
   },
 
@@ -182,7 +182,7 @@ local plugins = {
     lazy = false,
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
-      disabled_filetypes = { "harpoon", "nvdash" },
+      disabled_filetypes = { "harpoon", "nvdash", "nvcheatsheet" },
     },
   },
 
@@ -226,7 +226,7 @@ local plugins = {
   -- @TODO: make sure this is the best way to use it
   {
     "rcarriga/nvim-dap-ui",
-    event = "VeryLazy",
+    event = "User FilePost",
     dependencies = {
       "mfussenegger/nvim-dap",
       "nvim-neotest/nvim-nio",
@@ -249,7 +249,7 @@ local plugins = {
 
   {
     "jay-babu/mason-nvim-dap.nvim",
-    event = "VeryLazy",
+    event = "User FilePost",
     dependencies = {
       "williamboman/mason.nvim",
       "mfussenegger/nvim-dap",

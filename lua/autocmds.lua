@@ -26,18 +26,6 @@ autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
   end,
 })
 
-autocmd("BufDelete", {
-  callback = function()
-    vim.schedule(function()
-      local bufs = vim.t.bufs
-
-      if #bufs == 1 and vim.api.nvim_buf_get_name(bufs[1]) == "" then
-        vim.cmd "Nvdash"
-      end
-    end)
-  end,
-})
-
 autocmd("BufReadPost", {
   pattern = "*",
   callback = function()

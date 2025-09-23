@@ -25,14 +25,25 @@ map("i", "<C-k>", "<Up>", { desc = "Move up" })
 -- File related
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file" })
 map({ "n", "i", "v" }, "<C-x>", "<cmd> noa w <CR>", { desc = "Save without autocmds" })
-map("n", "<leader>q", "<cmd> Nvdash <CR>", { desc = "Nvdash open" })
+map("n", "<leader>q", function()
+  while vim.fn.winnr "$" ~= 1 do
+    vim.cmd ":q"
+  end
+  vim.cmd "Nvdash"
+end, { desc = "Nvdash open" })
 map({ "n", "x" }, "<C-f>", function()
   require("conform").format { lsp_fallback = true }
 end, { desc = "Format file" })
 
 -- buffer related
 map("n", "<leader>n", ":e ", { desc = "Open new (or existing) file" })
-map("n", "<leader>x", "<C-w>q", { desc = "Window close" })
+map("n", "<leader>x", function()
+  if vim.fn.winnr "$" == 1 and vim.bo.filetype ~= "nvdash" then
+    vim.cmd "Nvdash"
+  else
+    vim.cmd ":q"
+  end
+end, { desc = "Window close" })
 
 -- comment
 map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
@@ -114,7 +125,7 @@ map("n", "<leader>jh", "<cmd>MoltenHideOutput<CR>", { desc = "Molten close outpu
 map("n", "<leader>ji", "<cmd>MoltenImagePopup<CR>", { desc = "Molten popup output image", silent = true })
 
 -- git related
-autocmd("BufFilePost", {
+autocmd({ "BufReadPost", "BufNewFile" }, {
   callback = function()
     map("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<CR>", { desc = "Git toggle blame", silent = true })
     map("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", { desc = "Git diff this", silent = true })
