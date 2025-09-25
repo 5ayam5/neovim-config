@@ -14,6 +14,19 @@ map("n", "<C-l>", "<C-w>l", { desc = "Switch window right" })
 map("n", "<C-j>", "<C-w>j", { desc = "Switch window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "Switch window up" })
 
+local mux_with_g = function(key)
+  local gkey = "g" .. key
+  return function()
+    if vim.v.count == 0 then
+      return gkey
+    else
+      return key
+    end
+  end
+end
+map({ "n", "v" }, "j", mux_with_g "j", { expr = true })
+map({ "n", "v" }, "k", mux_with_g "k", { expr = true })
+
 map("i", "jk", "<ESC>")
 map("i", "<C-b>", "<ESC>^i", { desc = "Move beginning of line" })
 map("i", "<C-e>", "<End>", { desc = "Move end of line" })
@@ -21,6 +34,11 @@ map("i", "<C-h>", "<Left>", { desc = "Move left" })
 map("i", "<C-l>", "<Right>", { desc = "Move right" })
 map("i", "<C-j>", "<Down>", { desc = "Move down" })
 map("i", "<C-k>", "<Up>", { desc = "Move up" })
+
+-- Tab related
+for i = 1, 9 do
+  map("n", "<leader>t" .. i, i .. "gt", { desc = "Go to tab " .. i })
+end
 
 -- File related
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file" })
@@ -53,7 +71,7 @@ map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 map("n", "<C-CR>", "<cmd>NvimTreeToggle<CR>", { desc = "Nvimtree toggle window" })
 
 -- terminal
-map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal escape terminal mode" })
+map("t", "<C-j><C-k>", "<C-\\><C-N>", { desc = "Terminal escape terminal mode" })
 
 map("n", "<leader>h", function()
   require("nvchad.term").new { pos = "sp" }
@@ -127,10 +145,10 @@ map("n", "<leader>ji", "<cmd>MoltenImagePopup<CR>", { desc = "Molten popup outpu
 -- git related
 autocmd({ "BufReadPost", "BufNewFile" }, {
   callback = function()
-    map("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<CR>", { desc = "Git toggle blame", silent = true })
-    map("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", { desc = "Git diff this", silent = true })
-    map("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>", { desc = "Git stage hunk", silent = true })
-    map("n", "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>", { desc = "Git reset hunk", silent = true })
+    map("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<CR>", { desc = "git toggle blame", silent = true })
+    map("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", { desc = "git diff this", silent = true })
+    map("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>", { desc = "git stage hunk", silent = true })
+    map("n", "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>", { desc = "git reset hunk", silent = true })
   end,
 })
 

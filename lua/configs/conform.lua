@@ -4,7 +4,7 @@ local options = {
     cpp = { "clang-format" },
     lua = { "stylua" },
     python = { "isort", "ruff" },
-    markdown = { "markdownlint", "mdformat" },
+    markdown = { "mdformat" },
   },
 
   format_on_save = {

@@ -69,9 +69,9 @@ local opts = {
     enabled = true,
     keymap = {
       ["<Tab>"] = { "show", "accept" },
-      ["<Right>"] = nil,
-      ["<Left>"] = nil,
-      ["<C-y>"] = nil,
+      ["<Right>"] = false,
+      ["<Left>"] = false,
+      ["<C-y>"] = false,
     },
     completion = {
       menu = {

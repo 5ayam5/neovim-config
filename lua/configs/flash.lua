@@ -18,19 +18,21 @@ M.opts = {
   },
 }
 
-local flash_forward = function()
-  require("flash").jump {
-    remote_op = {
-      restore = true,
-      motion = nil,
-    },
-    jump = { pos = "end" },
-    search = {
-      forward = true,
-      wrap = false,
-      multi_window = false,
-    },
-  }
+local flash_forward = function(pos)
+  return function()
+    require("flash").jump {
+      remote_op = {
+        restore = true,
+        motion = nil,
+      },
+      jump = { pos = pos },
+      search = {
+        forward = true,
+        wrap = false,
+        multi_window = false,
+      },
+    }
+  end
 end
 
 local flash_backward = function()
@@ -51,13 +53,13 @@ M.keys = {
   {
     "<leader>ss",
     mode = { "n" },
-    flash_forward,
+    flash_forward "start",
     desc = "Flash forward search",
   },
   {
     "s",
     mode = { "x", "o" },
-    flash_forward,
+    flash_forward "end",
     desc = "Flash forward search",
   },
 
