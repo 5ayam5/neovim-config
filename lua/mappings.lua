@@ -90,9 +90,10 @@ map({ "n", "t" }, "<A-i>", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "Terminal toggle floating term" })
 
--- miscellaneous
-map("n", "<leader>cc", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatsheet" })
-map("n", "<leader>ch", ":checkhealth ", { desc = "checkhealth" })
+-- utility
+map("n", "<leader>cc", "<cmd>NvCheatsheet<CR>", { desc = "Toggle nvcheatsheet" })
+map("n", "<leader>ch", ":checkhealth ", { desc = "Checkhealth" })
+map("n", "<leader>cn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "Show notification history" })
 
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------
@@ -101,7 +102,7 @@ map("n", "<leader>ch", ":checkhealth ", { desc = "checkhealth" })
 ------------------------------------------------------------------------------------------------------
 
 -- C++ debugging with dap
-map("n", "<leader>db", "<cmd> DapToggleBreakpoint <CR>", { desc = "DAP add breakpoint at line" })
+map("n", "<leader>db", "<cmd> DapToggleBreakpoint <CR>", { desc = "DAP toggle breakpoint at line" })
 map("n", "<leader>dr", function()
   if vim.fn.filereadable ".vscode/launch.json" then
     require("dap.ext.vscode").load_launchjs(nil, { codelldb = { "c", "cpp" } })

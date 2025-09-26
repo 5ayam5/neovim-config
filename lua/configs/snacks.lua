@@ -15,6 +15,7 @@ end)
 
 local M = {}
 
+---@type snacks.config
 M.opts = {}
 
 ---@type snacks.picker.config
@@ -123,6 +124,11 @@ M.keys = {
     end,
     desc = "Find TODO comments",
   },
+}
+
+M.opts.notifier = {
+  enabled = true,
+  level = vim.log.levels.DEBUG,
 }
 
 return M

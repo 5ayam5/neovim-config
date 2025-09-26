@@ -15,8 +15,8 @@ M.base46 = {
   },
 
   hl_add = {
-    SnacksPicker = { bg = "one_bg" },
-    SnacksPickerTitle = { fg = "blue", bg = "one_bg", bold = true },
+    SnacksPicker = { link = "NormalFloat" },
+    SnacksPickerTitle = { link = "FloatTitle" },
     SnacksPickerPrompt = { fg = "red", bg = "one_bg" },
     SnacksPickerInput = { fg = "white", bg = "one_bg" },
     SnacksPickerTotals = { fg = "green", bg = "one_bg", bold = true },
@@ -24,9 +24,9 @@ M.base46 = {
     SnacksPickerBoxBorder = { fg = "blue", bg = "one_bg" },
     SnacksPickerPreview = { bg = "one_bg" },
     SnacksPickerPreviewBorder = { fg = "blue", bg = "one_bg" },
-    SnacksPickerPreviewTitle = { fg = "blue", bg = "one_bg", bold = true },
+    SnacksPickerPreviewTitle = { link = "FloatTitle" },
     SnacksPickerList = { fg = "white", bg = "one_bg" },
-    SnacksPickerBorder = { fg = "one_bg", bg = "one_bg" },
+    SnacksPickerBorder = { link = "FloatBorder" },
   },
 }
 
