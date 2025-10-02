@@ -36,6 +36,10 @@ map("i", "<C-j>", "<Down>", { desc = "Move down" })
 map("i", "<C-k>", "<Up>", { desc = "Move up" })
 
 -- Tab related
+map("n", "<leader>tn", "<cmd>tabnew<CR>", { desc = "New tab" })
+map("n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close tab" })
+map("n", "<leader>tt", "<cmd>tabnext<CR>", { desc = "Next tab" })
+map("n", "<leader>tT", "<cmd>tabprevious<CR>", { desc = "Previous tab" })
 for i = 1, 9 do
   map("n", "<leader>t" .. i, i .. "gt", { desc = "Go to tab " .. i })
 end
@@ -44,9 +48,6 @@ end
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file" })
 map({ "n", "i", "v" }, "<C-x>", "<cmd> noa w <CR>", { desc = "Save without autocmds" })
 map("n", "<leader>q", function()
-  while vim.fn.winnr "$" ~= 1 do
-    vim.cmd ":q"
-  end
   vim.cmd "Nvdash"
 end, { desc = "Nvdash open" })
 map({ "n", "x" }, "<C-f>", function()
@@ -72,13 +73,6 @@ map("n", "<C-CR>", "<cmd>NvimTreeToggle<CR>", { desc = "Nvimtree toggle window" 
 
 -- terminal
 map("t", "<C-j><C-k>", "<C-\\><C-N>", { desc = "Terminal escape terminal mode" })
-
-map("n", "<leader>h", function()
-  require("nvchad.term").new { pos = "sp" }
-end, { desc = "Terminal new horizontal term" })
-map("n", "<leader>v", function()
-  require("nvchad.term").new { pos = "vsp" }
-end, { desc = "Terminal new vertical term" })
 
 map({ "n", "t" }, "<A-v>", function()
   require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }

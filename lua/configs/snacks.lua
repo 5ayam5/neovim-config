@@ -92,6 +92,13 @@ M.keys = {
     desc = "Find help",
   },
   {
+    "<leader>fl",
+    function()
+      Snacks.picker.highlights()
+    end,
+    desc = "Find highlights",
+  },
+  {
     "<leader>fc",
     function()
       Snacks.picker.grep_buffers()

@@ -182,7 +182,7 @@ local plugins = {
     lazy = false,
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
-      disabled_filetypes = { "harpoon", "nvdash", "nvcheatsheet" },
+      disabled_filetypes = { "harpoon", "nvdash", "nvcheatsheet", "markdown" },
     },
   },
 

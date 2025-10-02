@@ -40,19 +40,23 @@ end
 local function set_recent_files(tb)
   local files = {}
 
+  local cwd = vim.uv.cwd()
   for _, v in ipairs(vim.v.oldfiles) do
     if #files == 5 then
       break
     end
     if vim.uv.fs_stat(v) then
-      table.insert(files, v)
+      local abs = vim.uv.fs_realpath(v)
+      if abs and abs:sub(1, #cwd) == cwd then
+        table.insert(files, v)
+      end
     end
   end
 
   for i, v in ipairs(files) do
     local devicon, devicon_hl = require("nvim-web-devicons").get_icon(v)
     local icon = devicon or ""
-    local path = replace_home_path(v):sub(1, 100)
+    local path = replace_home_path(vim.uv.fs_realpath(v):sub(#cwd + 2)):sub(1, 75)
     local keybind = letters[i]
 
     local line = {
@@ -78,7 +82,7 @@ local function set_recent_folders(tb)
   dirs = vim.list_slice(dirs, 0, 5)
 
   for i, v in ipairs(dirs) do
-    local path = replace_home_path(v):sub(1, 100)
+    local path = replace_home_path(v):sub(-75)
     local keybind = letters[i + 5]
 
     local line = {
@@ -87,7 +91,7 @@ local function set_recent_folders(tb)
       no_gap = true,
       content = "fit",
       group = "recent_files",
-      cmd = ":cd " .. v,
+      cmd = "cd " .. v,
     }
 
     table.insert(line, { txt = "  ", hl = "nviminternalError" })
@@ -106,10 +110,10 @@ return function()
       multicolumn = true,
       pad = 3,
       content = "fit",
-      { txt = "  Lazy sync [s]", hl = "changed", keys = "s", cmd = ":Lazy sync <cr>" },
-      { txt = "  Files [f]", hl = "Added", keys = "f", cmd = ":lua Snacks.picker.files() <cr>" },
-      { txt = " Lazygit [g]", hl = "Function", keys = "g", cmd = ":lua Snacks.lazygit() <cr>" },
-      { txt = "✖  Quit [q]", hl = "nviminternalError", keys = "q", cmd = ":qa <cr>" },
+      { txt = "  Lazy sync [s]", hl = "changed", keys = "s", cmd = "Lazy sync" },
+      { txt = "  Files [f]", hl = "Added", keys = "f", cmd = "lua Snacks.picker.files()" },
+      { txt = " Lazygit [g]", hl = "Function", keys = "g", cmd = "lua Snacks.lazygit()" },
+      { txt = "✖  Quit [q]", hl = "nviminternalError", keys = "q", cmd = "qa" },
     },
 
     {
