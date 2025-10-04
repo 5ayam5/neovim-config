@@ -182,11 +182,6 @@ end
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   callback = function()
-    map(
-      "n",
-      "<leader>m",
-      ":RenderMarkdown toggle<CR>",
-      { desc = "Toggle Markdown rendering", silent = true, buffer = true }
-    )
+    map("n", "<leader>m", ":Markview toggle<CR>", { desc = "Toggle Markdown rendering", silent = true, buffer = true })
   end,
 })

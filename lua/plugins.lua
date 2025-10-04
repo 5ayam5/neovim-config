@@ -274,10 +274,12 @@ local plugins = {
   },
 
   {
-    "MeanderingProgrammer/render-markdown.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    ft = "markdown",
-    opts = require "configs.render_markdown",
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    dependencies = { "nvim-treesitter/nvim-treesitter", "saghen/blink.cmp" },
+    config = function()
+      require("markview").setup(require "configs.markview")
+    end,
   },
 }
 return plugins

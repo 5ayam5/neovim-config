@@ -57,6 +57,10 @@ local opts = {
         name = "LazyDev",
         module = "lazydev.integrations.blink",
       },
+      mkview = {
+        name = "markview",
+        module = "markview.blink",
+      },
     },
   },
 
