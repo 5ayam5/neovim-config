@@ -22,6 +22,7 @@ opt.relativenumber = true
 opt.number = true
 o.numberwidth = 2
 o.ruler = false
+o.mouse = ""
 
 -- Indenting
 o.expandtab = true
@@ -33,6 +34,7 @@ o.softtabstop = 2
 -- Search
 o.ignorecase = true
 o.smartcase = true
+o.maxsearchcount = 9999
 
 -- Time
 o.updatetime = 250

@@ -47,22 +47,52 @@ end
 -- File related
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file" })
 map({ "n", "i", "v" }, "<C-x>", "<cmd> noa w <CR>", { desc = "Save without autocmds" })
-map("n", "<leader>q", function()
-  vim.cmd "Nvdash"
-end, { desc = "Nvdash open" })
 map({ "n", "x" }, "<C-f>", function()
   require("conform").format { lsp_fallback = true }
 end, { desc = "Format file" })
+map("n", "<leader>n", ":e ", { desc = "Open new (or existing) file" })
 
 -- buffer related
-map("n", "<leader>n", ":e ", { desc = "Open new (or existing) file" })
-map("n", "<leader>x", function()
-  if vim.fn.winnr "$" == 1 and vim.bo.filetype ~= "nvdash" then
+local count_windows_and_hide_floating = function()
+  local wins = vim.api.nvim_tabpage_list_wins(0)
+
+  local count = 0
+  for _, w in ipairs(wins) do
+    local config = vim.api.nvim_win_get_config(w)
+    if config.relative > "" or config.external then
+      vim.api.nvim_win_hide(w)
+    else
+      count = count + 1
+    end
+  end
+
+  return count
+end
+
+local close_window = function()
+  if
+    (
+      count_windows_and_hide_floating() == 1
+      or (
+        count_windows_and_hide_floating() == 2
+        and vim.bo.filetype ~= "NvimTree"
+        and require("nvim-tree.api").tree.is_visible()
+      )
+    ) and vim.bo.filetype ~= "nvdash"
+  then
     vim.cmd "Nvdash"
   else
     vim.cmd ":q"
   end
-end, { desc = "Window close" })
+end
+
+map("n", "<leader>x", close_window, { desc = "Window close" })
+map("n", "<leader>q", function()
+  require("nvim-tree.api").tree.close()
+  while vim.bo.filetype ~= "nvdash" do
+    close_window()
+  end
+end, { desc = "Nvdash open" })
 
 -- comment
 map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
