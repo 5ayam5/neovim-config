@@ -37,6 +37,7 @@
 - [Aasim-A/scrollEOF.nvim](https://github.com/Aasim-A/scrollEOF.nvim)
 - [ThePrimeagen/harpoon](https://github.com/ThePrimeagen/harpoon)
 - [OXY2DEV/markview.nvim](https://github.com/OXY2DEV/markview.nvim)
+- [kwkarlwang/bufresize.nvim](https://github.com/kwkarlwang/bufresize.nvim)
 
 # Credits
 

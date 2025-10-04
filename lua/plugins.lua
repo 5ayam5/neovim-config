@@ -281,5 +281,13 @@ local plugins = {
       require("markview").setup(require "configs.markview")
     end,
   },
+
+  {
+    "kwkarlwang/bufresize.nvim",
+    lazy = false,
+    config = function()
+      require("bufresize").setup()
+    end,
+  },
 }
 return plugins
