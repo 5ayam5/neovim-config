@@ -17,7 +17,7 @@ local plugins = {
     end,
   },
 
-  --@TODO: see if I need all of them
+  -- TODO: see if I need all of them
   "nvzone/volt",
   "nvzone/menu",
   { "nvzone/minty", cmd = { "Huefy", "Shades" } },
@@ -159,6 +159,7 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
+    event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSInstall", "TSInstallFromGrammar", "TSUninstall", "TSLog" },
     build = ":TSUpdate",
     config = function(_, opts)
@@ -196,7 +197,7 @@ local plugins = {
     end,
   },
 
-  --@NOTE: remove this once I become proficient
+  -- NOTE: remove this once I become proficient
   {
     "m4xshen/hardtime.nvim",
     event = "User FilePost",
@@ -208,6 +209,7 @@ local plugins = {
 
   {
     "folke/todo-comments.nvim",
+    event = "User FilePost",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -216,7 +218,7 @@ local plugins = {
     end,
   },
 
-  --@TODO: find a better way to handle python instead of NN and molten
+  -- TODO: find a better way to handle python instead of NN and molten
   {
     "GCBallesteros/NotebookNavigator.nvim",
     dependencies = {
@@ -243,7 +245,7 @@ local plugins = {
     event = "VeryLazy",
   },
 
-  --@TODO: make sure this is the best way to use it
+  -- TODO: make sure this is the best way to use it
   {
     "rcarriga/nvim-dap-ui",
     event = "User FilePost",

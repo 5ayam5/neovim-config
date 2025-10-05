@@ -51,7 +51,7 @@ M.opts.picker = {
 }
 
 M.keys = {
-  --@TODO: find a way to show list of terminals
+  -- TODO: find a way to show list of terminals
   -- Snacks picker
   {
     "<leader>fw",
@@ -126,7 +126,7 @@ M.keys = {
   {
     "<leader>ft",
     function()
-      ---@diagnostic disable-next-line: undefined-field
+      require("todo-comments").setup {}
       Snacks.picker.todo_comments { no_status = true }
     end,
     desc = "Find TODO comments",
