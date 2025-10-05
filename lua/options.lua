@@ -47,6 +47,7 @@ opt.foldlevel = 99
 
 -- Miscellaneous
 g.tex_flavor = "latex"
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
 -- Enable/Disable language providers
 local enable_providers = {
