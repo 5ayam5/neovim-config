@@ -177,37 +177,6 @@ autocmd({ "BufReadPost", "BufNewFile" }, {
   end,
 })
 
---@TODO: move this to a separate file
--- Harpoon
-local harpoon = require "harpoon"
-harpoon:setup {
-  settings = {
-    save_on_toggle = true,
-  },
-}
-harpoon:extend {
-  UI_CREATE = function(cx)
-    vim.keymap.set("n", "<C-v>", function()
-      harpoon.ui:select_menu_item { vsplit = true }
-    end, { buffer = cx.bufnr })
-
-    vim.keymap.set("n", "<C-h>", function()
-      harpoon.ui:select_menu_item { split = true }
-    end, { buffer = cx.bufnr })
-  end,
-}
-map("n", "<leader>oo", function()
-  harpoon.ui:toggle_quick_menu(harpoon:list())
-end, { desc = "Harpoon open window" })
-vim.keymap.set("n", "<leader>oa", function()
-  harpoon:list():add()
-end, { desc = "Harpoon add current file" })
-for i = 1, 9 do
-  vim.keymap.set("n", "<leader>o" .. i, function()
-    harpoon:list():select(i)
-  end, { desc = "Harpoon go to file " .. i })
-end
-
 -- Markdown
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",

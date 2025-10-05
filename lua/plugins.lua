@@ -288,9 +288,13 @@ local plugins = {
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
+    event = "VimEnter",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+    config = function()
+      require "configs.harpoon"
+    end,
   },
 
   {
