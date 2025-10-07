@@ -44,12 +44,6 @@ local opts = {
 
   sources = {
     providers = {
-      copilot = {
-        name = "copilot",
-        module = "blink-cmp-copilot",
-        score_offset = 100,
-        async = true,
-      },
       lazydev = {
         name = "LazyDev",
         module = "lazydev.integrations.blink",

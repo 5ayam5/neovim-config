@@ -5,6 +5,8 @@ local options = {
     lua = { "stylua" },
     python = { "isort", "ruff" },
     markdown = { "mdformat" },
+    tex = { "tex-fmt" },
+    bib = { "tex-fmt" },
   },
 
   format_on_save = {

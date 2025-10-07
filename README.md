@@ -20,7 +20,6 @@
 - [saghen/blink.cmp](https://github.com/saghen/blink.cmp)
 - [L3MON4D3/LuaSnip](https://github.com/L3MON4D3/LuaSnip)
 - [Saghen/blink.pairs](https://github.com/Saghen/blink.pairs)
-- [giuxtaposition/blink-cmp-copilot](https://github.com/giuxtaposition/blink-cmp-copilot)
 - [folke/lazydev.nvim](https://github.com/folke/lazydev.nvim)
 - [zbirenbaum/copilot.lua](https://github.com/zbirenbaum/copilot.lua)
 - [folke/snacks.nvim](https://github.com/folke/snacks.nvim)
@@ -41,5 +40,4 @@
 
 # Credits
 
-1. [NvChad](https://github.com/NvChad/NvChad) and its [starter](https://github.com/NvChad/starter) repo!
-1. Lazyvim [starter](https://github.com/LazyVim/starter) as nvchad's starter was inspired by Lazyvim's . It made a lot of things easier!
+[NvChad](https://github.com/NvChad/NvChad) and its [starter](https://github.com/NvChad/starter) repo!

@@ -62,17 +62,13 @@ M.nvdash = {
   buttons = require "nvdash",
 }
 
-M.cheatsheet = {
-  excluded_groups = { "autopairs" },
-}
-
 M.ui = {
   tabufline = {
     lazyload = false,
     order = { "treeOffset", "buffers", "tabs" },
   },
   statusline = {
-    theme = "vscode_colored",
+    separator_style = "arrow",
   },
 
   cmp = {

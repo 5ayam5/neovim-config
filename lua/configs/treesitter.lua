@@ -18,4 +18,6 @@ return {
   "vim",
   "vimdoc",
   "yaml",
+  "bash",
+  "latex",
 }

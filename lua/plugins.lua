@@ -114,19 +114,6 @@ local plugins = {
       },
 
       {
-        "giuxtaposition/blink-cmp-copilot",
-        dependencies = {
-          {
-            "zbirenbaum/copilot.lua",
-            cmd = "Copilot",
-            event = "InsertEnter",
-            config = function()
-              require("copilot").setup(require "configs.copilot")
-            end,
-          },
-        },
-      },
-      {
         "folke/lazydev.nvim",
         ft = "lua",
         opts = {
@@ -139,6 +126,15 @@ local plugins = {
     opts_extend = { "sources.default" },
     opts = function()
       return require "configs.blink"
+    end,
+  },
+
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup(require "configs.copilot")
     end,
   },
 
@@ -301,6 +297,7 @@ local plugins = {
 
   {
     "OXY2DEV/markview.nvim",
+    lazy = false,
     event = "User FilePost",
     dependencies = { "nvim-treesitter/nvim-treesitter", "saghen/blink.cmp" },
     config = function()
