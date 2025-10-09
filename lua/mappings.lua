@@ -134,38 +134,48 @@ map("n", "<leader>dr", function()
   require("dap").continue()
 end, { desc = "DAP start or continue the debugger" })
 
--- notebook-navigator keybindings
-map("n", "<leader>jd", function()
-  require("notebook-navigator").move_cell "d"
-end, { desc = "Notebook-Navigator move cell down" })
-map("n", "<leader>ju", function()
-  require("notebook-navigator").move_cell "u"
-end, { desc = "Notebook-Navigator move cell up" })
-map(
-  "n",
-  "<leader>jR",
-  "<cmd>lua require('notebook-navigator').run_cell()<CR>zz",
-  { desc = "Notebook-Navigator run jupyter cell" }
-)
-map(
-  "n",
-  "<leader>jr",
-  "<cmd>lua require('notebook-navigator').run_and_move()<CR>zz",
-  { desc = "Notebook-Navigator run and move jupyter cell" }
-)
+autocmd("FileType", {
+  pattern = { "python" },
+  callback = function()
+    -- notebook-navigator keybindings
+    map("n", "<leader>jd", function()
+      require("notebook-navigator").move_cell "d"
+    end, { desc = "Notebook-Navigator move cell down" })
+    map("n", "<leader>ju", function()
+      require("notebook-navigator").move_cell "u"
+    end, { desc = "Notebook-Navigator move cell up" })
+    map(
+      "n",
+      "<leader>jR",
+      "<cmd>lua require('notebook-navigator').run_cell()<CR>zz",
+      { desc = "Notebook-Navigator run jupyter cell" }
+    )
+    map(
+      "n",
+      "<leader>jr",
+      "<cmd>lua require('notebook-navigator').run_and_move()<CR>zz",
+      { desc = "Notebook-Navigator run and move jupyter cell" }
+    )
 
--- Molten keybindings
-map("n", "<leader>jm", "<cmd>MoltenInit<CR>", { desc = "Molten initialize", silent = true })
-map("n", "<leader>je", "<cmd>MoltenEvaluateOperator<CR>", { desc = "Molten evaluate operator", silent = true })
-map("n", "<leader>js", "<cmd>noautocmd MoltenEnterOutput<CR>", { desc = "Molten open output window", silent = true })
-map(
-  "v",
-  "<leader>jx",
-  "<cmd><C-u>MoltenEvaluateVisual<CR>gv",
-  { desc = "Molten execute visual selection", silent = true }
-)
-map("n", "<leader>jh", "<cmd>MoltenHideOutput<CR>", { desc = "Molten close output window", silent = true })
-map("n", "<leader>ji", "<cmd>MoltenImagePopup<CR>", { desc = "Molten popup output image", silent = true })
+    -- Molten keybindings
+    map("n", "<leader>jm", "<cmd>MoltenInit<CR>", { desc = "Molten initialize", silent = true })
+    map("n", "<leader>je", "<cmd>MoltenEvaluateOperator<CR>", { desc = "Molten evaluate operator", silent = true })
+    map(
+      "n",
+      "<leader>js",
+      "<cmd>noautocmd MoltenEnterOutput<CR>",
+      { desc = "Molten open output window", silent = true }
+    )
+    map(
+      "v",
+      "<leader>jx",
+      "<cmd><C-u>MoltenEvaluateVisual<CR>gv",
+      { desc = "Molten execute visual selection", silent = true }
+    )
+    map("n", "<leader>jh", "<cmd>MoltenHideOutput<CR>", { desc = "Molten close output window", silent = true })
+    map("n", "<leader>ji", "<cmd>MoltenImagePopup<CR>", { desc = "Molten popup output image", silent = true })
+  end,
+})
 
 -- git related
 autocmd({ "BufReadPost", "BufNewFile" }, {

@@ -20,4 +20,5 @@ return {
   "yaml",
   "bash",
   "latex",
+  "python",
 }

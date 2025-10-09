@@ -199,7 +199,7 @@ local plugins = {
     event = "User FilePost",
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
-      disabled_filetypes = { "harpoon", "nvdash", "nvcheatsheet", "markdown" },
+      disabled_filetypes = { "harpoon", "nvdash", "nvcheatsheet", "molten_output" },
     },
   },
 
@@ -214,31 +214,25 @@ local plugins = {
     end,
   },
 
-  -- TODO: find a better way to handle python instead of NN and molten
   {
     "GCBallesteros/NotebookNavigator.nvim",
-    dependencies = {
-      "echasnovski/mini.comment",
-      "benlubas/molten-nvim",
-    },
-    event = "VeryLazy",
+    ft = "python",
+    dependencies = "benlubas/molten-nvim",
   },
 
   {
     "benlubas/molten-nvim",
+    lazy = false,
     build = ":UpdateRemotePlugins",
     init = function()
-      -- vim.g.molten_image_provider = "image.nvim"
-      vim.g.molten_output_win_max_height = 20
+      vim.g.molten_image_provider = "snacks.nvim"
     end,
   },
 
   {
-    "GCBallesteros/jupytext.nvim",
-    config = function()
-      return require("jupytext").setup { style = "percent" }
-    end,
-    event = "VeryLazy",
+    "goerz/jupytext.nvim",
+    lazy = false,
+    opts = { format = "py:percent" },
   },
 
   -- TODO: make sure this is the best way to use it
