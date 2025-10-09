@@ -196,3 +196,6 @@ vim.api.nvim_create_autocmd("FileType", {
     )
   end,
 })
+
+-- Lazy
+map("n", "<leader>l", "<cmd>Lazy<CR>", { desc = "Lazy open plugin manager" })

@@ -1,18 +1,5 @@
 ---@module 'snacks'
 
-vim.schedule(function()
-  local input = require "snacks.picker.core.input"
-  local statuscolumn = input.statuscolumn
-  input.statuscolumn = function(self)
-    ---@diagnostic disable-next-line: undefined-field
-    if self.picker.opts.no_status == true then
-      return "%#SnacksPickerPrompt# %*"
-    else
-      return statuscolumn(self)
-    end
-  end
-end)
-
 local M = {}
 
 ---@type snacks.config
@@ -127,7 +114,7 @@ M.keys = {
     "<leader>ft",
     function()
       require("todo-comments").setup {}
-      Snacks.picker.todo_comments { no_status = true }
+      Snacks.picker.todo_comments {}
     end,
     desc = "Find TODO comments",
   },

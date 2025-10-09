@@ -51,11 +51,12 @@ end
 
 M.keys = {
   {
-    "<leader>ss",
+    "s",
     mode = { "n" },
     flash_forward "start",
     desc = "Flash forward search",
   },
+
   {
     "s",
     mode = { "x", "o" },
@@ -65,14 +66,8 @@ M.keys = {
 
   {
 
-    "<leader>sS",
-    mode = { "n" },
-    flash_backward,
-    desc = "Flash backward search",
-  },
-  {
     "S",
-    mode = { "x", "o" },
+    mode = { "n", "x", "o" },
     flash_backward,
     desc = "Flash backward search",
   },

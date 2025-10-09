@@ -17,11 +17,6 @@ local plugins = {
     end,
   },
 
-  -- TODO: see if I need all of them
-  "nvzone/volt",
-  "nvzone/menu",
-  { "nvzone/minty", cmd = { "Huefy", "Shades" } },
-
   {
     "nvim-tree/nvim-web-devicons",
     opts = function()
@@ -143,6 +138,7 @@ local plugins = {
     dependencies = {
       "folke/todo-comments.nvim",
       "folke/flash.nvim",
+      "nvim-treesitter/nvim-treesitter",
     },
     opts = function()
       return require("configs.snacks").opts
@@ -293,7 +289,6 @@ local plugins = {
     "OXY2DEV/markview.nvim",
     lazy = false,
     event = "User FilePost",
-    dependencies = { "nvim-treesitter/nvim-treesitter", "saghen/blink.cmp" },
     config = function()
       require("markview").setup(require "configs.markview")
     end,
