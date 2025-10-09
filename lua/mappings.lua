@@ -46,7 +46,7 @@ end
 
 -- File related
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file" })
-map({ "n", "i", "v" }, "<C-x>", "<cmd> noa w <CR>", { desc = "Save without autocmds" })
+map({ "n", "i", "v" }, "<C-x>", "<cmd>noa w<CR>", { desc = "Save without autocmds" })
 map({ "n", "x" }, "<C-f>", function()
   require("conform").format { lsp_fallback = true }
 end, { desc = "Format file" })
@@ -70,19 +70,16 @@ local count_windows_and_hide_floating = function()
 end
 
 local close_window = function()
-  if
-    (
-      count_windows_and_hide_floating() == 1
-      or (
-        count_windows_and_hide_floating() == 2
-        and vim.bo.filetype ~= "NvimTree"
-        and require("nvim-tree.api").tree.is_visible()
-      )
-    ) and vim.bo.filetype ~= "nvdash"
-  then
-    vim.cmd "Nvdash"
-  else
-    vim.cmd ":q"
+  local num_windows = count_windows_and_hide_floating()
+  if vim.bo.filetype ~= "nvdash" then
+    if
+      num_windows == 1
+      or (num_windows == 2 and vim.bo.filetype ~= "NvimTree" and require("nvim-tree.api").tree.is_visible())
+    then
+      vim.cmd "Nvdash"
+    else
+      vim.cmd ":q"
+    end
   end
 end
 
@@ -126,7 +123,7 @@ map("n", "<leader>cn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "
 ------------------------------------------------------------------------------------------------------
 
 -- C++ debugging with dap
-map("n", "<leader>db", "<cmd> DapToggleBreakpoint <CR>", { desc = "DAP toggle breakpoint at line" })
+map("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>", { desc = "DAP toggle breakpoint at line" })
 map("n", "<leader>dr", function()
   if vim.fn.filereadable ".vscode/launch.json" then
     require("dap.ext.vscode").load_launchjs(nil, { codelldb = { "c", "cpp" } })
@@ -191,6 +188,11 @@ autocmd({ "BufReadPost", "BufNewFile" }, {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   callback = function()
-    map("n", "<leader>m", ":Markview toggle<CR>", { desc = "Toggle Markdown rendering", silent = true, buffer = true })
+    map(
+      "n",
+      "<leader>m",
+      "<cmd>Markview toggle<CR>",
+      { desc = "Toggle Markdown rendering", silent = true, buffer = true }
+    )
   end,
 })
