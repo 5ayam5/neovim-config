@@ -101,16 +101,6 @@ map("n", "<C-CR>", "<cmd>NvimTreeToggle<CR>", { desc = "Nvimtree toggle window" 
 -- terminal
 map("t", "<C-j><C-k>", "<C-\\><C-N>", { desc = "Terminal escape terminal mode" })
 
-map({ "n", "t" }, "<A-v>", function()
-  require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
-end, { desc = "Terminal toggleable vertical term" })
-map({ "n", "t" }, "<A-h>", function()
-  require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
-end, { desc = "Terminal toggleable horizontal term" })
-map({ "n", "t" }, "<A-i>", function()
-  require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
-end, { desc = "Terminal toggle floating term" })
-
 -- utility
 map("n", "<leader>cc", "<cmd>NvCheatsheet<CR>", { desc = "Toggle nvcheatsheet" })
 map("n", "<leader>ch", ":checkhealth ", { desc = "Checkhealth" })

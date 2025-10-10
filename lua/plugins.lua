@@ -195,7 +195,7 @@ local plugins = {
     event = "User FilePost",
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
-      disabled_filetypes = { "harpoon", "nvdash", "nvcheatsheet", "molten_output" },
+      disabled_filetypes = { "harpoon", "nvdash", "nvcheatsheet", "molten_output", "snacks_terminal" },
     },
   },
 

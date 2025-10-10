@@ -111,8 +111,8 @@ return function()
       pad = 3,
       content = "fit",
       { txt = "  Lazy sync [s]", hl = "changed", keys = "s", cmd = "Lazy sync" },
-      { txt = "  Files [f]", hl = "Added", keys = "f", cmd = "lua Snacks.picker.files()" },
-      { txt = " Lazygit [g]", hl = "Function", keys = "g", cmd = "lua Snacks.lazygit()" },
+      { txt = "  Files [f]", hl = "Added", keys = "f", cmd = 'lua require("snacks").picker.files()' },
+      { txt = " Lazygit [g]", hl = "Function", keys = "g", cmd = 'lua require("snacks").lazygit()' },
       { txt = "✖  Quit [q]", hl = "nviminternalError", keys = "q", cmd = "qa" },
     },
 

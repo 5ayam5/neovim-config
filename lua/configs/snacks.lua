@@ -38,7 +38,6 @@ M.opts.picker = {
 }
 
 M.keys = {
-  -- TODO: find a way to show list of terminals
   -- Snacks picker
   {
     "<leader>fw",
@@ -98,6 +97,23 @@ M.keys = {
       Snacks.picker.keymaps()
     end,
     desc = "Find keymaps",
+  },
+
+  -- terminal
+  {
+    "<A-t>",
+    function()
+      ---@type snacks.terminal.Opts
+      local opts = {
+        win = {
+          position = "float",
+          border = "single",
+        },
+      }
+      Snacks.terminal.toggle(nil, opts)
+    end,
+    desc = "Toggle floating terminal",
+    mode = { "n", "t" },
   },
 
   -- LazyGit
