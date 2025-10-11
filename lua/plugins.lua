@@ -176,6 +176,9 @@ local plugins = {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = "User FilePost",
     opts = { multiwindow = true },
+    config = function(_, opts)
+      require("treesitter-context").setup(opts)
+    end,
   },
 
   {
@@ -196,6 +199,11 @@ local plugins = {
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
       disabled_filetypes = { "harpoon", "nvdash", "nvcheatsheet", "molten_output", "snacks_terminal" },
+      restriction_mode = "hint",
+      restricted_keys = {
+        ["<C-N>"] = {},
+        ["<C-P>"] = {},
+      },
     },
   },
 

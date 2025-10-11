@@ -41,7 +41,7 @@
 # Fresh Installation Checklist
 
 1. `neovim >= 0.11`
-1. `pip install pynvim jupytext` (also look at optional dependencies mentioned by `:checkhealth molten`)
+1. `pip install pynvim jupytext jupyter_client` (also look at optional dependencies mentioned by `:checkhealth molten`)
 1. `:MasonInstallAll`
 
 # Credits

@@ -121,14 +121,15 @@ map("n", "<leader>dr", function()
   require("dap").continue()
 end, { desc = "DAP start or continue the debugger" })
 
+-- python
 autocmd("FileType", {
   pattern = { "python" },
   callback = function()
     -- notebook-navigator keybindings
-    map("n", "<leader>jd", function()
+    map("n", "<C-n>", function()
       require("notebook-navigator").move_cell "d"
     end, { desc = "Notebook-Navigator move cell down" })
-    map("n", "<leader>ju", function()
+    map("n", "<C-p>", function()
       require("notebook-navigator").move_cell "u"
     end, { desc = "Notebook-Navigator move cell up" })
     map(

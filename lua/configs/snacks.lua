@@ -5,7 +5,6 @@ local M = {}
 ---@type snacks.config
 M.opts = {}
 
----@type snacks.picker.config
 M.opts.picker = {
   win = {
     input = {
@@ -46,6 +45,7 @@ M.keys = {
     end,
     desc = "Find word",
   },
+
   {
     "<leader>ff",
     function()
@@ -53,6 +53,7 @@ M.keys = {
     end,
     desc = "Find file",
   },
+
   {
     "<leader>fa",
     function()
@@ -63,6 +64,7 @@ M.keys = {
     end,
     desc = "Find all file",
   },
+
   {
     "<leader>fb",
     function()
@@ -70,6 +72,7 @@ M.keys = {
     end,
     desc = "Find buffer",
   },
+
   {
     "<leader>fh",
     function()
@@ -77,6 +80,7 @@ M.keys = {
     end,
     desc = "Find help",
   },
+
   {
     "<leader>fl",
     function()
@@ -84,6 +88,7 @@ M.keys = {
     end,
     desc = "Find highlights",
   },
+
   {
     "<leader>fc",
     function()
@@ -91,6 +96,7 @@ M.keys = {
     end,
     desc = "Find in open buffer",
   },
+
   {
     "<leader>fm",
     function()
@@ -140,5 +146,13 @@ M.opts.notifier = {
   enabled = true,
   level = vim.log.levels.DEBUG,
 }
+
+M.opts.image = { enabled = true }
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = M.opts.image.formats,
+  callback = function()
+    require "snacks.image"
+  end,
+})
 
 return M
