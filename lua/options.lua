@@ -41,9 +41,10 @@ o.updatetime = 250
 o.timeoutlen = 400
 
 -- Folding
-opt.foldmethod = "expr"
-opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-opt.foldlevel = 99
+o.foldmethod = "expr"
+o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+o.foldlevel = 99
+o.foldenable = true
 
 -- Miscellaneous
 g.tex_flavor = "latex"

@@ -63,3 +63,13 @@ autocmd("FileType", {
     end)
   end,
 })
+
+autocmd("BufWinLeave", {
+  pattern = "*",
+  command = "silent! mkview",
+})
+
+autocmd("BufWinEnter", {
+  pattern = "*",
+  command = "silent! loadview",
+})
