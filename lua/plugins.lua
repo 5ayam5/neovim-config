@@ -230,6 +230,8 @@ local plugins = {
     build = ":UpdateRemotePlugins",
     init = function()
       vim.g.molten_image_provider = "snacks.nvim"
+      vim.g.molten_auto_open_output = false
+      vim.g.molten_virt_text_output = true
     end,
   },
 

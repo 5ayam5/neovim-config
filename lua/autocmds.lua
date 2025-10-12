@@ -54,3 +54,12 @@ autocmd("User", {
     vim.b.copilot_suggestion_hidden = false
   end,
 })
+
+autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    pcall(function()
+      vim.treesitter.start()
+    end)
+  end,
+})

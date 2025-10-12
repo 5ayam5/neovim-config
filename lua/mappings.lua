@@ -91,10 +91,6 @@ map("n", "<leader>q", function()
   end
 end, { desc = "Nvdash open" })
 
--- comment
-map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
-map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
-
 -- nvimtree
 map("n", "<C-CR>", "<cmd>NvimTreeToggle<CR>", { desc = "Nvimtree toggle window" })
 
@@ -132,35 +128,24 @@ autocmd("FileType", {
     map("n", "<C-p>", function()
       require("notebook-navigator").move_cell "u"
     end, { desc = "Notebook-Navigator move cell up" })
-    map(
-      "n",
-      "<leader>jR",
-      "<cmd>lua require('notebook-navigator').run_cell()<CR>zz",
-      { desc = "Notebook-Navigator run jupyter cell" }
-    )
-    map(
-      "n",
-      "<leader>jr",
-      "<cmd>lua require('notebook-navigator').run_and_move()<CR>zz",
-      { desc = "Notebook-Navigator run and move jupyter cell" }
-    )
+
+    map("n", "<leader>jR", function()
+      require("notebook-navigator").run_cell()
+    end, { desc = "Notebook-Navigator run jupyter cell" })
+    map("n", "<leader>jr", function()
+      require("notebook-navigator").run_and_move()
+    end, { desc = "Notebook-Navigator run and move jupyter cell" })
+
+    map("n", "<leader>ja", function()
+      require("notebook-navigator").add_cell_below()
+    end, { desc = "Notebook-Navigator add cell below" })
+    map("n", "<leader>jA", function()
+      require("notebook-navigator").add_cell_above()
+    end, { desc = "Notebook-Navigator add cell above" })
 
     -- Molten keybindings
-    map("n", "<leader>jm", "<cmd>MoltenInit<CR>", { desc = "Molten initialize", silent = true })
     map("n", "<leader>je", "<cmd>MoltenEvaluateOperator<CR>", { desc = "Molten evaluate operator", silent = true })
-    map(
-      "n",
-      "<leader>js",
-      "<cmd>noautocmd MoltenEnterOutput<CR>",
-      { desc = "Molten open output window", silent = true }
-    )
-    map(
-      "v",
-      "<leader>jx",
-      "<cmd><C-u>MoltenEvaluateVisual<CR>gv",
-      { desc = "Molten execute visual selection", silent = true }
-    )
-    map("n", "<leader>jh", "<cmd>MoltenHideOutput<CR>", { desc = "Molten close output window", silent = true })
+    map("n", "<leader>jo", "<cmd>MoltenToggleVirtual<CR>", { desc = "Molten toggle output window", silent = true })
     map("n", "<leader>ji", "<cmd>MoltenImagePopup<CR>", { desc = "Molten popup output image", silent = true })
   end,
 })
@@ -168,6 +153,9 @@ autocmd("FileType", {
 -- git related
 autocmd({ "BufReadPost", "BufNewFile" }, {
   callback = function()
+    if vim.fn.isdirectory ".git" == 0 then
+      return
+    end
     map("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<CR>", { desc = "git toggle blame", silent = true })
     map("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", { desc = "git diff this", silent = true })
     map("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>", { desc = "git stage hunk", silent = true })
