@@ -31,7 +31,7 @@ M.preview = {
   icon_provider = "devicons",
 
   modes = { "n", "no" },
-  hybrid_modes = { "n", "no" },
+  hybrid_modes = { "no" },
 }
 
 return M

@@ -219,9 +219,19 @@ local plugins = {
   },
 
   {
-    "GCBallesteros/NotebookNavigator.nvim",
-    ft = "python",
-    dependencies = "benlubas/molten-nvim",
+    "quarto-dev/quarto-nvim",
+    dependencies = {
+      {
+        "jmbuhr/otter.nvim",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+        opts = {},
+      },
+      "benlubas/molten-nvim",
+    },
+    ft = "quarto",
+    opts = {
+      codeRunner = { default_method = "molten" },
+    },
   },
 
   {
@@ -232,13 +242,14 @@ local plugins = {
       vim.g.molten_image_provider = "snacks.nvim"
       vim.g.molten_auto_open_output = false
       vim.g.molten_virt_text_output = true
+      vim.g.molten_virt_lines_off_by_1 = true
     end,
   },
 
   {
     "goerz/jupytext.nvim",
     lazy = false,
-    opts = { format = "py:percent" },
+    opts = { filetype = "quarto" },
   },
 
   -- TODO: make sure this is the best way to use it

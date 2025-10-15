@@ -117,55 +117,52 @@ map("n", "<leader>dr", function()
   require("dap").continue()
 end, { desc = "DAP start or continue the debugger" })
 
--- python
+-- jupyter
+local toggle_molten = function()
+  if vim.b.molten_initialized == true then
+    vim.cmd ":OtterDeactivate"
+    vim.cmd ":MoltenDeinit"
+    vim.b.molten_initialized = false
+  else
+    vim.cmd ":MoltenInit"
+    vim.cmd ":OtterActivate"
+    vim.b.molten_initialized = true
+  end
+end
+
 autocmd("FileType", {
-  pattern = { "python" },
+  pattern = { "quarto" },
   callback = function()
-    -- notebook-navigator keybindings
+    vim.b.molten_initialized = false
+
+    -- navigating cells
     map("n", "<C-n>", function()
-      require("notebook-navigator").move_cell "d"
-    end, { desc = "Notebook-Navigator move cell down" })
+      pcall(function()
+        vim.fn.search("^```\\(python\\|{python}\\)$", "W")
+        vim.cmd ":noh"
+      end)
+    end)
     map("n", "<C-p>", function()
-      require("notebook-navigator").move_cell "u"
-    end, { desc = "Notebook-Navigator move cell up" })
+      pcall(function()
+        vim.fn.search("^```\\(python\\|{python}\\)$", "Wb")
+        vim.cmd ":noh"
+      end)
+    end)
 
-    map("n", "<leader>jR", function()
-      require("notebook-navigator").run_cell()
-    end, { desc = "Notebook-Navigator run jupyter cell" })
+    -- quarto keybindings
     map("n", "<leader>jr", function()
-      require("notebook-navigator").run_and_move()
-    end, { desc = "Notebook-Navigator run and move jupyter cell" })
-
-    map("n", "<leader>ja", function()
-      require("notebook-navigator").add_cell_below()
-    end, { desc = "Notebook-Navigator add cell below" })
-    map("n", "<leader>jA", function()
-      require("notebook-navigator").add_cell_above()
-    end, { desc = "Notebook-Navigator add cell above" })
+      require("quarto.runner").run_cell()
+    end, { desc = "Notebook-Navigator run jupyter cell" })
 
     -- Molten keybindings
-    map("n", "<leader>je", "<cmd>MoltenEvaluateOperator<CR>", { desc = "Molten evaluate operator", silent = true })
     map("n", "<leader>jo", "<cmd>MoltenToggleVirtual<CR>", { desc = "Molten toggle output window", silent = true })
-    map("n", "<leader>ji", "<cmd>MoltenImagePopup<CR>", { desc = "Molten popup output image", silent = true })
-  end,
-})
-
--- git related
-autocmd({ "BufReadPost", "BufNewFile" }, {
-  callback = function()
-    if vim.fn.isdirectory ".git" == 0 then
-      return
-    end
-    map("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<CR>", { desc = "git toggle blame", silent = true })
-    map("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", { desc = "git diff this", silent = true })
-    map("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>", { desc = "git stage hunk", silent = true })
-    map("n", "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>", { desc = "git reset hunk", silent = true })
+    map("n", "<leader>jj", toggle_molten, { desc = "Molten toggle init", silent = true })
   end,
 })
 
 -- Markdown
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
+  pattern = { "markdown", "quarto" },
   callback = function()
     map(
       "n",
