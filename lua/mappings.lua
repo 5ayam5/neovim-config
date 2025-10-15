@@ -98,9 +98,9 @@ map("n", "<C-CR>", "<cmd>NvimTreeToggle<CR>", { desc = "Nvimtree toggle window" 
 map("t", "<C-j><C-k>", "<C-\\><C-N>", { desc = "Terminal escape terminal mode" })
 
 -- utility
-map("n", "<leader>cc", "<cmd>NvCheatsheet<CR>", { desc = "Toggle nvcheatsheet" })
-map("n", "<leader>ch", ":checkhealth ", { desc = "Checkhealth" })
-map("n", "<leader>cn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "Show notification history" })
+map("n", "<leader>cc", "<cmd>NvCheatsheet<CR>", { desc = "Toggle nvCheatsheet" })
+map("n", "<leader>ce", ":checkhealth ", { desc = "CheckhEalth" })
+map("n", "<leader>cn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "Show Notification history" })
 
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------

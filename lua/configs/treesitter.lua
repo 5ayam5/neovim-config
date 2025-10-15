@@ -19,4 +19,5 @@ return {
   "bash",
   "latex",
   "python",
+  "regex",
 }

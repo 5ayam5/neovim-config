@@ -71,6 +71,7 @@ servers.texlab = {
       },
       chktex = {
         onOpenAndSave = true,
+        onEdit = true,
       },
       forwardSearch = {
         executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
@@ -94,3 +95,19 @@ for name, opts in pairs(servers) do
   vim.lsp.config(name, opts)
   vim.lsp.enable(name)
 end
+
+vim.diagnostic.config {
+  virtual_text = { prefix = "" },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "󰅙",
+      [vim.diagnostic.severity.WARN] = "",
+      [vim.diagnostic.severity.INFO] = "󰋼",
+      [vim.diagnostic.severity.HINT] = "󰌵",
+    },
+  },
+  underline = true,
+  float = { border = "single" },
+  severity_sort = true,
+  update_in_insert = true,
+}

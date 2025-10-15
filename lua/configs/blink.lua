@@ -1,6 +1,68 @@
 dofile(vim.g.base46_cache .. "blink")
 
-local menu = require("nvchad.blink").menu
+local lspkindicons = {
+  Namespace = "󰌗",
+  Text = "󰉿",
+  Method = "󰆧",
+  Function = "󰆧",
+  Constructor = "",
+  Field = "󰜢",
+  Variable = "󰀫",
+  Class = "󰠱",
+  Interface = "",
+  Module = "",
+  Property = "󰜢",
+  Unit = "󰑭",
+  Value = "󰎠",
+  Enum = "",
+  Keyword = "󰌋",
+  Snippet = "",
+  Color = "󱓻",
+  File = "󰈚",
+  Reference = "󰈇",
+  Folder = "󰉋",
+  EnumMember = "",
+  Constant = "󰏿",
+  Struct = "󰙅",
+  Event = "",
+  Operator = "󰆕",
+  TypeParameter = "󰊄",
+  Table = "",
+  Object = "󰅩",
+  Tag = "",
+  Array = "[]",
+  Boolean = "",
+  Number = "",
+  Null = "󰟢",
+  Supermaven = "",
+  String = "󰉿",
+  Calendar = "",
+  Watch = "󰥔",
+  Package = "",
+  Copilot = "",
+  Codeium = "",
+  TabNine = "",
+  BladeNav = "",
+}
+
+local menu = {
+  scrollbar = false,
+  draw = {
+    padding = { 0, 1 },
+    columns = { { "kind_icon" }, { "label" }, { "kind" } },
+    components = {
+      kind_icon = {
+        text = function(ctx)
+          local icons = lspkindicons
+          local icon = " " .. (icons[ctx.kind] or "󰈚") .. " "
+          return icon
+        end,
+      },
+
+      kind = { highlight = "comment" },
+    },
+  },
+}
 
 local opts = {
   snippets = { preset = "luasnip" },

@@ -74,7 +74,7 @@ M.keys = {
   },
 
   {
-    "<leader>fh",
+    "<leader>ch",
     function()
       Snacks.picker.help()
     end,
@@ -147,7 +147,10 @@ M.opts.notifier = {
   level = vim.log.levels.DEBUG,
 }
 
-M.opts.image = { enabled = true }
+M.opts.image = {
+  enabled = true,
+  math = { enabled = false },
+}
 vim.api.nvim_create_autocmd("FileType", {
   pattern = M.opts.image.formats,
   callback = function()

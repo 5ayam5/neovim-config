@@ -42,7 +42,6 @@
 
 1. `neovim >= 0.11`
 1. `pip install pynvim jupytext jupyter` (also look at optional dependencies mentioned by `:checkhealth molten`)
-1. `:MasonInstallAll`
 
 # Credits
 

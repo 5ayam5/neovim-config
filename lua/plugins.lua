@@ -21,7 +21,7 @@ local plugins = {
     "nvim-tree/nvim-web-devicons",
     opts = function()
       dofile(vim.g.base46_cache .. "devicons")
-      return { override = require "nvchad.icons.devicons" }
+      return {}
     end,
   },
 
@@ -135,11 +135,8 @@ local plugins = {
 
   {
     "folke/snacks.nvim",
-    dependencies = {
-      "folke/todo-comments.nvim",
-      "folke/flash.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
+    lazy = false,
+    priority = 1000,
     opts = function()
       return require("configs.snacks").opts
     end,
@@ -151,8 +148,7 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
-    event = { "BufReadPost", "BufNewFile" },
-    cmd = { "TSInstall", "TSInstallFromGrammar", "TSUninstall", "TSLog" },
+    lazy = false,
     build = ":TSUpdate",
     config = function(_, opts)
       local ensure_installed = require "configs.treesitter"
@@ -198,7 +194,14 @@ local plugins = {
     event = "User FilePost",
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
-      disabled_filetypes = { "harpoon", "nvdash", "nvcheatsheet", "molten_output", "snacks_terminal" },
+      disabled_filetypes = {
+        "harpoon",
+        "nvdash",
+        "nvcheatsheet",
+        "molten_output",
+        "snacks_terminal",
+        "snacks_notif_history",
+      },
       restriction_mode = "hint",
       restricted_keys = {
         ["<C-N>"] = {},

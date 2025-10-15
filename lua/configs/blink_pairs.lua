@@ -15,7 +15,6 @@ local M = {
       "BlinkPairsPurple",
       "BlinkPairsBlue",
       "BlinkPairsYellow",
-      "BlinkPairsGreen",
       "BlinkPairsViolet",
     },
   },
