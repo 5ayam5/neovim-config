@@ -28,6 +28,8 @@ M.base46 = {
     SnacksPickerList = { fg = "white", bg = "one_bg" },
     SnacksPickerBorder = { link = "FloatBorder" },
   },
+
+  hl_override = {},
 }
 
 M.nvdash = {
@@ -66,9 +68,6 @@ M.ui = {
   tabufline = {
     lazyload = false,
     order = { "treeOffset", "buffers", "tabs" },
-  },
-  statusline = {
-    separator_style = "arrow",
   },
 
   cmp = {
