@@ -136,16 +136,19 @@ autocmd("FileType", {
     vim.b.molten_initialized = false
 
     -- navigating cells
-    map("n", "<C-n>", function()
+    map("n", "<A-d>", function()
       pcall(function()
-        vim.fn.search("^```\\(python\\|{python}\\)$", "W")
-        vim.cmd ":noh"
+        local found = vim.fn.search "^```\\(python\\|{python}\\)"
+        if found then
+          vim.cmd "normal! j"
+        end
       end)
     end)
-    map("n", "<C-p>", function()
+    map("n", "<A-u>", function()
       pcall(function()
-        vim.fn.search("^```\\(python\\|{python}\\)$", "Wb")
-        vim.cmd ":noh"
+        vim.cmd "normal! k"
+        vim.fn.search("^```\\(python\\|{python}\\)", "b")
+        vim.cmd "normal! j"
       end)
     end)
 

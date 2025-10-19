@@ -14,7 +14,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     map("n", "gD", vim.lsp.buf.declaration, opts "go to declaration")
     map("n", "gd", vim.lsp.buf.definition, opts "go to definition")
-    map("n", "grn", require "nvchad.lsp.renamer", opts "rename symbol")
   end,
 })
 
