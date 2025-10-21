@@ -1,15 +1,15 @@
 local o = vim.o
-local opt = vim.opt
 local g = vim.g
 
 -- Appearance
 o.laststatus = 3
 o.showmode = false
 o.splitkeep = "screen"
-opt.fillchars = { eob = " " }
+vim.opt.fillchars = { eob = " " }
 o.signcolumn = "yes"
 o.splitbelow = true
 o.splitright = true
+o.messagesopt = "hit-enter,history:10000"
 
 -- Editing
 o.clipboard = "unnamedplus"
@@ -18,8 +18,8 @@ o.undofile = true
 -- Cursor
 o.cursorline = true
 o.cursorlineopt = "both"
-opt.relativenumber = true
-opt.number = true
+o.relativenumber = true
+o.number = true
 o.numberwidth = 2
 o.ruler = false
 o.mouse = ""

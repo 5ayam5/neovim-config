@@ -120,12 +120,10 @@ end, { desc = "DAP start or continue the debugger" })
 -- jupyter
 local toggle_molten = function()
   if vim.b.molten_initialized == true then
-    vim.cmd ":OtterDeactivate"
     vim.cmd ":MoltenDeinit"
     vim.b.molten_initialized = false
   else
     vim.cmd ":MoltenInit"
-    vim.cmd ":OtterActivate"
     vim.b.molten_initialized = true
   end
 end
@@ -133,6 +131,7 @@ end
 autocmd("FileType", {
   pattern = { "quarto" },
   callback = function()
+    require("otter").activate { "python" }
     vim.b.molten_initialized = false
 
     -- navigating cells

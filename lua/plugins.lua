@@ -227,32 +227,37 @@ local plugins = {
       {
         "jmbuhr/otter.nvim",
         dependencies = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
-        opts = {},
+        opts = {
+          buffers = {
+            verbose = { no_code_found = true },
+            write_to_disk = true,
+          },
+          lsp = {
+            diagnostic_update_events = { "BufWritePost", "InsertLeave", "TextChanged" },
+          },
+        },
       },
-      "benlubas/molten-nvim",
+      {
+        "benlubas/molten-nvim",
+        lazy = false,
+        build = ":UpdateRemotePlugins",
+        init = function()
+          vim.g.molten_image_provider = "snacks.nvim"
+          vim.g.molten_auto_open_output = false
+          vim.g.molten_virt_text_output = true
+          vim.g.molten_virt_lines_off_by_1 = true
+        end,
+      },
+      {
+        "goerz/jupytext.nvim",
+        lazy = false,
+        opts = { filetype = "quarto" },
+      },
     },
     ft = "quarto",
     opts = {
       codeRunner = { default_method = "molten" },
     },
-  },
-
-  {
-    "benlubas/molten-nvim",
-    lazy = false,
-    build = ":UpdateRemotePlugins",
-    init = function()
-      vim.g.molten_image_provider = "snacks.nvim"
-      vim.g.molten_auto_open_output = false
-      vim.g.molten_virt_text_output = true
-      vim.g.molten_virt_lines_off_by_1 = true
-    end,
-  },
-
-  {
-    "goerz/jupytext.nvim",
-    lazy = false,
-    opts = { filetype = "quarto" },
   },
 
   -- TODO: make sure this is the best way to use it
