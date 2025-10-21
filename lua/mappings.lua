@@ -117,51 +117,6 @@ map("n", "<leader>dr", function()
   require("dap").continue()
 end, { desc = "DAP start or continue the debugger" })
 
--- jupyter
-local toggle_molten = function()
-  if vim.b.molten_initialized == true then
-    vim.cmd ":MoltenDeinit"
-    vim.b.molten_initialized = false
-  else
-    vim.cmd ":MoltenInit"
-    vim.b.molten_initialized = true
-  end
-end
-
-autocmd("FileType", {
-  pattern = { "quarto" },
-  callback = function()
-    require("otter").activate { "python" }
-    vim.b.molten_initialized = false
-
-    -- navigating cells
-    map("n", "<A-d>", function()
-      pcall(function()
-        local found = vim.fn.search "^```\\(python\\|{python}\\)"
-        if found then
-          vim.cmd "normal! j"
-        end
-      end)
-    end)
-    map("n", "<A-u>", function()
-      pcall(function()
-        vim.cmd "normal! k"
-        vim.fn.search("^```\\(python\\|{python}\\)", "b")
-        vim.cmd "normal! j"
-      end)
-    end)
-
-    -- quarto keybindings
-    map("n", "<leader>jr", function()
-      require("quarto.runner").run_cell()
-    end, { desc = "Notebook-Navigator run jupyter cell" })
-
-    -- Molten keybindings
-    map("n", "<leader>jo", "<cmd>MoltenToggleVirtual<CR>", { desc = "Molten toggle output window", silent = true })
-    map("n", "<leader>jj", toggle_molten, { desc = "Molten toggle init", silent = true })
-  end,
-})
-
 -- Markdown
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown", "quarto" },

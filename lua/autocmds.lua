@@ -74,7 +74,7 @@ autocmd("BufWinEnter", {
   command = "silent! loadview",
 })
 
-vim.api.nvim_create_autocmd("LspProgress", {
+autocmd("LspProgress", {
   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
   callback = function(ev)
     local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
