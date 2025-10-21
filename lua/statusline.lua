@@ -138,7 +138,7 @@ elements.lsp = function()
     elseif clients:len() > 24 then
       clients = clients:sub(1, 20) .. "...]"
     end
-    return "%#St_Lsp#  LSP" .. clients
+    return "%#St_Lsp#  LSP " .. clients
   end
 
   return ""

@@ -29,7 +29,7 @@ local plugins = {
     "lukas-reineke/indent-blankline.nvim",
     event = "User FilePost",
     opts = require("configs.indent_blankline").opts,
-    config = require("configs.indent_blankline").config,
+    config = require("configs.indent_blankline").config, -- TODO: see if this can be merged into opts
   },
 
   {
@@ -128,8 +128,8 @@ local plugins = {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
-    config = function()
-      require("copilot").setup(require "configs.copilot")
+    opts = function()
+      return require "configs.copilot"
     end,
   },
 
@@ -172,9 +172,6 @@ local plugins = {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = "User FilePost",
     opts = { multiwindow = true },
-    config = function(_, opts)
-      require("treesitter-context").setup(opts)
-    end,
   },
 
   {
@@ -277,17 +274,15 @@ local plugins = {
     "OXY2DEV/markview.nvim",
     lazy = false,
     event = "User FilePost",
-    config = function()
-      require("markview").setup(require "configs.markview")
+    opts = function()
+      return require "configs.markview"
     end,
   },
 
   {
     "kwkarlwang/bufresize.nvim",
     event = { "VimResized", "WinResized" },
-    config = function()
-      require("bufresize").setup()
-    end,
+    opts = {},
   },
 }
 return plugins

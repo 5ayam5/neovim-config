@@ -82,7 +82,7 @@ M.keys = {
   },
 
   {
-    "<leader>fl",
+    "<leader>fh",
     function()
       Snacks.picker.highlights()
     end,

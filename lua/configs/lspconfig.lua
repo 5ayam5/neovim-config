@@ -1,5 +1,4 @@
 dofile(vim.g.base46_cache .. "lsp")
-require("nvchad.lsp").diagnostic_config()
 
 local M = {}
 local map = vim.keymap.set
@@ -43,6 +42,8 @@ M.capabilities.textDocument.completion.completionItem = {
     },
   },
 }
+
+M.capabilities.general.positionEncodings = { "utf-16", "utf-8" }
 
 local servers = {
   pyright = {},
