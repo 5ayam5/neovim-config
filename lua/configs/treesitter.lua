@@ -20,4 +20,5 @@ return {
   "latex",
   "python",
   "regex",
+  "cmake",
 }

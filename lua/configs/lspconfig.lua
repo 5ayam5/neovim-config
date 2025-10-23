@@ -49,6 +49,7 @@ local servers = {
   pyright = {},
   ruff = {},
   clangd = {},
+  neocmake = {},
 }
 
 servers.texlab = {
