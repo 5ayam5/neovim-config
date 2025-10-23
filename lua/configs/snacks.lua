@@ -36,6 +36,13 @@ M.opts.picker = {
   },
 }
 
+M.opts.terminal = {
+  win = {
+    position = "float",
+    border = "single",
+  },
+}
+
 M.keys = {
   -- Snacks picker
   {
@@ -105,23 +112,6 @@ M.keys = {
     desc = "Find keymaps",
   },
 
-  -- terminal
-  {
-    "<A-t>",
-    function()
-      ---@type snacks.terminal.Opts
-      local opts = {
-        win = {
-          position = "float",
-          border = "single",
-        },
-      }
-      Snacks.terminal.toggle(nil, opts)
-    end,
-    desc = "Toggle floating terminal",
-    mode = { "n", "t" },
-  },
-
   -- LazyGit
   {
     "<leader>gg",
@@ -136,11 +126,25 @@ M.keys = {
     "<leader>ft",
     function()
       require("todo-comments").setup {}
-      Snacks.picker.todo_comments {}
+      Snacks.picker.todo_comments {} ---@diagnostic disable-line: undefined-field
     end,
     desc = "Find TODO comments",
   },
 }
+
+-- Terminal toggles
+for i = 0, 9 do
+  table.insert(M.keys, {
+    "<M-" .. i .. ">",
+    function()
+      Snacks.terminal.toggle(nil, {
+        count = i,
+      })
+    end,
+    desc = "Toggle terminal " .. i,
+    mode = { "n", "t" },
+  })
+end
 
 M.opts.notifier = {
   enabled = true,
