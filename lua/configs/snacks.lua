@@ -39,7 +39,6 @@ M.opts.picker = {
 M.opts.terminal = {
   win = {
     position = "float",
-    border = "single",
   },
 }
 

@@ -98,9 +98,6 @@ local opts = {
     documentation = {
       auto_show = true,
       auto_show_delay_ms = 200,
-      window = {
-        border = "single",
-      },
     },
   },
 
@@ -115,7 +112,7 @@ local opts = {
 
   signature = {
     enabled = true,
-    window = { border = "single", scrollbar = true, show_documentation = true },
+    window = { scrollbar = true, show_documentation = true },
   },
 
   cmdline = {

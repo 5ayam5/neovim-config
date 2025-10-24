@@ -10,6 +10,7 @@ o.signcolumn = "yes"
 o.splitbelow = true
 o.splitright = true
 o.messagesopt = "hit-enter,history:10000"
+o.winborder = "none"
 
 -- Editing
 o.clipboard = "unnamedplus"
