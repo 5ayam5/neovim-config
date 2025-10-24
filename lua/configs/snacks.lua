@@ -42,6 +42,10 @@ M.opts.terminal = {
   },
 }
 
+M.opts.words = {
+  enabled = true,
+}
+
 M.keys = {
   -- Snacks picker
   {
@@ -128,6 +132,31 @@ M.keys = {
       Snacks.picker.todo_comments {} ---@diagnostic disable-line: undefined-field
     end,
     desc = "Find TODO comments",
+  },
+
+  -- buffer delete
+  {
+    "<leader>w",
+    function()
+      Snacks.bufdelete()
+    end,
+    desc = "Delete buffer",
+  },
+
+  -- jump symbols
+  {
+    "<C-f>",
+    function()
+      Snacks.words.jump(vim.v.count1)
+    end,
+    desc = "Jump symbol forward under cursor",
+  },
+  {
+    "<C-b>",
+    function()
+      Snacks.words.jump(-vim.v.count1)
+    end,
+    desc = "Jump symbol backward under cursor",
   },
 }
 

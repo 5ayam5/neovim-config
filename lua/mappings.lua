@@ -47,7 +47,7 @@ end
 -- File related
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file" })
 map({ "n", "i", "v" }, "<C-x>", "<cmd>noa w<CR>", { desc = "Save without autocmds" })
-map({ "n", "x" }, "<C-f>", function()
+map({ "n", "x" }, "<C-m>", function()
   require("conform").format { lsp_fallback = true }
 end, { desc = "Format file" })
 map("n", "<leader>n", ":e ", { desc = "Open new (or existing) file" })

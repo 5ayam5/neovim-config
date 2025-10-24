@@ -79,8 +79,8 @@ local opts = {
     ["<C-p>"] = { "select_prev", "snippet_backward", "fallback_to_mappings" },
     ["<C-n>"] = { "select_next", "snippet_forward", "fallback_to_mappings" },
 
-    ["<C-b>"] = { "scroll_documentation_up", "scroll_signature_up", "fallback" },
-    ["<C-f>"] = { "scroll_documentation_down", "scroll_signature_down", "fallback" },
+    ["<C-b>"] = { "scroll_documentation_up", "scroll_signature_up", "fallback_to_mappings" },
+    ["<C-f>"] = { "scroll_documentation_down", "scroll_signature_down", "fallback_to_mappings" },
 
     ["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
   },

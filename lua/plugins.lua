@@ -213,7 +213,10 @@ local plugins = {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
-    opts = {},
+    opts = function()
+      dofile(vim.g.base46_cache .. "todo")
+      return {}
+    end,
   },
 
   -- TODO: make sure this is the best way to use it
