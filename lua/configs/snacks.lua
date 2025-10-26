@@ -190,4 +190,13 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+M.opts.input = {
+  enabled = true,
+  win = {
+    relative = "cursor",
+    row = 1,
+    col = 0,
+  },
+}
+
 return M
