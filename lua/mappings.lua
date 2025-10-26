@@ -58,11 +58,13 @@ local count_windows_and_hide_floating = function()
 
   local count = 0
   for _, w in ipairs(wins) do
-    local config = vim.api.nvim_win_get_config(w)
-    if config.relative > "" or config.external then
-      vim.api.nvim_win_hide(w)
-    else
-      count = count + 1
+    if w >= 0 then
+      local config = vim.api.nvim_win_get_config(w)
+      if config.relative > "" or config.external then
+        vim.api.nvim_win_hide(w)
+      else
+        count = count + 1
+      end
     end
   end
 
@@ -91,9 +93,6 @@ map("n", "<leader>q", function()
   end
 end, { desc = "Nvdash open" })
 
--- nvimtree
-map("n", "<C-CR>", "<cmd>NvimTreeToggle<CR>", { desc = "Nvimtree toggle window" })
-
 -- terminal
 map("t", "<C-j><C-k>", "<C-\\><C-N>", { desc = "Terminal escape terminal mode" })
 
@@ -108,18 +107,22 @@ map("n", "<leader>cn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------
 
--- C++ debugging with dap
+-- nvimtree
+map("n", "<C-CR>", "<cmd>NvimTreeToggle<CR>", { desc = "Nvimtree toggle window" })
+
+-- DAP             FIXME: restrict these mappings to only when dap UI is active
 map("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>", { desc = "DAP toggle breakpoint at line" })
-map("n", "<leader>dr", function()
-  if vim.fn.filereadable ".vscode/launch.json" then
-    require("dap.ext.vscode").load_launchjs(nil, { codelldb = { "c", "cpp" } })
-  end
-  require("dap").continue()
-end, { desc = "DAP start or continue the debugger" })
+map("n", "<leader>dc", "<cmd>DapContinue<CR>", { desc = "DAP start or continue execution" })
+map("n", "<leader>ds", "<cmd>DapStepInto<CR>", { desc = "DAP step into" })
+map("n", "<leader>dn", "<cmd>DapStepOver<CR>", { desc = "DAP step over" })
+map("n", "<leader>do", "<cmd>DapStepOut<CR>", { desc = "DAP step out" })
+map("n", "<leader>dt", "<cmd>lua require('dapui').toggle()<CR>", { desc = "DAP toggle UI" })
+map("n", "<leader>dx", "<cmd>DapTerminate<CR>", { desc = "DAP terminate" })
+map({ "n", "v" }, "<leader>de", "<cmd>lua require('dapui').eval()<CR>", { desc = "DAP evaluate" })
 
 -- Markdown
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "quarto" },
+  pattern = "markdown",
   callback = function()
     map(
       "n",

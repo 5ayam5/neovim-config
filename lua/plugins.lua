@@ -222,37 +222,27 @@ local plugins = {
   -- TODO: make sure this is the best way to use it
   {
     "rcarriga/nvim-dap-ui",
-    event = "User FilePost",
+    keys = {
+      {
+        "<leader>di",
+        function() end,
+        desc = "DAP initialize UI",
+      },
+    },
     dependencies = {
       "mfussenegger/nvim-dap",
       "nvim-neotest/nvim-nio",
     },
     config = function()
-      local dap = require "dap"
-      local dapui = require "dapui"
-      dapui.setup()
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
+      require "configs.dapui"
     end,
   },
 
   {
-    "jay-babu/mason-nvim-dap.nvim",
-    event = "User FilePost",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "mfussenegger/nvim-dap",
-    },
-    opts = {
-      handlers = {},
-    },
+    "mfussenegger/nvim-dap",
+    config = function()
+      require "configs.dap"
+    end,
   },
 
   {
@@ -331,11 +321,11 @@ local plugins = {
         end,
         { desc = "Jupyter move to previous cell" },
       },
-      { "<leader>jR", "<cmd>lua require('notebook-navigator').run_cell()<cr>", desc = "Jupyter run current cell" },
-      { "<leader>jr", "<cmd>lua require('notebook-navigator').run_and_move()<cr>", desc = "Jupyter run cell and move" },
-      { "<leader>ji", "<cmd>MoltenImagePopup<cr>", desc = "Jupyter show image output in popup" },
-      { "<leader>je", "<cmd>noautocmd MoltenEnterOutput<cr>", desc = "Jupyter open cell output" },
-      { "<leader>jh", "<cmd>noautocmd MoltenHideOutput<cr>", desc = "Jupyter hide cell output" },
+      { "<leader>jR", "<cmd>lua require('notebook-navigator').run_cell()<CR>", desc = "Jupyter run current cell" },
+      { "<leader>jr", "<cmd>lua require('notebook-navigator').run_and_move()<CR>", desc = "Jupyter run cell and move" },
+      { "<leader>ji", "<cmd>MoltenImagePopup<CR>", desc = "Jupyter show image output in popup" },
+      { "<leader>je", "<cmd>noautocmd MoltenEnterOutput<CR>", desc = "Jupyter open cell output" },
+      { "<leader>jh", "<cmd>noautocmd MoltenHideOutput<CR>", desc = "Jupyter hide cell output" },
     },
     opts = {
       cell_markers = {
