@@ -43,13 +43,19 @@ M.capabilities.textDocument.completion.completionItem = {
   },
 }
 
-M.capabilities.general.positionEncodings = { "utf-16", "utf-8" }
+M.capabilities.general.positionEncodings = { "utf-16" }
 
 local servers = {
-  pyright = {},
-  ruff = {},
   clangd = {},
   neocmake = {},
+}
+
+servers.pyright = {
+  filetypes = { "python", "jupy" },
+}
+
+servers.ruff = {
+  filetypes = { "python", "jupy" },
 }
 
 servers.texlab = {

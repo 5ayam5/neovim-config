@@ -29,7 +29,7 @@ local plugins = {
     "lukas-reineke/indent-blankline.nvim",
     event = "User FilePost",
     opts = require("configs.indent_blankline").opts,
-    config = require("configs.indent_blankline").config, -- TODO: see if this can be merged into opts
+    config = require("configs.indent_blankline").config,
   },
 
   {
@@ -188,7 +188,7 @@ local plugins = {
   -- NOTE: remove this once I become proficient
   {
     "m4xshen/hardtime.nvim",
-    event = "User FilePost",
+    event = "VeryLazy",
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
       disabled_filetypes = {
@@ -286,6 +286,63 @@ local plugins = {
     "kwkarlwang/bufresize.nvim",
     event = { "VimResized", "WinResized" },
     opts = {},
+  },
+
+  {
+    "benlubas/molten-nvim",
+    dependencies = {},
+    build = ":UpdateRemotePlugins",
+    lazy = false,
+    config = function()
+      vim.g.molten_auto_open_output = false
+      vim.g.molten_wrap_output = true
+      vim.g.molten_virt_text_output = true
+      vim.g.molten_image_location = "float"
+      vim.g.molten_output_show_more = true
+    end,
+  },
+
+  {
+    "goerz/jupytext.nvim",
+    lazy = false,
+    opts = { format = "py:percent", filetype = "jupy", autosync = false },
+  },
+
+  {
+    "GCBallesteros/NotebookNavigator.nvim",
+    ft = "jupy",
+    dependencies = "benlubas/molten-nvim",
+    keys = {
+      {
+        "]j",
+        function()
+          for _ = 1, vim.v.count1 do
+            require("notebook-navigator").move_cell "d"
+          end
+        end,
+        { desc = "Jupyter move to next cell" },
+      },
+      {
+        "[j",
+        function()
+          for _ = 1, vim.v.count1 do
+            require("notebook-navigator").move_cell "u"
+          end
+        end,
+        { desc = "Jupyter move to previous cell" },
+      },
+      { "<leader>jR", "<cmd>lua require('notebook-navigator').run_cell()<cr>", desc = "Jupyter run current cell" },
+      { "<leader>jr", "<cmd>lua require('notebook-navigator').run_and_move()<cr>", desc = "Jupyter run cell and move" },
+      { "<leader>ji", "<cmd>MoltenImagePopup<cr>", desc = "Jupyter show image output in popup" },
+      { "<leader>je", "<cmd>noautocmd MoltenEnterOutput<cr>", desc = "Jupyter open cell output" },
+      { "<leader>jh", "<cmd>noautocmd MoltenHideOutput<cr>", desc = "Jupyter hide cell output" },
+    },
+    opts = {
+      cell_markers = {
+        jupy = "# %%",
+      },
+      syntax_highlight = true,
+    },
   },
 }
 return plugins

@@ -1,6 +1,8 @@
 dofile(vim.g.base46_cache .. "syntax")
 dofile(vim.g.base46_cache .. "treesitter")
 
+vim.treesitter.language.register("python", "jupy")
+
 return {
   "c",
   "cpp",

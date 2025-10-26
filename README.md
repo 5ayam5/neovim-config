@@ -35,6 +35,14 @@
 # Fresh Installation Checklist
 
 1. `neovim >= 0.11`
+1. `:MasonInstall pyright ruff clangd neocmake lua-language-server texlab` (LSPs)
+1. `:MasonInstall stylua texfmt clang-format mdformat` (Formatters)
+1. `:MasonInstall codelldb` (DAP)
+
+## Jupyter setup
+
+1. `pip install jupyter pynvim jupytext`
+1. `:UpdateRemotePlugins` in the virtual/conda environment
 
 # Credits
 

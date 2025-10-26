@@ -1,3 +1,4 @@
+---@module "conform"
 ---@type conform.setupOpts
 local options = {
   formatters_by_ft = {
