@@ -219,7 +219,6 @@ local plugins = {
     end,
   },
 
-  -- TODO: make sure this is the best way to use it
   {
     "rcarriga/nvim-dap-ui",
     keys = {
@@ -289,44 +288,20 @@ local plugins = {
       vim.g.molten_virt_text_output = true
       vim.g.molten_image_location = "float"
       vim.g.molten_output_show_more = true
+      vim.g.molten_cover_empty_lines = true
     end,
   },
 
   {
-    "goerz/jupytext.nvim",
+    "GCBallesteros/jupytext.nvim",
     lazy = false,
-    opts = { format = "py:percent", filetype = "jupy", autosync = false },
+    opts = { format = "percent", force_ft = "jupy" },
   },
 
   {
-    "GCBallesteros/NotebookNavigator.nvim",
+    "5ayam5/NotebookNavigator.nvim",
     ft = "jupy",
     dependencies = "benlubas/molten-nvim",
-    keys = {
-      {
-        "]j",
-        function()
-          for _ = 1, vim.v.count1 do
-            require("notebook-navigator").move_cell "d"
-          end
-        end,
-        { desc = "Jupyter move to next cell" },
-      },
-      {
-        "[j",
-        function()
-          for _ = 1, vim.v.count1 do
-            require("notebook-navigator").move_cell "u"
-          end
-        end,
-        { desc = "Jupyter move to previous cell" },
-      },
-      { "<leader>jR", "<cmd>lua require('notebook-navigator').run_cell()<CR>", desc = "Jupyter run current cell" },
-      { "<leader>jr", "<cmd>lua require('notebook-navigator').run_and_move()<CR>", desc = "Jupyter run cell and move" },
-      { "<leader>ji", "<cmd>MoltenImagePopup<CR>", desc = "Jupyter show image output in popup" },
-      { "<leader>je", "<cmd>noautocmd MoltenEnterOutput<CR>", desc = "Jupyter open cell output" },
-      { "<leader>jh", "<cmd>noautocmd MoltenHideOutput<CR>", desc = "Jupyter hide cell output" },
-    },
     opts = {
       cell_markers = {
         jupy = "# %%",

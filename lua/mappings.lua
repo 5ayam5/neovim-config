@@ -135,3 +135,49 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Lazy
 map("n", "<leader>l", "<cmd>Lazy<CR>", { desc = "Lazy open plugin manager" })
+
+-- Notebook-Navigator
+autocmd("FileType", {
+  pattern = "jupy",
+  callback = function()
+    map("n", "]j", function()
+      for _ = 1, vim.v.count1 do
+        require("notebook-navigator").move_cell "d"
+      end
+    end, { desc = "Jupyter move to next cell" })
+    map("n", "[j", function()
+      for _ = 1, vim.v.count1 do
+        require("notebook-navigator").move_cell "u"
+      end
+    end, { desc = "Jupyter move to previous cell" })
+
+    map(
+      "n",
+      "<leader>jR",
+      "<cmd>lua require('notebook-navigator').run_cell()<CR>",
+      { desc = "Jupyter run current cell", silent = true }
+    )
+    map(
+      "n",
+      "<leader>jr",
+      "<cmd>lua require('notebook-navigator').run_and_move()<CR>",
+      { desc = "Jupyter run cell and move", silent = true }
+    )
+    map(
+      "n",
+      "<leader>ja",
+      "<cmd>lua require('notebook-navigator').run_cells_below()<CR>",
+      { desc = "Jupyter run cells below", silent = true }
+    )
+    map(
+      "n",
+      "<leader>jA",
+      "<cmd>lua require('notebook-navigator').run_all_cells()<CR>",
+      { desc = "Jupyter run all cells", silent = true }
+    )
+
+    map("n", "<leader>ji", "<cmd>MoltenImagePopup<CR>", { desc = "Jupyter show image output in popup", silent = true })
+    map("n", "<leader>je", "<cmd>noautocmd MoltenEnterOutput<CR>", { desc = "Jupyter open cell output", silent = true })
+    map("n", "<leader>jh", "<cmd>noautocmd MoltenHideOutput<CR>", { desc = "Jupyter hide cell output", silent = true })
+  end,
+})
