@@ -26,7 +26,6 @@
 1. [m4xshen/hardtime.nvim](https://github.com/m4xshen/hardtime.nvim)
 1. [folke/todo-comments.nvim](https://github.com/folke/todo-comments.nvim)
 1. [rcarriga/nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui)
-1. [Aasim-A/scrollEOF.nvim](https://github.com/Aasim-A/scrollEOF.nvim)
 1. [mfussenegger/nvim-dap](https://github.com/mfussenegger/nvim-dap)
 1. [ThePrimeagen/harpoon](https://github.com/ThePrimeagen/harpoon)
 1. [OXY2DEV/markview.nvim](https://github.com/OXY2DEV/markview.nvim)

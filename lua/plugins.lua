@@ -246,12 +246,6 @@ local plugins = {
   },
 
   {
-    "Aasim-A/scrollEOF.nvim",
-    event = { "CursorMoved", "WinScrolled" },
-    opts = require "configs.scrolleof",
-  },
-
-  {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     event = "VimEnter",

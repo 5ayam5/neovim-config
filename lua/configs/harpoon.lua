@@ -19,15 +19,27 @@ harpoon:extend {
   end,
 }
 
-map("n", "<leader>oo", function()
+map("n", "<leader>o", function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
-end, { desc = "Harpoon open window" })
+end, { desc = "Harpoon toggle quick menu" })
 
-map("n", "<leader>oa", function()
-  harpoon:list():add()
-end, { desc = "Harpoon add current file" })
-for i = 1, 9 do
-  map("n", "<leader>o" .. i, function()
-    harpoon:list():select(i)
-  end, { desc = "Harpoon go to file " .. i })
-end
+map("n", "<M-o>", function()
+  if vim.v.count == 0 then
+    harpoon:list():add()
+    vim.notify("Added file " .. vim.fn.expand "%:t" .. " to Harpoon", vim.log.levels.INFO, { title = "Harpoon" })
+    return
+  end
+  harpoon:list():select(vim.v.count1)
+end, { desc = "Harpoon add/goto file " })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "harpoon",
+  callback = function()
+    for i = 1, 9 do
+      map("n", tostring(i), function()
+        harpoon.ui:save()
+        harpoon:list():select(i)
+      end, { buffer = true, desc = "Harpoon go to file " .. i })
+    end
+  end,
+})
