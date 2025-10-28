@@ -23,4 +23,5 @@ return {
   "python",
   "regex",
   "cmake",
+  "gitignore",
 }

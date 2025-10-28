@@ -77,6 +77,7 @@ local plugins = {
 
   {
     "neovim/nvim-lspconfig",
+    ft = "jupy",
     event = "User FilePost",
     config = function()
       require "configs.lspconfig"
@@ -278,8 +279,7 @@ local plugins = {
   },
 
   {
-    "benlubas/molten-nvim",
-    dependencies = {},
+    "5ayam5/molten-nvim",
     build = ":UpdateRemotePlugins",
     lazy = false,
     config = function()
@@ -289,6 +289,7 @@ local plugins = {
       vim.g.molten_image_location = "float"
       vim.g.molten_output_show_more = true
       vim.g.molten_cover_empty_lines = true
+      vim.g.molten_virt_text_truncate = "top"
     end,
   },
 
@@ -301,7 +302,7 @@ local plugins = {
   {
     "5ayam5/NotebookNavigator.nvim",
     ft = "jupy",
-    dependencies = "benlubas/molten-nvim",
+    dependencies = "5ayam5/molten-nvim",
     opts = {
       cell_markers = {
         jupy = "# %%",

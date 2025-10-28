@@ -13,6 +13,7 @@ map("n", "<C-h>", "<C-w>h", { desc = "Switch window left" })
 map("n", "<C-l>", "<C-w>l", { desc = "Switch window right" })
 map("n", "<C-j>", "<C-w>j", { desc = "Switch window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "Switch window up" })
+map("n", "<C-p>", "<C-w>p", { desc = "Switch to previous window" })
 
 local mux_with_g = function(key)
   local gkey = "g" .. key
@@ -144,40 +145,57 @@ autocmd("FileType", {
       for _ = 1, vim.v.count1 do
         require("notebook-navigator").move_cell "d"
       end
-    end, { desc = "Jupyter move to next cell" })
+    end, { buffer = true, desc = "Jupyter move to next cell" })
     map("n", "[j", function()
       for _ = 1, vim.v.count1 do
         require("notebook-navigator").move_cell "u"
       end
-    end, { desc = "Jupyter move to previous cell" })
+    end, { buffer = true, desc = "Jupyter move to previous cell" })
 
     map(
       "n",
       "<leader>jR",
       "<cmd>lua require('notebook-navigator').run_cell()<CR>",
-      { desc = "Jupyter run current cell", silent = true }
+      { buffer = true, desc = "Jupyter Run current cell", silent = true }
     )
     map(
       "n",
       "<leader>jr",
       "<cmd>lua require('notebook-navigator').run_and_move()<CR>",
-      { desc = "Jupyter run cell and move", silent = true }
+      { buffer = true, desc = "Jupyter run cell and move", silent = true }
     )
     map(
       "n",
       "<leader>ja",
       "<cmd>lua require('notebook-navigator').run_cells_below()<CR>",
-      { desc = "Jupyter run cells below", silent = true }
+      { buffer = true, desc = "Jupyter run (a)ll cells below", silent = true }
     )
     map(
       "n",
       "<leader>jA",
       "<cmd>lua require('notebook-navigator').run_all_cells()<CR>",
-      { desc = "Jupyter run all cells", silent = true }
+      { buffer = true, desc = "Jupyter run All cells", silent = true }
     )
 
-    map("n", "<leader>ji", "<cmd>MoltenImagePopup<CR>", { desc = "Jupyter show image output in popup", silent = true })
-    map("n", "<leader>je", "<cmd>noautocmd MoltenEnterOutput<CR>", { desc = "Jupyter open cell output", silent = true })
-    map("n", "<leader>jh", "<cmd>noautocmd MoltenHideOutput<CR>", { desc = "Jupyter hide cell output", silent = true })
+    map(
+      "n",
+      "<leader>ji",
+      "<cmd>MoltenImagePopup<CR>",
+      { buffer = true, desc = "Jupyter show Image output in popup", silent = true }
+    )
+    map(
+      "n",
+      "<leader>jo",
+      "<cmd>noautocmd MoltenEnterOutput<CR>",
+      { buffer = true, desc = "Jupyter open/enter cell Output", silent = true }
+    )
+    map(
+      "n",
+      "<leader>jh",
+      "<cmd>noautocmd MoltenHideOutput<CR>",
+      { buffer = true, desc = "Jupyter Hide cell output", silent = true }
+    )
+
+    map("n", "<leader>js", "<cmd>MoltenRestart<CR>", { buffer = true, desc = "Jupyter reStart kernel", silent = true })
   end,
 })
