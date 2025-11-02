@@ -11,6 +11,7 @@ o.splitbelow = true
 o.splitright = true
 o.messagesopt = "hit-enter,history:10000"
 o.winborder = "none"
+o.wrap = false
 
 -- Editing
 o.clipboard = "unnamedplus"

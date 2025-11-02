@@ -150,6 +150,7 @@ local plugins = {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
     lazy = false,
+    priority = 60,
     build = ":TSUpdate",
     config = function(_, opts)
       local ensure_installed = require "configs.treesitter"
@@ -260,6 +261,7 @@ local plugins = {
   {
     "OXY2DEV/markview.nvim",
     lazy = false,
+    priority = 75,
     event = "User FilePost",
     opts = function()
       return require "configs.markview"
