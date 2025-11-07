@@ -162,7 +162,15 @@ vim.api.nvim_create_autocmd("FileType", {
 M.opts.input = {
   enabled = true,
   win = {
-    width = 0.75,
+    width = function(win)
+      local len = 0.9
+      if type(win.opts.title) == "string" then
+        len = math.min(#win.opts.title + 15, math.floor(vim.o.columns * 0.8))
+      elseif type(win.opts.title) == "table" then
+        len = math.min(#win.opts.title[1][1] + 15, math.floor(vim.o.columns * 0.8))
+      end
+      return len
+    end,
     relative = "cursor",
     row = 1,
     col = 0,

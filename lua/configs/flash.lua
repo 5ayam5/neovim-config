@@ -1,11 +1,16 @@
+---@module "flash"
 dofile(vim.g.base46_cache .. "flash")
 
 local M = {}
 
+---@type Flash.Config
 M.opts = {
   modes = {
     char = {
       jump_labels = true,
+    },
+    treesitter = {
+      wrap = false,
     },
   },
   label = {
@@ -73,20 +78,12 @@ M.keys = {
   },
 
   {
-    "t",
+    "<C-s>",
     mode = { "x", "o" },
     function()
       require("flash").treesitter()
     end,
-    desc = "Flash treesitter",
-  },
-  {
-    "T",
-    mode = { "x", "o" },
-    function()
-      require("flash").treesitter_search()
-    end,
-    desc = "Flash treesitter search",
+    { desc = "Treesitter incremental selection" },
   },
 }
 

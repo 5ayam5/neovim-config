@@ -5,13 +5,14 @@ local g = vim.g
 o.laststatus = 3
 o.showmode = false
 o.splitkeep = "screen"
-vim.opt.fillchars = { eob = " " }
+o.fillchars = "eob: "
 o.signcolumn = "yes"
 o.splitbelow = true
 o.splitright = true
 o.messagesopt = "hit-enter,history:10000"
 o.winborder = "none"
 o.wrap = false
+o.scrolloff = 5
 
 -- Editing
 o.clipboard = "unnamedplus"
@@ -36,7 +37,6 @@ o.softtabstop = 2
 -- Search
 o.ignorecase = true
 o.smartcase = true
-o.maxsearchcount = 9999
 
 -- Time
 o.updatetime = 250

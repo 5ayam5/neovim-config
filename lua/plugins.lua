@@ -173,7 +173,7 @@ local plugins = {
     "nvim-treesitter/nvim-treesitter-context",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = "User FilePost",
-    opts = { multiwindow = true },
+    opts = { multiwindow = true, max_lines = 5, multiline_threshold = 1 },
   },
 
   {
@@ -275,7 +275,8 @@ local plugins = {
   },
 
   {
-    "5ayam5/molten-nvim",
+    dev = true,
+    "molten-nvim",
     build = ":UpdateRemotePlugins",
     lazy = false,
     config = function()
@@ -290,13 +291,15 @@ local plugins = {
   },
 
   {
-    "GCBallesteros/jupytext.nvim",
+    dev = true,
+    "jupytext.nvim",
     lazy = false,
     opts = { format = "percent", force_ft = "jupy" },
   },
 
   {
-    "5ayam5/NotebookNavigator.nvim",
+    dev = true,
+    "NotebookNavigator.nvim",
     ft = "jupy",
     dependencies = "5ayam5/molten-nvim",
     opts = {

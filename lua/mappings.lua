@@ -36,6 +36,49 @@ map("i", "<C-l>", "<Right>", { desc = "Move right" })
 map("i", "<C-j>", "<Down>", { desc = "Move down" })
 map("i", "<C-k>", "<Up>", { desc = "Move up" })
 
+local function scrolloff_should_reenable()
+  if vim.w.orig_scrolloff == nil then
+    return false
+  end -- Nothing to do.
+  if vim.fn.winheight(0) <= vim.w.orig_scrolloff then
+    return true
+  end -- Too small for override.
+  return vim.w.orig_scrolloff < vim.fn.winline() and vim.fn.winline() < vim.fn.winheight(0) - vim.w.orig_scrolloff
+end
+
+local function scrolloff_add_autocmd()
+  vim.api.nvim_create_augroup("h4s_scrolloff_enhanced", { clear = true })
+  vim.api.nvim_create_autocmd("CursorMoved", {
+    group = "h4s_scrolloff_enhanced",
+    callback = function()
+      if scrolloff_should_reenable() then
+        vim.opt.scrolloff = vim.w.orig_scrolloff
+        vim.w.orig_scrolloff = nil
+        return true -- Remove the autocmd.
+      end
+    end,
+  })
+end
+
+local function scrolloff_disable()
+  vim.w.orig_scrolloff = vim.opt.scrolloff:get()
+  vim.opt.scrolloff = 0
+  scrolloff_add_autocmd()
+end
+
+local function scroll_very_bottom()
+  scrolloff_disable()
+  vim.cmd ":norm! zb"
+end
+
+local function scroll_very_top()
+  scrolloff_disable()
+  vim.cmd ":norm! zt"
+end
+
+map("n", "zb", scroll_very_bottom, { desc = "Bottom this line" })
+map("n", "zt", scroll_very_top, { desc = "Top this line" })
+
 -- Tab related
 map("n", "<leader>tn", "<cmd>tabnew<CR>", { desc = "New tab" })
 map("n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close tab" })

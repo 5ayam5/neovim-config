@@ -2,6 +2,10 @@ return {
   defaults = { lazy = true },
   install = { colorscheme = { "nvchad" } },
 
+  dev = {
+    path = "/Volumes/5ayam5_disk/GitHub/",
+  },
+
   ui = {
     icons = {
       ft = "",
