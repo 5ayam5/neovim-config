@@ -173,7 +173,17 @@ local plugins = {
     "nvim-treesitter/nvim-treesitter-context",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = "User FilePost",
-    opts = { multiwindow = true, max_lines = 5, multiline_threshold = 1 },
+    opts = {
+      multiwindow = true,
+      max_lines = 5,
+      multiline_threshold = 1,
+      on_attach = function(buf)
+        if vim.bo[buf].filetype == "bigfile" then
+          return false
+        end
+        return true
+      end,
+    },
   },
 
   {
@@ -200,6 +210,7 @@ local plugins = {
         "molten_output",
         "snacks_terminal",
         "snacks_notif_history",
+        "bigfile",
       },
       restriction_mode = "hint",
       restricted_keys = {

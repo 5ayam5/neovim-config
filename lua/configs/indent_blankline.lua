@@ -1,8 +1,11 @@
+---@module "indent_blankline"
 local M = {}
 
+---@type ibl.config
 M.opts = {
   indent = { char = "│", highlight = "IblChar" },
   scope = { char = "│", highlight = "IblScopeChar" },
+  exclude = { filetypes = { "bigfile" } },
 }
 
 M.config = function(_, opts)

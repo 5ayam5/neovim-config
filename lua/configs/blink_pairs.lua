@@ -7,6 +7,7 @@ local M = {
     disabled_filetypes = {
       "snacks_picker_input",
       "vim",
+      "bigfile",
     },
   },
   highlights = {

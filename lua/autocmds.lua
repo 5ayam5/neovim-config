@@ -58,6 +58,9 @@ autocmd("User", {
 autocmd("FileType", {
   pattern = "*",
   callback = function()
+    if vim.bo.filetype == "bigfile" then
+      return
+    end
     pcall(function()
       vim.treesitter.start()
     end)

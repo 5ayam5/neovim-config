@@ -1,6 +1,8 @@
+---@module "copilot"
 return {
   filetypes = {
     markdown = true,
+    bigfile = false,
   },
   panel = {
     auto_refresh = true,
