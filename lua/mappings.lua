@@ -90,7 +90,14 @@ end
 
 -- File related
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file" })
-map({ "n", "i", "v" }, "<C-x>", "<cmd>noa w<CR>", { desc = "Save without autocmds" })
+map({ "n", "i", "v" }, "<C-x>", function()
+  vim.g.disable_autoformat = not vim.g.disable_autoformat
+  if vim.g.disable_autoformat then
+    vim.notify("Autoformat on save disabled", vim.log.levels.INFO, { title = "Conform" })
+  else
+    vim.notify("Autoformat on save enabled", vim.log.levels.INFO, { title = "Conform" })
+  end
+end, { desc = "Toggle autoformat" })
 map({ "n", "x" }, "<C-a>", function()
   require("conform").format()
 end, { desc = "Format file" })
