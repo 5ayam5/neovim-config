@@ -6,6 +6,7 @@ local options = {
     cpp = { "clang-format" },
     lua = { "stylua" },
     python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
+    jupy = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
     markdown = { "mdformat" },
     tex = { "tex-fmt" },
     bib = { "tex-fmt" },

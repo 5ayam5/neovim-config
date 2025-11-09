@@ -52,10 +52,33 @@ local servers = {
 
 servers.pyright = {
   filetypes = { "python", "jupy" },
+  pyright = {
+    disableOrganizeImports = true, -- Using Ruff
+  },
+  settings = {
+    python = {
+      analysis = {
+        diagnosticMode = "off",
+        typeCheckingMode = "basic",
+      },
+    },
+  },
+  capabilities = {
+    textDocument = {
+      publishDiagnostics = {
+        tagSupport = {
+          valueSet = { 2 },
+        },
+      },
+    },
+  },
 }
 
 servers.ruff = {
   filetypes = { "python", "jupy" },
+  capabilities = {
+    hoverProvider = false,
+  },
 }
 
 servers.texlab = {
