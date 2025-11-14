@@ -12,14 +12,12 @@ o.splitright = true
 o.messagesopt = "hit-enter,history:10000"
 o.winborder = "none"
 o.wrap = false
-o.scrolloff = 5
 
 -- Editing
 o.clipboard = "unnamedplus"
 o.undofile = true
 
 -- Cursor
-o.cursorline = true
 o.cursorlineopt = "both"
 o.relativenumber = true
 o.number = true
