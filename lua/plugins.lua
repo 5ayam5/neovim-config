@@ -100,13 +100,11 @@ local plugins = {
       },
 
       {
-        "saghen/blink.pairs",
-        version = "*",
-        event = "User FilePost",
-        dependencies = "saghen/blink.download",
-        opts = function()
-          return require "configs.blink_pairs"
-        end,
+        "windwp/nvim-autopairs",
+        opts = {
+          fast_wrap = {},
+          disable_filetype = { "snacks_picker_input", "vim", "bigfile" },
+        },
       },
 
       {

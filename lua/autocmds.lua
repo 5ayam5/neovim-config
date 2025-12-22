@@ -55,10 +55,67 @@ autocmd("User", {
   end,
 })
 
+autocmd("BufReadPre", {
+  pattern = "*",
+  callback = function()
+    local BIGSIZE = 100 * 1024 * 1024 -- 100 MB
+    -- get size of file
+    local file = vim.fn.expand "<afile>"
+    local size = vim.fn.getfsize(file)
+    if size == -2 or size >= BIGSIZE then
+      vim.b.bigfile = true
+      vim.b.pairs = false
+      vim.schedule(function()
+        vim.notify(
+          ("Opened big file (%s), disabling features for performance"):format(
+            vim.fn.printf("%.2f MB", size / (1024 * 1024))
+          ),
+          vim.log.levels.WARN,
+          { title = "BigFile" }
+        )
+      end)
+    end
+  end,
+})
+
 autocmd("FileType", {
   pattern = "*",
   callback = function()
-    if vim.bo.filetype == "bigfile" then
+    if vim.b.bigfile then
+      vim.bo.filetype = "bigfile"
+      local buf = vim.api.nvim_get_current_buf()
+
+      if vim.fn.exists ":NoMatchParen" ~= 0 then
+        vim.cmd [[NoMatchParen]]
+      end
+
+      if vim.fn.exists ":LspStop" ~= 0 then
+        vim.cmd [[LspStop]]
+      else
+        vim.api.nvim_create_autocmd({ "LspAttach" }, {
+          buffer = buf,
+          callback = function(args)
+            vim.schedule(function()
+              vim.lsp.buf_detach_client(buf, args.data.client_id)
+            end)
+          end,
+        })
+
+        vim.cmd [[syntax off]]
+        pcall(function()
+          require("indent_blankline.commands").disable()
+        end)
+
+        vim.api.nvim_clear_autocmds {
+          event = "CursorMoved",
+          buffer = buf,
+        }
+
+        -- set foldmethd to manual
+        vim.bo.foldmethod = "manual"
+        vim.bo.statuscolumn = ""
+        vim.bo.conceallevel = 0
+      end
       return
     end
     pcall(function()

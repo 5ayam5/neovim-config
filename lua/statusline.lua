@@ -134,7 +134,7 @@ elements.lsp = function()
       end
     end
     if clients == "" then
-      clients = "[No Active LSP]"
+      return ""
     elseif clients:len() > 24 then
       clients = clients:sub(1, 20) .. "...]"
     end

@@ -177,36 +177,4 @@ M.opts.input = {
   },
 }
 
-M.opts.bigfile = {
-  enabled = true,
-  size = 100 * 1024 * 1024, -- 100 MB
-  setup = function(ctx)
-    if vim.fn.exists ":NoMatchParen" ~= 0 then
-      vim.cmd [[NoMatchParen]]
-    end
-    if vim.fn.exists ":LspStop" ~= 0 then
-      vim.cmd [[LspStop]]
-    else
-      vim.api.nvim_create_autocmd({ "LspAttach" }, {
-        buffer = ctx.buf,
-        callback = function(args)
-          vim.schedule(function()
-            vim.lsp.buf_detach_client(ctx.buf, args.data.client_id)
-          end)
-        end,
-      })
-    end
-    Snacks.util.wo(0, { foldmethod = "manual", statuscolumn = "", conceallevel = 0, cursorline = false })
-    vim.cmd [[syntax off]]
-    pcall(function()
-      require("indent_blankline.commands").disable()
-    end)
-
-    vim.api.nvim_clear_autocmds {
-      event = "CursorMoved",
-      buffer = ctx.buf,
-    }
-  end,
-}
-
 return M

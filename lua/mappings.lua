@@ -15,19 +15,6 @@ map("n", "<C-j>", "<C-w>j", { desc = "Switch window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "Switch window up" })
 map("n", "<C-p>", "<C-w>p", { desc = "Switch to previous window" })
 
-local mux_with_g = function(key)
-  local gkey = "g" .. key
-  return function()
-    if vim.v.count == 0 then
-      return gkey
-    else
-      return key
-    end
-  end
-end
-map({ "n", "v" }, "j", mux_with_g "j", { expr = true })
-map({ "n", "v" }, "k", mux_with_g "k", { expr = true })
-
 map("i", "jk", "<ESC>")
 map("i", "<C-b>", "<ESC>^i", { desc = "Move beginning of line" })
 map("i", "<C-e>", "<End>", { desc = "Move end of line" })
@@ -38,7 +25,7 @@ map("i", "<C-k>", "<Up>", { desc = "Move up" })
 
 -- Tab related
 map("n", "<leader>tn", "<cmd>tabnew<CR>", { desc = "New tab" })
-map("n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close tab" })
+map("n", "<leader>td", "<cmd>tabclose<CR>", { desc = "Close tab" })
 map("n", "<leader>tt", "<cmd>tabnext<CR>", { desc = "Next tab" })
 map("n", "<leader>tT", "<cmd>tabprevious<CR>", { desc = "Previous tab" })
 for i = 1, 9 do
