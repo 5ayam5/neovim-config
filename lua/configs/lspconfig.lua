@@ -105,7 +105,7 @@ servers.texlab = {
       },
       forwardSearch = {
         executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
-        args = { "-g", "%l", "%p", "%f" },
+        args = { "-rg", "%l", "%p", "%f" },
       },
     },
   },

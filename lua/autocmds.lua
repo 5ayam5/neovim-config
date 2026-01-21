@@ -118,9 +118,8 @@ autocmd("FileType", {
       end
       return
     end
-    pcall(function()
-      vim.treesitter.start()
-    end)
+
+    pcall(vim.treesitter.start)
   end,
 })
 

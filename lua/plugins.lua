@@ -271,7 +271,6 @@ local plugins = {
     "OXY2DEV/markview.nvim",
     lazy = false,
     priority = 75,
-    event = "User FilePost",
     opts = function()
       return require "configs.markview"
     end,
@@ -281,6 +280,13 @@ local plugins = {
     "kwkarlwang/bufresize.nvim",
     event = { "VimResized", "WinResized" },
     opts = {},
+  },
+
+  {
+    "f3fora/nvim-texlabconfig",
+    ft = { "tex", "bib" },
+    opts = {},
+    build = "go build",
   },
 
   {
