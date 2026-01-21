@@ -94,7 +94,6 @@ map("t", "<C-j><C-k>", "<C-\\><C-N>", { desc = "Terminal escape terminal mode" }
 -- utility
 map("n", "<leader>cc", "<cmd>NvCheatsheet<CR>", { desc = "Toggle nvCheatsheet" })
 map("n", "<leader>ce", ":checkhealth ", { desc = "CheckhEalth" })
-map("n", "<leader>cn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "Show Notification history" })
 
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------

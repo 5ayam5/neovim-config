@@ -143,11 +143,6 @@ for i = 0, 9 do
   })
 end
 
-M.opts.notifier = {
-  enabled = true,
-  level = vim.log.levels.DEBUG,
-}
-
 M.opts.image = {
   enabled = true,
   math = { enabled = false },
