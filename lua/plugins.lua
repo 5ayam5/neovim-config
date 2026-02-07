@@ -154,16 +154,7 @@ local plugins = {
       local ensure_installed = require "configs.treesitter"
       local nvim_treesitter = require "nvim-treesitter"
       nvim_treesitter.setup(opts)
-      nvim_treesitter.install(ensure_installed):await(function(err)
-        if err then
-          vim.notify("Failed to install TreeSitter parsers: " .. err, vim.log.levels.WARN)
-          return
-        end
-
-        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-          pcall(vim.treesitter.start, buf)
-        end
-      end)
+      nvim_treesitter.install(ensure_installed)
     end,
   },
 
@@ -298,10 +289,11 @@ local plugins = {
       vim.g.molten_auto_open_output = false
       vim.g.molten_wrap_output = true
       vim.g.molten_virt_text_output = true
-      vim.g.molten_image_location = "float"
+      vim.g.molten_image_location = "both"
       vim.g.molten_output_show_more = true
       vim.g.molten_cover_empty_lines = true
       vim.g.molten_virt_text_truncate = "top"
+      vim.g.molten_image_provider = "snacks.nvim"
     end,
   },
 

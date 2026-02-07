@@ -15,6 +15,10 @@ M.opts.words = {
   enabled = true,
 }
 
+M.opts.picker = {
+  enabled = true,
+}
+
 M.keys = {
   -- Snacks picker
   {

@@ -18,13 +18,15 @@ M.base46 = {
   },
 
   hl_add = {
-    SnacksPicker = { bg = "darker_black" },
+    SnacksPicker = { bg = "none" },
     SnacksPickerBorder = { fg = "darker_black", bg = "darker_black" },
 
     SnacksTitle = { fg = "black", bg = "red" }, -- NOTE: using this since SnacksPickerBoxTitle does not work
     SnacksPickerToggle = { fg = "black", bg = "orange" },
     SnacksPickerListCursorLine = { fg = "white", bg = "black2" },
     SnacksPickerPreviewTitle = { fg = "black", bg = "green" },
+    SnacksPickerPreview = { bg = "black2" },
+    SnacksPickerPreviewBorder = { fg = "black2", bg = "black2" },
 
     SnacksInputTitle = { link = "@comment.danger" },
     SnacksInputBorder = { link = "Removed" },
