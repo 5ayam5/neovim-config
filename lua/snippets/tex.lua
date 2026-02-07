@@ -60,6 +60,20 @@ ls.add_snippets("tex", {
 
 % Other Settings
 \setlength{{\marginparwidth}}{{2cm}}
+\counterwithout{{section}}{{chapter}}
+
+\ExplSyntaxOn%
+\NewDocumentCommand{{\getenv}}{{om}}
+{{
+  \sys_get_shell:nnN {{ kpsewhich ~ --var-value ~ #2 }} % texlab: ignore
+  {{ \cctab_select:N \c_str_cctab }} \l_tmpa_tl
+  \tl_trim_spaces:N \l_tmpa_tl
+  \IfNoValueTF{{ #1 }}
+  {{ \tl_use:N \l_tmpa_tl }}
+  {{ \tl_set_eq:NN #1 \l_tmpa_tl }}
+}}
+\ExplSyntaxOff%
+\getenv[\HOME]{{HOME}}
 {2}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -78,17 +92,16 @@ ls.add_snippets("tex", {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{{document}}
-    \maketitle
+\maketitle
+\tableofcontents
 
-    \tableofcontents
-
-    {5}
+{5}
 
 \end{{document}}
     ]],
       {
         i(1, "article"),
-        i(2, [[\input{definitions.tex}]]),
+        i(2, [[\input{\HOME/Documents/definitions.tex}]]),
         i(3, "Title"),
         i(4, "Sayam Sethi"),
         i(5, "Content"),
