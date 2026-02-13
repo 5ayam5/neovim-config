@@ -301,7 +301,7 @@ local plugins = {
     dev = true,
     "jupytext.nvim",
     lazy = false,
-    opts = { format = "percent", force_ft = "jupy" },
+    opts = { style = "percent", force_ft = "jupy" },
   },
 
   {

@@ -73,3 +73,10 @@ vim.env.PATH = table.concat({ vim.fn.stdpath "data", "mason", "bin" }, "/") .. "
 
 -- statusline
 vim.o.statusline = "%!v:lua.require'statusline'()"
+
+-- custom filetypes
+vim.filetype.add {
+  extension = {
+    jupy = "jupy",
+  },
+}
