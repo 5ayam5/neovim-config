@@ -134,7 +134,7 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   end,
 })
 
--- this and the autocmd is to save and restore folds
+-- this and the next autocmd is to save and restore folds
 autocmd("BufWinLeave", {
   pattern = "*",
   command = "silent! mkview",
@@ -207,5 +207,25 @@ autocmd("BufWritePost", {
     if require("molten.status").initialized() == "Molten" then
       vim.cmd "MoltenExportOutput!"
     end
+  end,
+})
+
+autocmd("BufWritePost", {
+  pattern = vim.tbl_map(function(path)
+    local realpath = vim.uv.fs_realpath(path)
+    if not realpath then
+      return [[^\b$]]
+    end
+    return vim.fs.normalize(realpath)
+  end, vim.fn.glob(vim.fn.stdpath "config" .. "/lua/**/*.lua", true, true, true)),
+  group = vim.api.nvim_create_augroup("ReloadNvChad", {}),
+
+  callback = function(opts)
+    local fp = vim.fn.fnamemodify(vim.fs.normalize(vim.api.nvim_buf_get_name(opts.buf)), ":r") --[[@as string]]
+    local app_name = vim.env.NVIM_APPNAME and vim.env.NVIM_APPNAME or "nvim"
+    local module = string.gsub(fp, "^.*/" .. app_name .. "/lua/", ""):gsub("/", ".")
+
+    require("nvchad.utils").reload(module)
+    -- vim.cmd("redraw!")
   end,
 })

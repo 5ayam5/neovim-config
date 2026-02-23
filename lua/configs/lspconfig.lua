@@ -98,6 +98,7 @@ servers.texlab = {
           "-pdf",
           "--shell-escape",
           "-e",
+          "$pdf_previewer=q/Open -g -a Skim/",
           "-synctex=1",
           "-interaction=nonstopmode",
           "-file-line-error",

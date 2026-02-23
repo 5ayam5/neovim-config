@@ -2,7 +2,8 @@ local map = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
 
 -- navigation related
-map("n", ";", ":", { desc = "CMD enter command mode" })
+map("n", ";", ":")
+map("n", "\\", "-")
 
 map("n", "<ESC>", function()
   vim.cmd "normal! \\<ESC\\>"
@@ -108,7 +109,7 @@ map("n", "<leader>cn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "
 -- nvimtree
 map("n", "<C-CR>", "<cmd>NvimTreeToggle<CR>", { desc = "Nvimtree toggle window" })
 
--- DAP             FIXME: restrict these mappings to only when dap UI is active
+-- DAP  FIXME: restrict these mappings to only when dap UI is active
 map("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>", { desc = "DAP toggle breakpoint at line" })
 map("n", "<leader>dc", "<cmd>DapContinue<CR>", { desc = "DAP start or continue execution" })
 map("n", "<leader>ds", "<cmd>DapStepInto<CR>", { desc = "DAP step into" })
@@ -182,7 +183,7 @@ autocmd("FileType", {
     )
     map(
       "n",
-      "<leader>jo",
+      "<C-w>c",
       "<cmd>noautocmd MoltenEnterOutput<CR>",
       { buffer = true, desc = "Jupyter open/enter cell Output", silent = true }
     )
