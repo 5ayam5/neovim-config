@@ -304,13 +304,19 @@ local plugins = {
     build = ":UpdateRemotePlugins",
     lazy = false,
     config = function()
-      vim.g.molten_auto_open_output = false
       vim.g.molten_wrap_output = true
-      vim.g.molten_virt_text_output = true
-      vim.g.molten_image_location = "both"
       vim.g.molten_output_show_more = true
       vim.g.molten_cover_empty_lines = true
+
+      vim.g.molten_virt_text_output = true
       vim.g.molten_virt_text_truncate = "top"
+
+      vim.g.molten_auto_open_output = false
+      vim.g.molten_enter_output_behavior = "open_and_enter"
+      vim.g.molten_output_win_cover_gutter = false
+      vim.g.molten_output_win_style = "minimal"
+
+      vim.g.molten_image_location = "both"
       vim.g.molten_image_provider = "snacks.nvim"
     end,
   },
