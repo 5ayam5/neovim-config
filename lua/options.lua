@@ -5,7 +5,6 @@ local g = vim.g
 o.laststatus = 3
 o.showmode = false
 o.splitkeep = "screen"
-o.fillchars = "eob: "
 o.signcolumn = "yes"
 o.splitbelow = true
 o.splitright = true
@@ -39,12 +38,6 @@ o.smartcase = true
 -- Time
 o.updatetime = 250
 o.timeoutlen = 400
-
--- Folding
-o.foldmethod = "expr"
-o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-o.foldlevel = 99
-o.foldenable = true
 
 -- Miscellaneous
 g.tex_flavor = "latex"

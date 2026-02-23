@@ -5,7 +5,7 @@
 *Note: Dependencies of the plugins (if used with default options) are excluded from this list.*
 
 1. [Nvchad/base46](https://github.com/NvChad/base46)
-1. [Nvchad/ui](https://github.com/NvChad/ui)
+1. [Nvchad/ui](https://github.com/NvChad/ui) \<- working on fully customizing this, so will be removed
 1. [nvim-tree/nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons)
 1. [lukas-reineke/indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)
 1. [nvim-tree/nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua)
@@ -19,7 +19,7 @@
 1. [Saghen/blink.pairs](https://github.com/Saghen/blink.pairs)
 1. [folke/lazydev.nvim](https://github.com/folke/lazydev.nvim)
 1. [zbirenbaum/copilot.lua](https://github.com/zbirenbaum/copilot.lua)
-1. [folke/snacks.nvim](https://github.com/folke/snacks.nvim)
+1. [folke/snacks.nvim](https://github.com/folke/snacks.nvim) \<- I've become highly dependent on this so need to break away (in case it gets stopped being maintained?)
 1. [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 1. [nvim-treesitter/nvim-treesitter-context](https://github.com/nvim-treesitter/nvim-treesitter-context)
 1. [folke/flash.nvim](https://github.com/folke/flash.nvim)
@@ -30,8 +30,9 @@
 1. [ThePrimeagen/harpoon](https://github.com/ThePrimeagen/harpoon)
 1. [OXY2DEV/markview.nvim](https://github.com/OXY2DEV/markview.nvim)
 1. [kwkarlwang/bufresize.nvim](https://github.com/kwkarlwang/bufresize.nvim)
+1. [kevinhwang91/nvim-ufo](https://github.com/kevinhwang91/nvim-ufo)
 1. [5ayam5/molten-nvim](https://github.com/5ayam5/molten-nvim)
-1. [GCBallesteros/jupytext.nvim](https://github.com/GCBallesteros/jupytext.nvim)
+1. [5ayam5/jupytext.nvim](https://github.com/5ayam5/jupytext.nvim)
 1. [5ayam5/NotebookNavigator.nvim](https://github.com/5ayam5/NotebookNavigator.nvim)
 
 # Fresh Installation Checklist
