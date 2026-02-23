@@ -156,6 +156,38 @@ M.opts.image = {
   enabled = true,
   doc = {
     max_height = 10,
+    inline = false,
+  },
+  convert = {
+    notify = true,
+  },
+  math = {
+    latex = {
+      font_size = "normalsize",
+      packages = { "amsmath", "amssymb", "amsfonts", "amscd", "mathtools", "braket" },
+      tpl = [[
+      \documentclass[preview,border=0pt,varwidth,12pt]{standalone}
+      \usepackage{${packages}}
+      \ExplSyntaxOn%
+      \NewDocumentCommand{\getenv}{om}
+      {
+        \sys_get_shell:nnN { kpsewhich ~ --var-value ~ #2 } % texlab: ignore
+        { \cctab_select:N \c_str_cctab } \l_tmpa_tl
+        \tl_trim_spaces:N \l_tmpa_tl
+        \IfNoValueTF{ #1 }
+        { \tl_use:N \l_tmpa_tl }
+        { \tl_set_eq:NN #1 \l_tmpa_tl }
+      }
+      \ExplSyntaxOff%
+      \getenv[\HOME]{HOME}
+      \input{\HOME/Documents/definitions.tex}
+      \begin{document}
+        ${header}
+        { \${font_size} \selectfont
+          \color[HTML]{${color}}
+        ${content}}
+        \end{document}]],
+    },
   },
 }
 vim.api.nvim_create_autocmd("FileType", {
