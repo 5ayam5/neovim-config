@@ -32,7 +32,10 @@ local options = {
     if vim.b.disable_autoformat then
       return
     end
-    return { timeout_ms = 2000, lsp_format = "fallback" }
+    if vim.bo.filetype == "jupy" then
+      return { timeout_ms = 5000, lsp_format = "fallback" }
+    end
+    return { timeout_ms = 500, lsp_format = "fallback" }
   end,
 }
 

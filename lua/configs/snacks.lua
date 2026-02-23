@@ -154,7 +154,9 @@ M.opts.notifier = {
 
 M.opts.image = {
   enabled = true,
-  math = { enabled = false },
+  doc = {
+    max_height = 10,
+  },
 }
 vim.api.nvim_create_autocmd("FileType", {
   pattern = M.opts.image.formats,
@@ -179,6 +181,13 @@ M.opts.input = {
     row = 1,
     col = 0,
   },
+}
+
+M.opts.scroll = {
+  enabled = true,
+  filter = function(buf)
+    return vim.bo[buf].filetype ~= "bigfile"
+  end,
 }
 
 return M

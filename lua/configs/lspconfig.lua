@@ -79,6 +79,15 @@ servers.ruff = {
   capabilities = {
     hoverProvider = false,
   },
+  init_options = {
+    settings = {
+      lint = {
+        ignore = {
+          "E402", -- module level import not at top of file
+        },
+      },
+    },
+  },
 }
 
 servers.texlab = {
