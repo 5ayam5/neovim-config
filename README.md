@@ -31,6 +31,7 @@
 1. [OXY2DEV/markview.nvim](https://github.com/OXY2DEV/markview.nvim)
 1. [kwkarlwang/bufresize.nvim](https://github.com/kwkarlwang/bufresize.nvim)
 1. [kevinhwang91/nvim-ufo](https://github.com/kevinhwang91/nvim-ufo)
+1. [luukvbaal/statuscol.nvim](https://github.com/luukvbaal/statuscol.nvim)
 1. [5ayam5/molten-nvim](https://github.com/5ayam5/molten-nvim)
 1. [5ayam5/jupytext.nvim](https://github.com/5ayam5/jupytext.nvim)
 1. [5ayam5/NotebookNavigator.nvim](https://github.com/5ayam5/NotebookNavigator.nvim)

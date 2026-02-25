@@ -299,6 +299,18 @@ local plugins = {
   },
 
   {
+    "luukvbaal/statuscol.nvim",
+    dependencies = {
+      "lewis6991/gitsigns.nvim",
+      "kevinhwang91/nvim-ufo",
+    },
+    event = "User FilePost",
+    opts = function()
+      return require "configs.statuscol"
+    end,
+  },
+
+  {
     dev = true,
     "molten-nvim",
     build = ":UpdateRemotePlugins",
