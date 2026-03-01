@@ -65,7 +65,7 @@ end
 vim.env.PATH = table.concat({ vim.fn.stdpath "data", "mason", "bin" }, "/") .. ":" .. vim.env.PATH
 
 -- statusline
-vim.o.statusline = "%!v:lua.require'statusline'()"
+vim.o.statusline = "%!v:lua.require'myplugins.statusline'()"
 
 -- custom filetypes
 vim.filetype.add {

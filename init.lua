@@ -24,6 +24,7 @@ dofile(vim.g.base46_cache .. "statusline")
 
 require "options"
 require "autocmds"
+require("myplugins.colorify").run()
 
 vim.schedule(function()
   require "mappings"
