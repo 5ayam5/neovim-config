@@ -218,7 +218,7 @@ M.opts.input = {
 M.opts.scroll = {
   enabled = true,
   filter = function(buf)
-    return vim.bo[buf].filetype ~= "bigfile"
+    return vim.bo[buf].filetype ~= "bigfile" and vim.bo[buf].filetype ~= "snacks_terminal"
   end,
 }
 

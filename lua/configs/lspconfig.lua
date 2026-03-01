@@ -145,7 +145,5 @@ vim.diagnostic.config {
     },
   },
   underline = true,
-  float = { border = "single" },
   severity_sort = true,
-  update_in_insert = true,
 }

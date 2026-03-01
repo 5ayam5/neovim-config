@@ -83,7 +83,7 @@ elements.cwd = function()
     return ""
   end
   name = name:match "([^/\\]+)[/\\]*$" or name ---@type string
-  if name:len() > 13 then
+  if name:len() > 23 then
     name = "..." .. name:sub(-10)
   end
   name = "%#St_cwd_text# " .. name .. " "

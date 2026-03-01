@@ -139,12 +139,12 @@ map("n", "<leader>l", "<cmd>Lazy<CR>", { desc = "Lazy open plugin manager" })
 autocmd("FileType", {
   pattern = "jupy",
   callback = function()
-    map("n", "]j", function()
+    map("n", "]]", function()
       for _ = 1, vim.v.count1 do
         require("notebook-navigator").move_cell "d"
       end
     end, { buffer = true, desc = "Jupyter move to next cell" })
-    map("n", "[j", function()
+    map("n", "[[", function()
       for _ = 1, vim.v.count1 do
         require("notebook-navigator").move_cell "u"
       end
@@ -205,3 +205,5 @@ map("n", "K", function()
     vim.lsp.buf.hover()
   end
 end)
+vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
