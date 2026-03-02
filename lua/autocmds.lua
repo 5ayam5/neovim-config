@@ -229,3 +229,5 @@ autocmd("BufWritePost", {
     -- vim.cmd("redraw!")
   end,
 })
+
+require "myplugins.tabline.autocmds"
