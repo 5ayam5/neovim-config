@@ -25,7 +25,7 @@ dofile(vim.g.base46_cache .. "tbline")
 
 require "options"
 require "autocmds"
-require("myplugins.colorify").run()
+require("myplugins.colorify").setup()
 
 vim.schedule(function()
   require "mappings"

@@ -11,7 +11,7 @@ M.opts = {
   highlight = { hex = true, lspvars = true },
 }
 
-M.run = function()
+M.setup = function()
   api.nvim_create_autocmd({
     "TextChanged",
     "TextChangedI",
