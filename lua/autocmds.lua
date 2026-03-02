@@ -233,16 +233,26 @@ autocmd("BufWritePost", {
     return vim.fs.normalize(realpath)
   end, vim.fn.glob(vim.fn.stdpath "config" .. "/lua/**/*.lua", true, true, true)),
 
-  group = augroup("ReloadNvChad", { clear = true }),
+  group = augroup("ReloadNeovim", { clear = true }),
 
   callback = function(opts)
-    local fp = vim.fn.fnamemodify(vim.fs.normalize(vim.api.nvim_buf_get_name(opts.buf)), ":r") --[[@as string]]
+    local fp = vim.fn.fnamemodify(vim.fs.normalize(vim.api.nvim_buf_get_name(opts.buf)), ":r")
     local app_name = vim.env.NVIM_APPNAME and vim.env.NVIM_APPNAME or "nvim"
     local module = string.gsub(fp, "^.*/" .. app_name .. "/lua/", ""):gsub("/", ".")
+    if module then
+      require("plenary.reload").reload_module(module)
+    end
 
-    -- TODO: rewrite this
-    -- require("nvchad.utils").reload(module)
+    require "options"
+    require "autocmds"
+
+    vim.schedule(function()
+      require "mappings"
+    end)
+
+    require("base46").load_all_highlights()
   end,
 })
 
+require("myplugins.colorify").setup()
 require "myplugins.tabline.autocmds"

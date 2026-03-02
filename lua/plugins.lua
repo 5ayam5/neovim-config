@@ -9,14 +9,6 @@ local plugins = {
     end,
   },
 
-  -- {
-  --   "nvchad/ui",
-  --   lazy = false,
-  --   config = function()
-  --     require "nvchad"
-  --   end,
-  -- },
-
   {
     "nvim-tree/nvim-web-devicons",
     opts = function()

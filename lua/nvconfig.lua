@@ -1,7 +1,6 @@
 -- This file needs to have same structure as nvconfig.lua
 -- https://github.com/NvChad/ui/blob/v3.0/lua/nvconfig.lua
 
----@type ChadrcConfig
 local M = {}
 
 M.base46 = {
@@ -16,6 +15,8 @@ M.base46 = {
     "syntax",
     "dap",
   },
+  changed_themes = {},
+  transparency = false,
 
   hl_add = {
     SnacksPicker = { bg = "none" },
@@ -79,10 +80,19 @@ M.ui = {
   cmp = {
     style = "atom_colored",
   },
+
+  telescope = { style = "borderless" },
+
+  statusline = {
+    enabled = true,
+    theme = "default",
+  },
 }
 
 M.lsp = {
   signature = false,
 }
+
+M.cheatsheet = {}
 
 return M
