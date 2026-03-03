@@ -5,7 +5,6 @@
 *Note: Dependencies of the plugins (if used with default options) are excluded from this list.*
 
 1. [Nvchad/base46](https://github.com/NvChad/base46)
-1. [Nvchad/ui](https://github.com/NvChad/ui) \<- working on fully customizing this, so will be removed
 1. [nvim-tree/nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons)
 1. [lukas-reineke/indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)
 1. [nvim-tree/nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua)

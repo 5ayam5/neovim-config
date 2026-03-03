@@ -60,9 +60,9 @@ local function style_buf(bufnr, index, width)
 
   local modified = get_opt_val("modified", { buf = bufnr })
   if is_curbuf then
-    name = (modified and hl_text("󰧞 ", "BufOnModified") or "") .. name
+    name = (modified and hl_text(" 󰧞", "BufOnModified") or "") .. name
   else
-    name = (modified and hl_text("󰧞 ", "BufOffModified") or "") .. name
+    name = (modified and hl_text(" 󰧞", "BufOffModified") or "") .. name
   end
 
   return hl_text(name, tb_hl_name) .. " "

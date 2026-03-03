@@ -1,6 +1,15 @@
 local map = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
 
+local function incorporate_count(key_func)
+  return function()
+    local count = vim.v.count1
+    for _ = 1, count do
+      key_func()
+    end
+  end
+end
+
 -- navigation related
 map("n", ";", ":")
 map("n", "\\", "-")
@@ -68,7 +77,7 @@ end
 local close_window = function()
   -- if current window is floating, just close it
   if vim.api.nvim_win_get_config(0).relative ~= "" then
-    vim.cmd ":q"
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>q", true, false, true), "n", false)
     return
   end
 
@@ -81,7 +90,7 @@ local close_window = function()
     then
       vim.cmd "Nvdash"
     else
-      vim.cmd ":q"
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>q", true, false, true), "n", false)
     end
   end
 end
@@ -91,6 +100,25 @@ map("n", "<leader>q", function()
   Snacks.bufdelete()
   close_window()
 end, { desc = "Delete buffer and close window" })
+
+map("n", "<leader><Tab>", incorporate_count(require("myplugins.tabline").next), { desc = "Go to next <count> buffer" })
+map(
+  "n",
+  "<leader><S-Tab>",
+  incorporate_count(require("myplugins.tabline").prev),
+  { desc = "Go to previous <count> buffer" }
+)
+map("n", "<leader>bl", function()
+  require("myplugins.tabline").move_buf(vim.v.count1)
+end, { desc = "Move current buffer by <count> to the right in bufferline" })
+map("n", "<leader>bh", function()
+  require("myplugins.tabline").move_buf(-vim.v.count1)
+end, { desc = "Move current buffer by <count> to the left in bufferline" })
+map("n", "<leader>bb", function()
+  if vim.v.count then
+    require("myplugins.tabline").goto_buf(vim.v.count)
+  end
+end, { desc = "Go to buffer in bufferline" })
 
 -- terminal
 map("t", "<C-j><C-k>", "<C-\\><C-N>", { desc = "Terminal escape terminal mode" })
@@ -139,16 +167,22 @@ map("n", "<leader>l", "<cmd>Lazy<CR>", { desc = "Lazy open plugin manager" })
 autocmd("FileType", {
   pattern = "jupy",
   callback = function()
-    map("n", "]]", function()
-      for _ = 1, vim.v.count1 do
+    map(
+      "n",
+      "]]",
+      incorporate_count(function()
         require("notebook-navigator").move_cell "d"
-      end
-    end, { buffer = true, desc = "Jupyter move to next cell" })
-    map("n", "[[", function()
-      for _ = 1, vim.v.count1 do
+      end),
+      { buffer = true, desc = "Jupyter move to next <count> cell" }
+    )
+    map(
+      "n",
+      "[[",
+      incorporate_count(function()
         require("notebook-navigator").move_cell "u"
-      end
-    end, { buffer = true, desc = "Jupyter move to previous cell" })
+      end),
+      { buffer = true, desc = "Jupyter move to previous <count> cell" }
+    )
 
     map(
       "n",
@@ -159,8 +193,10 @@ autocmd("FileType", {
     map(
       "n",
       "<leader>jr",
-      "<cmd>lua require('notebook-navigator').run_and_move()<CR>",
-      { buffer = true, desc = "Jupyter run cell and move", silent = true }
+      incorporate_count(function()
+        require("notebook-navigator").run_and_move()
+      end),
+      { buffer = true, desc = "Jupyter run next <count> cell(s) and move", silent = true }
     )
     map(
       "n",

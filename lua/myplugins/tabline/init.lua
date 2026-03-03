@@ -53,8 +53,16 @@ M.move_buf = function(n)
   vim.cmd "redrawtabline"
 end
 
----@param bufnr number the buffer number to go to
-M.goto_buf = function(bufnr)
+---@param n number the buffer (1)-index to go to
+M.goto_buf = function(n)
+  local bufs = vim.t.bufs
+  if bufs == nil or n > #bufs or n <= 0 then
+    return
+  end
+  local bufnr = bufs[n]
+  if not bufnr then
+    return
+  end
   local cur_win = api.nvim_get_current_win()
   local fixedbuf = get_opt_val("winfixbuf", { win = cur_win })
 
