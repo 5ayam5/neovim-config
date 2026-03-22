@@ -10,6 +10,7 @@ local options = {
     markdown = { "mdformat" },
     tex = { "tex-fmt" },
     bib = { "tex-fmt" },
+    cmake = { "cmake_format" },
   },
 
   formatters = {
@@ -28,14 +29,14 @@ local options = {
     },
   },
 
-  format_on_save = function(bufnr)
+  format_on_save = function()
     if vim.b.disable_autoformat then
       return
     end
     if vim.bo.filetype == "jupy" then
       return { timeout_ms = 5000, lsp_format = "fallback" }
     end
-    return { timeout_ms = 500, lsp_format = "fallback" }
+    return { timeout_ms = 1000, lsp_format = "fallback" }
   end,
 }
 

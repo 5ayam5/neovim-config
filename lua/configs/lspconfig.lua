@@ -47,7 +47,7 @@ M.capabilities.general.positionEncodings = { "utf-16" }
 
 local servers = {
   clangd = {},
-  neocmake = {},
+  cmakelang = {},
 }
 
 servers.pyright = {
