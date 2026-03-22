@@ -149,7 +149,7 @@ map({ "n", "v" }, "<leader>de", "<cmd>lua require('dapui').eval()<CR>", { desc =
 
 -- Markdown
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
+  pattern = { "markdown", "codecompanion" },
   callback = function()
     map(
       "n",
@@ -243,3 +243,6 @@ map("n", "K", function()
 end)
 vim.keymap.set("n", "zR", require("ufo").openAllFolds)
 vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+
+-- Code companion
+map("n", "<leader>C", "<cmd>CodeCompanionChat toggle<CR>", { desc = "Toggle Code Companion chat" })

@@ -30,6 +30,10 @@ local plugins = {
     opts = function()
       return require "configs.nvimtree"
     end,
+    init = function()
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
+    end,
   },
 
   {
@@ -296,10 +300,26 @@ local plugins = {
       "lewis6991/gitsigns.nvim",
       "kevinhwang91/nvim-ufo",
     },
-    event = "User FilePost",
+    event = "VeryLazy",
     opts = function()
       return require "configs.statuscol"
     end,
+  },
+
+  {
+    "olimorris/codecompanion.nvim",
+    event = "VeryLazy",
+    opts = {
+      interactions = {
+        chat = {
+          adapter = "copilot",
+        },
+      },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
   },
 
   {

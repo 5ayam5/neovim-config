@@ -6,12 +6,9 @@ local M = {}
 
 M.markdown = require "markview.config.markdown"
 
-M.markdown.headings.heading_1.icon = require("markview.presets").headings.numbered.heading_1.icon ---@diagnostic disable-line: assign-type-mismatch
-M.markdown.headings.heading_2.icon = require("markview.presets").headings.numbered.heading_2.icon ---@diagnostic disable-line: assign-type-mismatch
-M.markdown.headings.heading_3.icon = require("markview.presets").headings.numbered.heading_3.icon ---@diagnostic disable-line: assign-type-mismatch
-M.markdown.headings.heading_4.icon = require("markview.presets").headings.numbered.heading_4.icon ---@diagnostic disable-line: assign-type-mismatch
-M.markdown.headings.heading_5.icon = require("markview.presets").headings.numbered.heading_5.icon ---@diagnostic disable-line: assign-type-mismatch
-M.markdown.headings.heading_6.icon = require("markview.presets").headings.numbered.heading_6.icon ---@diagnostic disable-line: assign-type-mismatch
+for i = 1, 6 do
+  M.markdown.headings["heading_" .. i].icon = require("markview.presets").headings.numbered["heading_" .. i].icon
+end
 
 M.markdown.list_items.marker_minus.text = function(_, item) ---@diagnostic disable-line: assign-type-mismatch
   ---@cast item markview.parsed.markdown.list_items
@@ -32,6 +29,19 @@ M.preview = {
 
   modes = { "n", "no" },
   hybrid_modes = { "no" },
+
+  filetypes = {
+    "markdown",
+    "codecompanion",
+  },
+
+  condition = function(buffer)
+    if vim.bo[buffer].filetype == "codecompanion" then
+      return true
+    else
+      return nil
+    end
+  end,
 }
 
 return M
