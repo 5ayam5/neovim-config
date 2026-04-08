@@ -56,6 +56,7 @@ local function style_buf(bufnr, index, width)
   if #name > maxname_len then
     name = string.sub(name, 1, maxname_len - 3) .. "..."
   end
+  local length = #name
   name = icon_hl .. icon .. hl_text(name, tb_hl_name)
 
   local modified = get_opt_val("modified", { buf = bufnr })
@@ -64,8 +65,9 @@ local function style_buf(bufnr, index, width)
   else
     name = (modified and hl_text(" 󰧞", "BufOffModified") or "") .. name
   end
+  length = length + (modified and 2 or 0) + 3
 
-  return hl_text(name, tb_hl_name) .. " "
+  return hl_text(name, tb_hl_name) .. " ", length
 end
 
 local order = { "tree_offset", "buffers", "tabs" }
@@ -100,18 +102,24 @@ end
 elements.buffers = function()
   local buffers = {}
   local has_current = false
+  local current_width = 0
 
   vim.t.bufs = vim.tbl_filter(api.nvim_buf_is_valid, vim.t.bufs)
   for i, bufnr in ipairs(vim.t.bufs) do
-    if ((#buffers + 1) * bufwidth) > available_width() then
+    has_current = has_current or (cur_buf() == bufnr)
+    local style, buffer_width = style_buf(bufnr, i, bufwidth)
+    current_width = current_width + buffer_width
+    table.insert(buffers, style)
+
+    if current_width > available_width() then
+      if not (has_current and #buffers == 1) then
+        table.remove(buffers, 1)
+        current_width = current_width - buffer_width
+      end
       if has_current then
         break
       end
-      table.remove(buffers, 1)
     end
-
-    has_current = has_current or (cur_buf() == bufnr)
-    table.insert(buffers, style_buf(bufnr, i, bufwidth))
   end
 
   return table.concat(buffers) .. hl_text("%=", "Fill")

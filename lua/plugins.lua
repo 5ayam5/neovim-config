@@ -195,6 +195,7 @@ local plugins = {
         "molten_output",
         "snacks_terminal",
         "snacks_notif_history",
+        "nvim-undotree",
         "bigfile",
       },
       restriction_mode = "hint",
@@ -308,7 +309,13 @@ local plugins = {
 
   {
     "olimorris/codecompanion.nvim",
-    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>C",
+        "<cmd>CodeCompanionChat toggle<CR>",
+        desc = "Toggle Code Companion chat",
+      },
+    },
     opts = {
       interactions = {
         chat = {

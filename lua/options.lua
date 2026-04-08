@@ -61,6 +61,9 @@ for _, plugin in pairs(disabled_providers) do
   g["loaded_" .. plugin .. "_provider"] = 0
 end
 
+-- Enable some built-in plugins
+vim.cmd.packadd "nvim.undotree"
+
 -- Update PATH for mason.nvim
 vim.env.PATH = table.concat({ vim.fn.stdpath "data", "mason", "bin" }, "/") .. ":" .. vim.env.PATH
 

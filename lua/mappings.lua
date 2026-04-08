@@ -12,7 +12,7 @@ end
 
 -- navigation related
 map("n", ";", ":")
-map("n", "\\", "-")
+map({ "n", "v" }, "\\", "-")
 
 map("n", "<ESC>", function()
   vim.cmd "normal! \\<ESC\\>"
@@ -243,6 +243,3 @@ map("n", "K", function()
 end)
 vim.keymap.set("n", "zR", require("ufo").openAllFolds)
 vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
-
--- Code companion
-map("n", "<leader>C", "<cmd>CodeCompanionChat toggle<CR>", { desc = "Toggle Code Companion chat" })
