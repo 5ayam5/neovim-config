@@ -10,7 +10,7 @@ vim.t.bufs = vim.t.bufs
 
 local group = api.nvim_create_augroup("tabline_lazyload", { clear = true })
 
-autocmd({ "BufAdd", "BufEnter", "tabnew" }, {
+autocmd({ "BufAdd", "BufEnter", "TabNew" }, {
   group = group,
   callback = function(args)
     local bufs = vim.t.bufs

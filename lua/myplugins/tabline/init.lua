@@ -38,14 +38,22 @@ end
 ---@param n number the number of buffers by which to move the current buffer
 M.move_buf = function(n)
   local bufs = vim.t.bufs
-  for i, bufnr in ipairs(bufs) do
-    if bufnr == cur_buf() then
-      local new_index = (i + n) % #bufs
-      if new_index == 0 then
-        new_index = #bufs
+  local forward = n > 0
+  n = math.abs(n)
+  local curbuf = cur_buf()
+  for _ = 1, n do
+    for i, bufnr in ipairs(bufs) do
+      if bufnr == curbuf then
+        local new_index
+        if forward then
+          new_index = (i == #bufs) and 1 or (i + 1)
+        else
+          new_index = (i == 1) and #bufs or (i - 1)
+        end
+        table.remove(bufs, i)
+        table.insert(bufs, new_index, bufnr)
+        break
       end
-      bufs[i], bufs[new_index] = bufs[new_index], bufs[i]
-      break
     end
   end
 

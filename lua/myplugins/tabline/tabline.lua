@@ -112,10 +112,8 @@ elements.buffers = function()
     table.insert(buffers, style)
 
     if current_width > available_width() then
-      if not (has_current and #buffers == 1) then
-        table.remove(buffers, 1)
-        current_width = current_width - buffer_width
-      end
+      table.remove(buffers, 1)
+      current_width = current_width - buffer_width
       if has_current then
         break
       end

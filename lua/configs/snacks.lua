@@ -51,7 +51,18 @@ M.keys = {
   {
     "<leader>fb",
     function()
-      Snacks.picker.buffers()
+      Snacks.picker.buffers {
+        filter = {
+          filter = function(item, _)
+            for _, bufnr in ipairs(vim.t.bufs or {}) do
+              if item.buf == bufnr then
+                return true
+              end
+            end
+            return false
+          end,
+        },
+      }
     end,
     desc = "Find buffer",
   },
@@ -213,13 +224,6 @@ M.opts.input = {
     row = 1,
     col = 0,
   },
-}
-
-M.opts.scroll = {
-  enabled = true,
-  filter = function(buf)
-    return vim.bo[buf].filetype ~= "bigfile" and vim.bo[buf].filetype ~= "snacks_terminal"
-  end,
 }
 
 return M
