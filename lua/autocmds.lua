@@ -91,43 +91,10 @@ autocmd("FileType", {
   callback = function()
     if vim.b.bigfile then
       vim.bo.filetype = "bigfile"
-      local buf = vim.api.nvim_get_current_buf()
-
-      if vim.fn.exists ":NoMatchParen" ~= 0 then
-        vim.cmd [[NoMatchParen]]
-      end
-
-      if vim.fn.exists ":LspStop" ~= 0 then
-        vim.cmd [[LspStop]]
-      else
-        vim.api.nvim_create_autocmd({ "LspAttach" }, {
-          buffer = buf,
-          callback = function(args)
-            vim.schedule(function()
-              vim.lsp.buf_detach_client(buf, args.data.client_id)
-            end)
-          end,
-        })
-
-        vim.cmd [[syntax off]]
-        pcall(function()
-          require("indent_blankline.commands").disable()
-        end)
-
-        vim.api.nvim_clear_autocmds {
-          event = "CursorMoved",
-          buffer = buf,
-        }
-
-        -- set foldmethd to manual
-        vim.bo.foldmethod = "manual"
-        vim.bo.statuscolumn = ""
-        vim.bo.conceallevel = 0
-      end
-      return
+      vim.bo.syntax = ""
+      vim.cmd "syntax off"
+      vim.b.matchparen_disable = true
     end
-
-    pcall(vim.treesitter.start)
   end,
 })
 

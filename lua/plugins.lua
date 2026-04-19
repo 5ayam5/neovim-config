@@ -96,11 +96,13 @@ local plugins = {
       },
 
       {
-        "windwp/nvim-autopairs",
-        opts = {
-          fast_wrap = {},
-          disable_filetype = { "snacks_picker_input", "vim", "bigfile" },
-        },
+        "saghen/blink.pairs",
+        version = "*",
+        event = "User FilePost",
+        dependencies = "saghen/blink.download",
+        opts = function()
+          return require "configs.blink_pairs"
+        end,
       },
 
       {
@@ -162,12 +164,6 @@ local plugins = {
       multiwindow = true,
       max_lines = 5,
       multiline_threshold = 1,
-      on_attach = function(buf)
-        if vim.bo[buf].filetype == "bigfile" then
-          return false
-        end
-        return true
-      end,
     },
   },
 
@@ -196,7 +192,6 @@ local plugins = {
         "snacks_terminal",
         "snacks_notif_history",
         "nvim-undotree",
-        "bigfile",
       },
       restriction_mode = "hint",
       restricted_keys = {
@@ -318,8 +313,23 @@ local plugins = {
     },
     opts = {
       interactions = {
+        background = {
+          chat = {
+            opts = {
+              enabled = true,
+            },
+          },
+        },
         chat = {
-          adapter = "copilot",
+          adapter = "copilot_acp",
+        },
+      },
+      display = {
+        chat = {
+          window = {
+            buflisted = true,
+            layout = "buffer",
+          },
         },
       },
     },

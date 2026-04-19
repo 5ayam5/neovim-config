@@ -5,7 +5,6 @@ local M = {}
 M.opts = {
   indent = { char = "│", highlight = "IblChar" },
   scope = { char = "│", highlight = "IblScopeChar" },
-  exclude = { filetypes = { "bigfile" } },
 }
 
 M.config = function(_, opts)

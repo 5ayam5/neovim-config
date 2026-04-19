@@ -7,16 +7,15 @@ local M = {
     disabled_filetypes = {
       "snacks_picker_input",
       "vim",
-      "bigfile",
     },
   },
   highlights = {
     groups = {
-      "BlinkPairsOrange",
-      "BlinkPairsPurple",
-      "BlinkPairsBlue",
-      "BlinkPairsYellow",
       "BlinkPairsViolet",
+      "BlinkPairsBlue",
+      "BlinkPairsPurple",
+      "BlinkPairsOrange",
+      "BlinkPairsYellow",
     },
   },
 }
