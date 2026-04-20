@@ -58,47 +58,9 @@ end, { desc = "Format file" })
 map("n", "<leader>n", ":e ", { desc = "Open new (or existing) file" })
 
 -- buffer related
-local count_windows_except_floating = function()
-  local wins = vim.api.nvim_tabpage_list_wins(0)
-
-  local count = 0
-  for _, w in ipairs(wins) do
-    if w >= 0 then
-      local config = vim.api.nvim_win_get_config(w)
-      if config.relative == "" and not config.external then
-        count = count + 1
-      end
-    end
-  end
-
-  return count
-end
-
-local close_window = function()
-  -- if current window is floating, just close it
-  if vim.api.nvim_win_get_config(0).relative ~= "" then
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>q", true, false, true), "n", false)
-    return
-  end
-
-  -- otherwise, if it's a normal window, check how many normal windows are there and if only 1 or 2 (with nvimtree) then open nvdash, else just close the window
-  local num_windows = count_windows_except_floating()
-  if vim.bo.filetype ~= "nvdash" then
-    if
-      num_windows == 1
-      or (num_windows == 2 and vim.bo.filetype ~= "NvimTree" and require("nvim-tree.api").tree.is_visible())
-    then
-      vim.cmd "Nvdash"
-    else
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>q", true, false, true), "n", false)
-    end
-  end
-end
-
-map("n", "<leader>x", close_window, { desc = "Close window" })
 map("n", "<leader>q", function()
   Snacks.bufdelete()
-  close_window()
+  vim.cmd "\\<C-w>\\>c"
 end, { desc = "Delete buffer and close window" })
 
 map("n", "<leader><Tab>", incorporate_count(require("myplugins.tabline").next), { desc = "Go to next <count> buffer" })
