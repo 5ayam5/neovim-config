@@ -34,7 +34,19 @@ M.base46 = {
     SnacksInputIcon = { link = "Removed" },
   },
 
-  hl_override = {},
+  hl_override = {
+    St_SelectModeSep = { bg = "statusline_bg" },
+    St_InsertModeSep = { bg = "statusline_bg" },
+    St_VisualModeSep = { bg = "statusline_bg" },
+    St_ReplaceModeSep = { bg = "statusline_bg" },
+    St_NormalModeSep = { bg = "statusline_bg" },
+    St_CommandModeSep = { bg = "statusline_bg" },
+    St_ConfirmModeSep = { bg = "statusline_bg" },
+    St_TerminalModeSep = { bg = "statusline_bg" },
+    St_NTerminalModeSep = { bg = "statusline_bg" },
+
+    St_pos_sep = { bg = "statusline_bg" },
+  },
 }
 
 M.nvdash = {

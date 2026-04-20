@@ -43,24 +43,54 @@ local modes = {
   ["!"] = { "SHELL", "Terminal" },
 }
 
-local separators = { block = "█", upper_left = "" }
+local separators = {
+  prefix = "",
+  suffix = "",
+}
+
+local min_widths = {
+  space = 1,
+  mode = (function()
+    local max_mode_length = 0
+    for _, mode_info in pairs(modes) do
+      local mode_length = mode_info[1]:len()
+      if mode_length > max_mode_length then
+        max_mode_length = mode_length
+      end
+    end
+    return max_mode_length + 4
+  end)(),
+  file = 30,
+  cwd = 20,
+  cursor = 10,
+  diagnostics = 0,
+  lsp = 0,
+  git = 0,
+}
 
 local get_buffer_number = function()
   return vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)
 end
 
 local order = {
+  "space",
   "mode",
+  "space",
   "file",
-  "lsp",
-  "diagnostics",
   "%=",
+  "diagnostics",
+  "lsp",
   "git",
+  "%=",
   "cwd",
+  "space",
   "cursor",
+  "space",
 }
 
 local elements = {}
+
+elements.space = "%#St_space#" .. " "
 
 elements.mode = function()
   if vim.api.nvim_get_current_win() ~= vim.g.statusline_winid then
@@ -68,16 +98,17 @@ elements.mode = function()
   end
   local mode = vim.api.nvim_get_mode().mode
 
-  local current_mode = "%#St_" .. modes[mode][2] .. "Mode#  " .. modes[mode][1]
-  local mode_sep1 = "%#St_" .. modes[mode][2] .. "ModeSep#" .. separators.upper_left
-  return current_mode .. mode_sep1 .. "%#St_EmptySpace#" .. separators.upper_left
+  local mode_prefix = "%#St_" .. modes[mode][2] .. "ModeSep#" .. separators.prefix
+  local current_mode = "%#St_" .. modes[mode][2] .. "Mode# " .. modes[mode][1]
+  local mode_suffix = "%#St_" .. modes[mode][2] .. "ModeSep#" .. separators.suffix
+  return mode_prefix .. current_mode .. mode_suffix
 end
 
 elements.cwd = function()
   if vim.o.columns < 100 then
     return ""
   end
-  local icon = "%#St_cwd_sep#" .. separators.block .. "%#St_cwd_icon#" .. " "
+  local icon = "%#St_cwd_sep#" .. separators.prefix .. "%#St_cwd_icon#" .. " "
   local name = vim.uv.cwd()
   if not name then
     return ""
@@ -86,8 +117,7 @@ elements.cwd = function()
   if name:len() > 23 then
     name = "..." .. name:sub(-10)
   end
-  name = "%#St_cwd_text# " .. name .. " "
-  return icon .. name
+  return icon .. name .. "%#St_cwd_sep#" .. separators.suffix
 end
 
 elements.file = function()
@@ -105,24 +135,37 @@ elements.file = function()
     end
   end
 
-  return "%#St_file# " .. icon .. " " .. name .. " %#St_file_sep#" .. separators.upper_left
+  return "%#St_file_sep#"
+    .. separators.prefix
+    .. "%#St_file#"
+    .. icon
+    .. " "
+    .. name
+    .. "%#St_file_sep#"
+    .. separators.suffix
 end
 
-elements.cursor = "%#St_pos_sep#" .. separators.block .. "%#St_pos_icon#󰇀 " .. "%#St_pos_text# %l/%v "
+elements.cursor = "%#St_pos_sep#"
+  .. separators.prefix
+  .. "%#St_pos_icon#󰇀 "
+  .. "%l/%v"
+  .. "%#St_pos_sep#"
+  .. separators.suffix
 
 elements["%="] = "%="
 
 elements.git = function()
-  if vim.o.columns < 75 or not vim.b[get_buffer_number()].gitsigns_status then
-    return ""
-  end
-  local git_info = vim.b[get_buffer_number()].gitsigns_status_dict
-  local added = (git_info.added and git_info.added ~= 0) and ("  " .. git_info.added) or ""
-  local changed = (git_info.changed and git_info.changed ~= 0) and ("  " .. git_info.changed) or ""
-  local removed = (git_info.removed and git_info.removed ~= 0) and ("  " .. git_info.removed) or ""
-  local branch_name = "  " .. git_info.head
+  if vim.o.columns >= 75 and vim.b[get_buffer_number()].gitsigns_status then
+    local git_info = vim.b[get_buffer_number()].gitsigns_status_dict
+    local added = (git_info.added and git_info.added ~= 0) and ("  " .. git_info.added) or ""
+    local changed = (git_info.changed and git_info.changed ~= 0) and ("  " .. git_info.changed) or ""
+    local removed = (git_info.removed and git_info.removed ~= 0) and ("  " .. git_info.removed) or ""
+    local branch_name = "  " .. git_info.head
 
-  return "%#St_gitIcons#" .. branch_name .. added .. changed .. removed .. " "
+    return "%#St_gitIcons#" .. branch_name .. added .. changed .. removed .. " "
+  end
+
+  return ""
 end
 
 elements.lsp = function()
