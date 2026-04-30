@@ -94,6 +94,8 @@ autocmd("FileType", {
       vim.bo.syntax = ""
       vim.cmd "syntax off"
       vim.b.matchparen_disable = true
+    else
+      pcall(vim.treesitter.start)
     end
   end,
 })

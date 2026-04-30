@@ -68,6 +68,17 @@ local min_widths = {
   git = 0,
 }
 
+local max_widths = {
+  space = 1,
+  mode = min_widths.mode,
+  file = 60,
+  cwd = 60,
+  cursor = 20,
+  diagnostics = math.huge,
+  lsp = math.huge,
+  git = math.huge,
+}
+
 local get_buffer_number = function()
   return vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)
 end
@@ -105,27 +116,18 @@ elements.mode = function()
 end
 
 elements.cwd = function()
-  if vim.o.columns < 100 then
-    return ""
-  end
   local icon = "%#St_cwd_sep#" .. separators.prefix .. "%#St_cwd_icon#" .. " "
   local name = vim.uv.cwd()
   if not name then
     return ""
   end
   name = name:match "([^/\\]+)[/\\]*$" or name ---@type string
-  if name:len() > 23 then
-    name = "..." .. name:sub(-10)
-  end
   return icon .. name .. "%#St_cwd_sep#" .. separators.suffix
 end
 
 elements.file = function()
   local path = vim.api.nvim_buf_get_name(get_buffer_number())
   local name = path:match "([^/\\]+)[/\\]*$" or "" ---@type string
-  if name:len() > 23 then
-    name = "..." .. name:sub(-20)
-  end
   local icon = ""
   if name ~= "" then
     local ok, devicons = pcall(require, "nvim-web-devicons")
@@ -155,8 +157,9 @@ elements.cursor = "%#St_pos_sep#"
 elements["%="] = "%="
 
 elements.git = function()
-  if vim.o.columns >= 75 and vim.b[get_buffer_number()].gitsigns_status then
-    local git_info = vim.b[get_buffer_number()].gitsigns_status_dict
+  local buf = get_buffer_number()
+  if vim.b[buf] and vim.b[buf].gitsigns_status then
+    local git_info = vim.b[buf].gitsigns_status_dict
     local added = (git_info.added and git_info.added ~= 0) and ("  " .. git_info.added) or ""
     local changed = (git_info.changed and git_info.changed ~= 0) and ("  " .. git_info.changed) or ""
     local removed = (git_info.removed and git_info.removed ~= 0) and ("  " .. git_info.removed) or ""
@@ -169,22 +172,21 @@ elements.git = function()
 end
 
 elements.lsp = function()
-  if vim.o.columns >= 75 and rawget(vim, "lsp") then
-    local clients = ""
-    for _, client in ipairs(vim.lsp.get_clients()) do
-      if client.attached_buffers[get_buffer_number()] then
-        clients = clients .. "[" .. client.name .. "]"
-      end
-    end
-    if clients == "" then
-      return ""
-    elseif clients:len() > 24 then
-      clients = clients:sub(1, 20) .. "...]"
-    end
-    return "%#St_Lsp#  LSP " .. clients
+  if not rawget(vim, "lsp") then
+    return ""
   end
-
-  return ""
+  local clients = ""
+  for _, client in ipairs(vim.lsp.get_clients()) do
+    if client.attached_buffers and client.attached_buffers[get_buffer_number()] then
+      clients = clients .. "[" .. client.name .. "]"
+    end
+  end
+  if clients == "" then
+    return ""
+  elseif clients:len() > 24 then
+    clients = clients:sub(1, 20) .. "...]"
+  end
+  return "%#St_Lsp#  LSP " .. clients
 end
 
 elements.diagnostics = function()

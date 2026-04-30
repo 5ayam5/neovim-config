@@ -341,6 +341,24 @@ local plugins = {
 
   {
     dev = true,
+    "pets.nvim",
+    dependencies = "MunifTanjim/nui.nvim",
+    event = "VeryLazy",
+    opts = {
+      popup = {
+        width = "25%",
+        avoid_statusline = true,
+      },
+    },
+    config = function(_, opts)
+      require("pets").setup(opts)
+      vim.cmd "PetsNewCustom cat white gato"
+      vim.cmd "PetsNewCustom dog gray perro"
+    end,
+  },
+
+  {
+    dev = true,
     "molten-nvim",
     build = ":UpdateRemotePlugins",
     lazy = false,
