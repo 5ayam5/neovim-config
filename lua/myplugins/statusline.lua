@@ -48,35 +48,34 @@ local separators = {
   suffix = "",
 }
 
+local max_widths = {
+  file = 60,
+  cwd = 60,
+  diagnostics = 20,
+  lsp = 40,
+  git = 40,
+}
+
 local min_widths = {
-  space = 1,
-  mode = (function()
-    local max_mode_length = 0
-    for _, mode_info in pairs(modes) do
-      local mode_length = mode_info[1]:len()
-      if mode_length > max_mode_length then
-        max_mode_length = mode_length
-      end
-    end
-    return max_mode_length + 4
-  end)(),
-  file = 30,
-  cwd = 20,
-  cursor = 10,
+  space = 0,
+  mode = math.huge,
+  file = 10,
+  cwd = 10,
+  cursor = math.huge,
   diagnostics = 0,
   lsp = 0,
   git = 0,
 }
 
-local max_widths = {
-  space = 1,
-  mode = min_widths.mode,
-  file = 60,
-  cwd = 60,
-  cursor = 20,
-  diagnostics = math.huge,
-  lsp = math.huge,
-  git = math.huge,
+local width_priority = {
+  "space",
+  "mode",
+  "file",
+  "cwd",
+  "cursor",
+  "diagnostics",
+  "lsp",
+  "git",
 }
 
 local get_buffer_number = function()
@@ -208,11 +207,97 @@ elements.diagnostics = function()
 end
 
 return function()
-  local statusline = {}
+  local function rendered_width(s)
+    local ok, evaluated = pcall(vim.api.nvim_eval_statusline, s, {
+      winid = vim.g.statusline_winid or 0,
+    })
+    if ok then
+      return evaluated.width
+    end
+    return vim.fn.strdisplaywidth(s:gsub("%%#.-#", ""):gsub("%%[=<]", ""))
+  end
 
+  local function truncate(part, width)
+    if width == math.huge or rendered_width(part) <= width then
+      return part
+    end
+    if width <= 0 then
+      return ""
+    end
+
+    return "%." .. width .. "(" .. part .. "%)"
+  end
+
+  local parts = {}
+  local by_key = {}
   for _, key in ipairs(order) do
     local v = elements[key]
-    table.insert(statusline, type(v) == "string" and v or v())
+    local part = type(v) == "string" and v or v()
+    local item = {
+      key = key,
+      part = part,
+      width = rendered_width(part),
+      min_width = min_widths[key],
+      max_width = max_widths[key] or math.huge,
+      allocated_width = 0,
+      visible = min_widths[key] == nil,
+    }
+    table.insert(parts, item)
+
+    if min_widths[key] ~= nil then
+      by_key[key] = by_key[key] or {}
+      table.insert(by_key[key], item)
+    end
   end
-  return table.concat(statusline, "")
+
+  local available_width = vim.o.columns
+  local consumed_width = 0
+
+  for _, key in ipairs(width_priority) do
+    local min_width = min_widths[key]
+    if min_width and min_width > 0 then
+      for _, item in ipairs(by_key[key] or {}) do
+        local needed_width = math.min(item.width, min_width)
+        consumed_width = consumed_width + needed_width
+        if consumed_width > available_width then
+          return ""
+        end
+        item.visible = true
+        item.allocated_width = needed_width
+      end
+    end
+  end
+
+  for _, key in ipairs(width_priority) do
+    if min_widths[key] == 0 then
+      for _, item in ipairs(by_key[key] or {}) do
+        item.visible = true
+      end
+    end
+  end
+
+  for _, key in ipairs(width_priority) do
+    for _, item in ipairs(by_key[key] or {}) do
+      if item.visible then
+        local target_width = math.min(item.width, item.max_width)
+        local extra_width = math.min(target_width - item.allocated_width, available_width - consumed_width)
+        if extra_width > 0 then
+          item.allocated_width = item.allocated_width + extra_width
+          consumed_width = consumed_width + extra_width
+        end
+        if consumed_width >= available_width then
+          break
+        end
+      end
+    end
+  end
+
+  local statusline = {}
+  for _, item in ipairs(parts) do
+    if item.visible then
+      table.insert(statusline, item.min_width == nil and item.part or truncate(item.part, item.allocated_width))
+    end
+  end
+
+  return table.concat(statusline)
 end
