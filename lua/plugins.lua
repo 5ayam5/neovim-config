@@ -312,6 +312,17 @@ local plugins = {
       },
     },
     opts = {
+      adapters = {
+        acp = {
+          codex = function()
+            return require("codecompanion.adapters").extend("codex", {
+              defaults = {
+                auth_method = "chatgpt",
+              },
+            })
+          end,
+        },
+      },
       interactions = {
         background = {
           chat = {
@@ -321,7 +332,7 @@ local plugins = {
           },
         },
         chat = {
-          adapter = "copilot_acp",
+          adapter = "codex",
         },
       },
       display = {
@@ -346,7 +357,7 @@ local plugins = {
     event = "VeryLazy",
     opts = {
       popup = {
-        width = "25%",
+        width = "20%",
         avoid_statusline = true,
       },
     },
