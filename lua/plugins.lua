@@ -122,11 +122,10 @@ local plugins = {
   },
 
   {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
+    "milanglacier/minuet-ai.nvim",
     event = "InsertEnter",
     opts = function()
-      return require "configs.copilot"
+      return require "configs.minuet"
     end,
   },
 
