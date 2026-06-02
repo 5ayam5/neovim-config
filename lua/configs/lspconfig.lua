@@ -75,15 +75,22 @@ servers.pyright = {
 }
 
 servers.ruff = {
-  filetypes = { "python", "jupy" },
+  filetypes = { "python" },
   capabilities = {
     hoverProvider = false,
   },
+}
+
+servers.ruff_jupy = {
+  cmd = { "ruff", "server" },
+  filetypes = { "jupy" },
   init_options = {
     settings = {
       lint = {
         ignore = {
           "E402", -- module level import not at top of file
+          "F841", -- unused local variable
+          "ERA001", -- commented-out code
         },
       },
     },

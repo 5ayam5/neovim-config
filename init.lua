@@ -25,6 +25,7 @@ dofile(vim.g.base46_cache .. "tbline")
 
 require "options"
 require "autocmds"
+require "usercmds"
 
 vim.schedule(function()
   require "mappings"
