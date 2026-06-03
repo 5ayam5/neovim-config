@@ -302,51 +302,19 @@ local plugins = {
   },
 
   {
-    "olimorris/codecompanion.nvim",
+    "kkrampis/codex.nvim",
+    cmd = { "Codex", "CodexToggle" },
     keys = {
       {
-        "<leader>C",
-        "<cmd>CodeCompanionChat toggle<CR>",
-        desc = "Toggle Code Companion chat",
+        "<M-c>",
+        function()
+          require("codex").toggle()
+        end,
+        desc = "Toggle Codex",
+        mode = { "n", "t" },
       },
     },
-    opts = {
-      adapters = {
-        acp = {
-          codex = function()
-            return require("codecompanion.adapters").extend("codex", {
-              defaults = {
-                auth_method = "chatgpt",
-              },
-            })
-          end,
-        },
-      },
-      interactions = {
-        background = {
-          chat = {
-            opts = {
-              enabled = true,
-            },
-          },
-        },
-        chat = {
-          adapter = "codex",
-        },
-      },
-      display = {
-        chat = {
-          window = {
-            buflisted = true,
-            layout = "buffer",
-          },
-        },
-      },
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
+    opts = {},
   },
 
   {
@@ -356,7 +324,8 @@ local plugins = {
     event = "VeryLazy",
     opts = {
       popup = {
-        width = "20%",
+        col = "0%",
+        width = "30",
         avoid_statusline = true,
       },
     },

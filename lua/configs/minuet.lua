@@ -6,7 +6,6 @@ return {
     auto_trigger_ft = { "*" },
     auto_trigger_ignore_ft = {
       "markdown",
-      "codecompanion",
       "bigfile",
     },
     keymap = {

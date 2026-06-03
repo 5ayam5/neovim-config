@@ -111,7 +111,7 @@ map({ "n", "v" }, "<leader>de", "<cmd>lua require('dapui').eval()<CR>", { desc =
 
 -- Markdown
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "codecompanion" },
+  pattern = { "markdown" },
   callback = function()
     map(
       "n",
@@ -181,7 +181,7 @@ autocmd("FileType", {
     )
     map(
       "n",
-      "<C-w>c",
+      "<leader>jo",
       "<cmd>noautocmd MoltenEnterOutput<CR>",
       { buffer = true, desc = "Jupyter open/enter cell Output", silent = true }
     )
