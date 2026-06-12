@@ -29,6 +29,8 @@ M.preview = {
   filetypes = {
     "markdown",
   },
+
+  linewise_hybrid_mode = true,
 }
 
 return M

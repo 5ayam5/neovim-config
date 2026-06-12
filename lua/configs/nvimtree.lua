@@ -31,4 +31,8 @@ return {
       },
     },
   },
+  git = {
+    enable = true,
+    timeout = 2000,
+  },
 }

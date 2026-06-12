@@ -99,7 +99,10 @@ local plugins = {
         "saghen/blink.pairs",
         version = "*",
         event = "User FilePost",
-        dependencies = "saghen/blink.download",
+        dependencies = "saghen/blink.lib",
+        build = function()
+          require("blink.pairs").build():pwait(60000)
+        end,
         opts = function()
           return require "configs.blink_pairs"
         end,
@@ -331,8 +334,9 @@ local plugins = {
     },
     config = function(_, opts)
       require("pets").setup(opts)
-      vim.cmd "PetsNewCustom cat white gato"
-      vim.cmd "PetsNewCustom dog gray perro"
+      vim.cmd "PetsNewCustom cat white Kat"
+      vim.cmd "PetsNewCustom dog beige Susie"
+      vim.cmd "PetsNewCustom slime pink Fool"
     end,
   },
 
