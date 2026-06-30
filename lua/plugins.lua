@@ -305,7 +305,7 @@ local plugins = {
   },
 
   {
-    "kkrampis/codex.nvim",
+    "johnseth97/codex.nvim",
     cmd = { "Codex", "CodexToggle" },
     keys = {
       {
@@ -317,7 +317,13 @@ local plugins = {
         mode = { "n", "t" },
       },
     },
-    opts = {},
+    opts = {
+      cmd = {
+        "codex",
+        "resume",
+        "--all",
+      },
+    },
   },
 
   {
