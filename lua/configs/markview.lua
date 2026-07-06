@@ -28,9 +28,18 @@ M.preview = {
 
   filetypes = {
     "markdown",
+    "codecompanion",
   },
 
   linewise_hybrid_mode = true,
+
+  condition = function(buffer)
+    if vim.bo[buffer].filetype == "codecompanion" then
+      return true
+    else
+      return nil
+    end
+  end,
 }
 
 return M

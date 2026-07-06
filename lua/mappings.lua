@@ -111,7 +111,7 @@ map({ "n", "v" }, "<leader>de", "<cmd>lua require('dapui').eval()<CR>", { desc =
 
 -- Markdown
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown" },
+  pattern = { "markdown", "codecompanion" },
   callback = function()
     map(
       "n",

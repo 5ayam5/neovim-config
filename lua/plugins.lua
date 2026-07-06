@@ -125,10 +125,11 @@ local plugins = {
   },
 
   {
-    "milanglacier/minuet-ai.nvim",
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
     event = "InsertEnter",
     opts = function()
-      return require "configs.minuet"
+      return require "configs.copilot"
     end,
   },
 
@@ -305,24 +306,50 @@ local plugins = {
   },
 
   {
-    "johnseth97/codex.nvim",
-    cmd = { "Codex", "CodexToggle" },
+    "olimorris/codecompanion.nvim",
     keys = {
       {
         "<M-c>",
-        function()
-          require("codex").toggle()
-        end,
-        desc = "Toggle Codex",
-        mode = { "n", "t" },
+        "<cmd>CodeCompanionChat toggle<CR>",
+        desc = "Toggle Code Companion chat",
       },
     },
     opts = {
-      cmd = {
-        "codex",
-        "resume",
-        "--all",
+      adapters = {
+        acp = {
+          codex = function()
+            return require("codecompanion.adapters").extend("codex", {
+              defaults = {
+                auth_method = "chatgpt",
+              },
+            })
+          end,
+        },
       },
+      interactions = {
+        background = {
+          chat = {
+            opts = {
+              enabled = true,
+            },
+          },
+        },
+        chat = {
+          adapter = "codex",
+        },
+      },
+      display = {
+        chat = {
+          window = {
+            buflisted = true,
+            layout = "buffer",
+          },
+        },
+      },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
     },
   },
 

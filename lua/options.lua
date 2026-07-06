@@ -15,6 +15,7 @@ o.wrap = false
 -- Editing
 o.clipboard = "unnamedplus"
 o.undofile = true
+o.autoread = true
 
 -- Cursor
 o.cursorlineopt = "both"
