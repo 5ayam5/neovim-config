@@ -263,12 +263,6 @@ local plugins = {
   },
 
   {
-    "kwkarlwang/bufresize.nvim",
-    event = { "VimResized", "WinResized" },
-    opts = {},
-  },
-
-  {
     "f3fora/nvim-texlabconfig",
     ft = { "tex", "bib" },
     opts = {},
@@ -314,39 +308,7 @@ local plugins = {
         desc = "Toggle Code Companion chat",
       },
     },
-    opts = {
-      adapters = {
-        acp = {
-          codex = function()
-            return require("codecompanion.adapters").extend("codex", {
-              defaults = {
-                auth_method = "chatgpt",
-              },
-            })
-          end,
-        },
-      },
-      interactions = {
-        background = {
-          chat = {
-            opts = {
-              enabled = true,
-            },
-          },
-        },
-        chat = {
-          adapter = "codex",
-        },
-      },
-      display = {
-        chat = {
-          window = {
-            buflisted = true,
-            layout = "buffer",
-          },
-        },
-      },
-    },
+    opts = require "configs.codecompanion",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
