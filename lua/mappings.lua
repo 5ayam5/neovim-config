@@ -1,14 +1,5 @@
 local map = vim.keymap.set
-local autocmd = vim.api.nvim_create_autocmd
-
-local function incorporate_count(key_func)
-  return function()
-    local count = vim.v.count1
-    for _ = 1, count do
-      key_func()
-    end
-  end
-end
+local incorporate_count = require("utils").incorporate_count
 
 -- navigation related
 map("n", ";", ":")
@@ -86,7 +77,6 @@ end, { desc = "Go to buffer in bufferline" })
 map("t", "<C-j><C-k>", "<C-\\><C-N>", { desc = "Terminal escape terminal mode" })
 
 -- utility
-map("n", "<leader>cc", "<cmd>NvCheatsheet<CR>", { desc = "Toggle nvCheatsheet" })
 map("n", "<leader>ce", ":checkhealth ", { desc = "CheckhEalth" })
 map("n", "<leader>cn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "Show Notification history" })
 
@@ -109,92 +99,8 @@ map("n", "<leader>dt", "<cmd>lua require('dapui').toggle()<CR>", { desc = "DAP t
 map("n", "<leader>dx", "<cmd>DapTerminate<CR>", { desc = "DAP terminate" })
 map({ "n", "v" }, "<leader>de", "<cmd>lua require('dapui').eval()<CR>", { desc = "DAP evaluate" })
 
--- Markdown
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "codecompanion" },
-  callback = function()
-    map(
-      "n",
-      "<leader>m",
-      "<cmd>Markview toggle<CR>",
-      { desc = "Toggle Markdown rendering", silent = true, buffer = true }
-    )
-  end,
-})
-
 -- Lazy
 map("n", "<leader>l", "<cmd>Lazy<CR>", { desc = "Lazy open plugin manager" })
-
--- Notebook-Navigator
-autocmd("FileType", {
-  pattern = "jupy",
-  callback = function()
-    map(
-      "n",
-      "]]",
-      incorporate_count(function()
-        require("notebook-navigator").move_cell "d"
-      end),
-      { buffer = true, desc = "Jupyter move to next <count> cell" }
-    )
-    map(
-      "n",
-      "[[",
-      incorporate_count(function()
-        require("notebook-navigator").move_cell "u"
-      end),
-      { buffer = true, desc = "Jupyter move to previous <count> cell" }
-    )
-
-    map(
-      "n",
-      "<leader>jR",
-      "<cmd>lua require('notebook-navigator').run_cell()<CR>",
-      { buffer = true, desc = "Jupyter Run current cell", silent = true }
-    )
-    map(
-      "n",
-      "<leader>jr",
-      incorporate_count(function()
-        require("notebook-navigator").run_and_move()
-      end),
-      { buffer = true, desc = "Jupyter run next <count> cell(s) and move", silent = true }
-    )
-    map(
-      "n",
-      "<leader>ja",
-      "<cmd>lua require('notebook-navigator').run_cells_below()<CR>",
-      { buffer = true, desc = "Jupyter run (a)ll cells below", silent = true }
-    )
-    map(
-      "n",
-      "<leader>jA",
-      "<cmd>lua require('notebook-navigator').run_all_cells()<CR>",
-      { buffer = true, desc = "Jupyter run All cells", silent = true }
-    )
-
-    map(
-      "n",
-      "<leader>ji",
-      "<cmd>MoltenImagePopup<CR>",
-      { buffer = true, desc = "Jupyter show Image output in popup", silent = true }
-    )
-    map(
-      "n",
-      "<leader>jo",
-      "<cmd>noautocmd MoltenEnterOutput<CR>",
-      { buffer = true, desc = "Jupyter open/enter cell Output", silent = true }
-    )
-    map(
-      "n",
-      "<leader>jh",
-      "<cmd>noautocmd MoltenHideOutput<CR>",
-      { buffer = true, desc = "Jupyter Hide cell output", silent = true }
-    )
-
-    map("n", "<leader>js", "<cmd>MoltenRestart<CR>", { buffer = true, desc = "Jupyter reStart kernel", silent = true })
-  end,
-})
 
 -- UFO
 map("n", "K", function()
