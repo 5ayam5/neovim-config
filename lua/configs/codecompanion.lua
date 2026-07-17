@@ -4,7 +4,7 @@ return {
       codex = function()
         return require("codecompanion.adapters").extend("codex", {
           defaults = {
-            auth_method = "chatgpt",
+            auth_method = "chat-gpt",
           },
         })
       end,
@@ -41,6 +41,7 @@ return {
     chat = {
       window = {
         layout = "buffer",
+        buflisted = true,
         opts = {
           number = true,
           relativenumber = true,

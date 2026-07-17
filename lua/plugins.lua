@@ -181,29 +181,6 @@ local plugins = {
     end,
   },
 
-  -- NOTE: remove this once I become proficient
-  {
-    "m4xshen/hardtime.nvim",
-    event = "VeryLazy",
-    dependencies = { "MunifTanjim/nui.nvim" },
-    opts = {
-      disabled_filetypes = {
-        "harpoon",
-        "nvdash",
-        "nvcheatsheet",
-        "molten_output",
-        "snacks_terminal",
-        "snacks_notif_history",
-        "nvim-undotree",
-      },
-      restriction_mode = "hint",
-      restricted_keys = {
-        ["<C-N>"] = {},
-        ["<C-P>"] = {},
-      },
-    },
-  },
-
   {
     "folke/todo-comments.nvim",
     event = "User FilePost",

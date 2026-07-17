@@ -223,5 +223,53 @@ autocmd("BufWritePost", {
   end,
 })
 
+-- keep window sizes proportional across terminal resizes
+-- windows with 'winfixwidth'/'winfixheight' (e.g. nvim-tree) keep their fixed size
+do
+  local resize_state = { columns = vim.o.columns, lines = vim.o.lines }
+  local ratios = {}
+  local restoring = false
+  local is_normal = require("utils").is_normal_win
+
+  local function record()
+    -- only capture on genuine window resizes, not the resize caused by the
+    -- terminal changing size (which we handle via VimResized below)
+    if restoring or vim.o.columns ~= resize_state.columns or vim.o.lines ~= resize_state.lines then
+      return
+    end
+    ratios = {}
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      if is_normal(win) then
+        ratios[win] = {
+          w = vim.api.nvim_win_get_width(win) / vim.o.columns,
+          h = vim.api.nvim_win_get_height(win) / vim.o.lines,
+        }
+      end
+    end
+  end
+
+  local function restore()
+    restoring = true
+    for win, ratio in pairs(ratios) do
+      if is_normal(win) then
+        if not vim.wo[win].winfixwidth then
+          vim.api.nvim_win_set_width(win, math.max(1, math.floor(ratio.w * vim.o.columns + 0.5)))
+        end
+        if not vim.wo[win].winfixheight then
+          vim.api.nvim_win_set_height(win, math.max(1, math.floor(ratio.h * vim.o.lines + 0.5)))
+        end
+      end
+    end
+    resize_state.columns, resize_state.lines = vim.o.columns, vim.o.lines
+    vim.schedule(function()
+      restoring = false
+    end)
+  end
+
+  augroup("ProportionalResize", { clear = true })
+  autocmd({ "WinResized", "WinNew", "VimEnter" }, { group = "ProportionalResize", callback = record })
+  autocmd("VimResized", { group = "ProportionalResize", callback = restore })
+end
+
 require("myplugins.colorify").setup()
 require "myplugins.tabline.autocmds"
