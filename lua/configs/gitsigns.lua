@@ -18,4 +18,8 @@ return {
     map("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>", { desc = "git stage hunk", silent = true })
     map("n", "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>", { desc = "git reset hunk", silent = true })
   end,
+
+  current_line_blame_opts = {
+    delay = 100,
+  },
 }
