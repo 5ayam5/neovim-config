@@ -231,6 +231,13 @@ do
   local restoring = false
   local is_normal = require("utils").is_normal_win
 
+  -- rows actually available to windows: &lines minus the tabline/global
+  -- statusline/cmdline rows, which stay fixed when the terminal resizes
+  local function usable_lines()
+    local tabline = vim.o.showtabline == 2 or (vim.o.showtabline == 1 and #vim.api.nvim_list_tabpages() > 1)
+    return math.max(1, vim.o.lines - vim.o.cmdheight - (tabline and 1 or 0) - (vim.o.laststatus == 3 and 1 or 0))
+  end
+
   local function record()
     -- only capture on genuine window resizes, not the resize caused by the
     -- terminal changing size (which we handle via VimResized below)
@@ -238,11 +245,12 @@ do
       return
     end
     ratios = {}
+    local usable = usable_lines()
     for _, win in ipairs(vim.api.nvim_list_wins()) do
       if is_normal(win) then
         ratios[win] = {
           w = vim.api.nvim_win_get_width(win) / vim.o.columns,
-          h = vim.api.nvim_win_get_height(win) / vim.o.lines,
+          h = vim.api.nvim_win_get_height(win) / usable,
         }
       end
     end
@@ -250,16 +258,22 @@ do
 
   local function restore()
     restoring = true
+    -- separator rows between stacked windows are still fixed, so rounding can
+    -- shove a leftover row into the command line when shrinking the bottom
+    -- window; reassign cmdheight after resize to restore
+    local cmdheight = vim.o.cmdheight
+    local usable = usable_lines()
     for win, ratio in pairs(ratios) do
       if is_normal(win) then
         if not vim.wo[win].winfixwidth then
           vim.api.nvim_win_set_width(win, math.max(1, math.floor(ratio.w * vim.o.columns + 0.5)))
         end
         if not vim.wo[win].winfixheight then
-          vim.api.nvim_win_set_height(win, math.max(1, math.floor(ratio.h * vim.o.lines + 0.5)))
+          vim.api.nvim_win_set_height(win, math.max(1, math.floor(ratio.h * usable + 0.5)))
         end
       end
     end
+    vim.o.cmdheight = cmdheight
     resize_state.columns, resize_state.lines = vim.o.columns, vim.o.lines
     vim.schedule(function()
       restoring = false
