@@ -14,6 +14,10 @@ local options = {
   },
 
   formatters = {
+    mdformat = {
+      prepend_args = { "--wrap", "80" },
+    },
+
     jupytext_ruff_chain = {
       command = "sh",
       args = {
