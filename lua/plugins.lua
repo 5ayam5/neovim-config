@@ -114,6 +114,7 @@ local plugins = {
         opts = {
           library = {
             { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            { path = "snacks.nvim", words = { "Snacks" } },
           },
         },
       },
@@ -258,7 +259,10 @@ local plugins = {
       vim.o.foldenable = true
     end,
     opts = {
-      provider_selector = function(_, _, _)
+      provider_selector = function(_, filetype, _)
+        if filetype == "codecompanion" then
+          return ""
+        end
         return { "treesitter", "indent" }
       end,
     },

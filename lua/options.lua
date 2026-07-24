@@ -24,6 +24,7 @@ o.number = true
 o.numberwidth = 2
 o.ruler = false
 o.mouse = ""
+o.mousescroll = "ver:0,hor:0"
 
 -- Indenting
 o.expandtab = true

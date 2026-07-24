@@ -10,9 +10,9 @@ return {
   suggestion = {
     auto_trigger = true,
     keymap = {
-      accept_word = "<C-;>",
-      accept_line = "<C-'>",
-      accept = "<C-CR>",
+      accept_word = "<C-/>",
+      accept_line = "<C-.>",
+      accept = "<C-,>",
     },
   },
 }

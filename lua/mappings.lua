@@ -5,6 +5,10 @@ local incorporate_count = require("utils").incorporate_count
 map("n", ";", ":")
 map({ "n", "v" }, "\\", "-")
 
+for _, key in ipairs { "<Up>", "<Down>", "<Left>", "<Right>" } do
+  map({ "n", "x", "i" }, key, "<Nop>", { desc = "Disabled" })
+end
+
 map("n", "<ESC>", function()
   vim.cmd "normal! \\<ESC\\>"
   vim.cmd ":noh"
