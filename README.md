@@ -28,6 +28,7 @@
 1. [ThePrimeagen/harpoon](https://github.com/ThePrimeagen/harpoon)
 1. [OXY2DEV/markview.nvim](https://github.com/OXY2DEV/markview.nvim)
 1. [f3fora/nvim-texlabconfig](https://github.com/f3fora/nvim-texlabconfig)
+1. [linux-cultist/venv-selector.nvim](https://github.com/linux-cultist/venv-selector.nvim)
 1. [kevinhwang91/nvim-ufo](https://github.com/kevinhwang91/nvim-ufo)
 1. [luukvbaal/statuscol.nvim](https://github.com/luukvbaal/statuscol.nvim)
 1. [olimorris/codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim)
@@ -42,6 +43,7 @@
 1. `:MasonInstall pyright ruff clangd cmakelang lua-language-server texlab` (LSPs)
 1. `:MasonInstall stylua texfmt clang-format mdformat` (Formatters)
 1. `:MasonInstall codelldb` (DAP)
+1. `brew install fd` (used by venv-selector searches)
 
 ## Jupyter setup
 

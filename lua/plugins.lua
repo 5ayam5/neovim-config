@@ -248,6 +248,15 @@ local plugins = {
   },
 
   {
+    "linux-cultist/venv-selector.nvim",
+    ft = { "python", "jupy" },
+    keys = {
+      { "<leader>fv", "<cmd>VenvSelect<cr>", desc = "Select python venv" },
+    },
+    opts = require "configs.venv_selector",
+  },
+
+  {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
     event = "User FilePost",
