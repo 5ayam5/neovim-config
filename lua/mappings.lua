@@ -10,7 +10,6 @@ for _, key in ipairs { "<Up>", "<Down>", "<Left>", "<Right>" } do
 end
 
 map("n", "<ESC>", function()
-  vim.cmd "normal! \\<ESC\\>"
   vim.cmd ":noh"
 end, { desc = "Search clear highlights" })
 
@@ -18,7 +17,14 @@ map("n", "<C-h>", "<C-w>h", { desc = "Switch window left" })
 map("n", "<C-l>", "<C-w>l", { desc = "Switch window right" })
 map("n", "<C-j>", "<C-w>j", { desc = "Switch window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "Switch window up" })
-map("n", "<C-p>", "<C-w>p", { desc = "Switch to previous window" })
+map(
+  "n",
+  "<C-w>w",
+  incorporate_count(function()
+    vim.cmd "wincmd W"
+  end),
+  { desc = "Switch windows (reverse)" }
+)
 
 map("i", "jk", "<ESC>")
 map("i", "<C-b>", "<ESC>^i", { desc = "Move beginning of line" })
@@ -55,7 +61,7 @@ map("n", "<leader>n", ":e ", { desc = "Open new (or existing) file" })
 -- buffer related
 map("n", "<leader>q", function()
   Snacks.bufdelete()
-  vim.cmd "\\<C-w>\\>c"
+  vim.cmd "wincmd c"
 end, { desc = "Delete buffer and close window" })
 
 map("n", "<leader><Tab>", incorporate_count(require("myplugins.tabline").next), { desc = "Go to next <count> buffer" })
