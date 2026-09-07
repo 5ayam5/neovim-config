@@ -6,6 +6,10 @@ augroup("CustomFilePost", { clear = true })
 autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
   group = "CustomFilePost",
   callback = function(args)
+    if not vim.api.nvim_buf_is_valid(args.buf) then
+      return
+    end
+
     local file = vim.api.nvim_buf_get_name(args.buf)
     local buftype = vim.api.nvim_get_option_value("buftype", { buf = args.buf })
 
