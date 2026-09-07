@@ -1,5 +1,6 @@
 local map = vim.keymap.set
 local incorporate_count = require("utils").incorporate_count
+local is_normal_win = require("utils").is_normal_win
 
 -- navigation related
 map("n", ";", ":")
@@ -13,10 +14,21 @@ map("n", "<ESC>", function()
   vim.cmd ":noh"
 end, { desc = "Search clear highlights" })
 
-map("n", "<C-h>", "<C-w>h", { desc = "Switch window left" })
-map("n", "<C-l>", "<C-w>l", { desc = "Switch window right" })
-map("n", "<C-j>", "<C-w>j", { desc = "Switch window down" })
-map("n", "<C-k>", "<C-w>k", { desc = "Switch window up" })
+-- don't walk out of floating windows
+local function win_move(dir)
+  return function()
+    if not is_normal_win(vim.api.nvim_get_current_win()) then
+      return
+    end
+    vim.cmd(vim.v.count1 .. "wincmd " .. dir)
+  end
+end
+
+for dir, where in pairs { h = "left", j = "down", k = "up", l = "right" } do
+  local opts = { desc = "Switch window " .. where }
+  map("n", "<C-" .. dir .. ">", win_move(dir), opts)
+  map("n", "<C-w>" .. dir, win_move(dir), opts)
+end
 map(
   "n",
   "<C-w>w",
