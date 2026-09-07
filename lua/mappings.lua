@@ -86,6 +86,27 @@ end, { desc = "Go to buffer in bufferline" })
 -- terminal
 map("t", "<C-j><C-k>", "<C-\\><C-N>", { desc = "Terminal escape terminal mode" })
 
+-- session
+map("n", "ZR", function()
+  if vim.v.count > 0 then
+    return vim.cmd(vim.v.count == 9 and "restart! +qall!" or "restart! +qall")
+  end
+
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_is_valid(win) and #vim.api.nvim_list_wins() > 1 then
+      if vim.bo[vim.api.nvim_win_get_buf(win)].buftype == "nofile" then
+        pcall(vim.api.nvim_win_close, win, true)
+      end
+    end
+  end
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted and vim.bo[buf].buftype == "nofile" then
+      pcall(vim.api.nvim_buf_delete, buf, { force = true })
+    end
+  end
+  vim.cmd "restart"
+end, { desc = "Restart Neovim" })
+
 -- utility
 map("n", "<leader>ce", ":checkhealth ", { desc = "CheckhEalth" })
 map("n", "<leader>cn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "Show Notification history" })
