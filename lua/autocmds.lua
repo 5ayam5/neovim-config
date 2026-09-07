@@ -112,6 +112,50 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   end,
 })
 
+autocmd("User", {
+  pattern = "CodeCompanionChatCreated",
+  group = augroup("CodeCompanionACPSystemPrompt", { clear = true }),
+  callback = function(args)
+    local bufnr = args.data and args.data.bufnr
+    if not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then
+      return
+    end
+    local chat = require("codecompanion").buf_get_chat(bufnr)
+    if not chat or not chat.adapter or chat.adapter.type ~= "acp" then
+      return
+    end
+
+    local system_role = require("codecompanion.config").constants.SYSTEM_ROLE
+    local prompt
+    for _, msg in ipairs(chat.messages or {}) do
+      if msg.role == system_role and type(msg.content) == "string" and msg.content ~= "" then
+        prompt = msg.content
+        break
+      end
+    end
+    if not prompt then
+      return
+    end
+
+    vim.schedule(function()
+      if not vim.api.nvim_buf_is_valid(bufnr) then
+        return
+      end
+      local lines = vim.split(prompt, "\n", { plain = true })
+      table.insert(lines, "")
+      local at = vim.api.nvim_buf_line_count(bufnr)
+      chat.ui:unlock_buf()
+      if not pcall(vim.api.nvim_buf_set_lines, bufnr, at, at, false, lines) then
+        return
+      end
+      local win = vim.fn.bufwinid(bufnr)
+      if win ~= -1 then
+        pcall(vim.api.nvim_win_set_cursor, win, { vim.api.nvim_buf_line_count(bufnr), 0 })
+      end
+    end)
+  end,
+})
+
 -- this and the next autocmd is to save and restore folds
 augroup("RememberFolds", { clear = true })
 autocmd("BufWinLeave", {
