@@ -160,6 +160,32 @@ autocmd("User", {
   end,
 })
 
+-- chat_make_title only ever runs once, so regenerate after every turn
+autocmd("User", {
+  pattern = "CodeCompanionChatCreated",
+  group = augroup("CodeCompanionChatTitle", { clear = true }),
+  callback = function(args)
+    local bufnr = args.data and args.data.bufnr
+    if not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then
+      return
+    end
+    local chat = require("codecompanion").buf_get_chat(bufnr)
+    if not chat then
+      return
+    end
+
+    chat:add_callback("on_completed", function(c)
+      local Background = require "codecompanion.interactions.background"
+      local background = Background.new { adapter = require("codecompanion.config").interactions.background.adapter }
+      if not background then
+        return
+      end
+      c.title = nil
+      require("codecompanion.interactions.background.builtin.chat_make_title").request(background, c)
+    end)
+  end,
+})
+
 -- this and the next autocmd is to save and restore folds
 augroup("RememberFolds", { clear = true })
 autocmd("BufWinLeave", {
@@ -299,6 +325,8 @@ do
         ratios[win] = {
           w = vim.api.nvim_win_get_width(win) / vim.o.columns,
           h = vim.api.nvim_win_get_height(win) / usable,
+          abs_w = vim.api.nvim_win_get_width(win),
+          abs_h = vim.api.nvim_win_get_height(win),
         }
       end
     end
@@ -318,6 +346,18 @@ do
         end
         if not vim.wo[win].winfixheight then
           vim.api.nvim_win_set_height(win, math.max(1, math.floor(ratio.h * usable + 0.5)))
+        end
+      end
+    end
+    -- 'winfixwidth' only blocks automatic equalising, so sizing a neighbour
+    -- still squeezes a fixed window; reassert them once the rest have settled
+    for win, ratio in pairs(ratios) do
+      if is_normal(win) then
+        if vim.wo[win].winfixwidth then
+          vim.api.nvim_win_set_width(win, ratio.abs_w)
+        end
+        if vim.wo[win].winfixheight then
+          vim.api.nvim_win_set_height(win, ratio.abs_h)
         end
       end
     end

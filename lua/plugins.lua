@@ -115,6 +115,7 @@ local plugins = {
           library = {
             { path = "${3rd}/luv/library", words = { "vim%.uv" } },
             { path = "snacks.nvim", words = { "Snacks" } },
+            { path = "blink.lib", words = { "blink%.lib" } },
           },
         },
       },
@@ -306,8 +307,7 @@ local plugins = {
   },
 
   {
-    dev = true,
-    "pets.nvim",
+    "5ayam5/pets.nvim",
     dependencies = "MunifTanjim/nui.nvim",
     event = "VeryLazy",
     opts = {
@@ -326,8 +326,7 @@ local plugins = {
   },
 
   {
-    dev = true,
-    "molten-nvim",
+    "5ayam5/molten-nvim",
     build = ":UpdateRemotePlugins",
     lazy = false,
     init = function()
@@ -350,15 +349,13 @@ local plugins = {
   },
 
   {
-    dev = true,
-    "jupytext.nvim",
+    "5ayam5/jupytext.nvim",
     lazy = false,
     opts = { style = "percent", force_ft = "jupy" },
   },
 
   {
-    dev = true,
-    "NotebookNavigator.nvim",
+    "5ayam5/NotebookNavigator.nvim",
     ft = "jupy",
     dependencies = "5ayam5/molten-nvim",
     opts = {
